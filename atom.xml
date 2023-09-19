@@ -3,11 +3,11 @@
   <title>Ryan Hub</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://chaoting1995.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://chaoting1995.github.io/"/>
   <updated>2023-09-19T12:02:29.133Z</updated>
-  <id>http://example.com/</id>
+  <id>https://chaoting1995.github.io/</id>
   
   <author>
     <name>Ryan Chang</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>我的第一篇部落格文章</title>
-    <link href="http://example.com/2023/09/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E9%83%A8%E8%90%BD%E6%A0%BC%E6%96%87%E7%AB%A0/"/>
-    <id>http://example.com/2023/09/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E9%83%A8%E8%90%BD%E6%A0%BC%E6%96%87%E7%AB%A0/</id>
+    <link href="https://chaoting1995.github.io/2023/09/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E9%83%A8%E8%90%BD%E6%A0%BC%E6%96%87%E7%AB%A0/"/>
+    <id>https://chaoting1995.github.io/2023/09/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E9%83%A8%E8%90%BD%E6%A0%BC%E6%96%87%E7%AB%A0/</id>
     <published>2023-09-19T11:28:55.000Z</published>
     <updated>2023-09-19T12:02:29.133Z</updated>
     
@@ -38,8 +38,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2023/09/19/hello-world/"/>
-    <id>http://example.com/2023/09/19/hello-world/</id>
+    <link href="https://chaoting1995.github.io/2023/09/19/hello-world/"/>
+    <id>https://chaoting1995.github.io/2023/09/19/hello-world/</id>
     <published>2023-09-19T10:56:06.166Z</published>
     <updated>2023-09-19T10:56:06.166Z</updated>
     
