@@ -1,5 +1,6 @@
 export const PAGE_LINKS = {
   timer: "timer",
+  timerID: "timer/:id",
   timers: "timers"
 };
 

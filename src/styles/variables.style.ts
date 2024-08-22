@@ -27,9 +27,9 @@ export const styleSettingColor = {
   info: "#030D49",
   text: {
     primary: "#FFFFFF",
-    secondary: "#595959",
+    secondary: "#2d2d2d",
   },
-  bg: "#EFEFEF",
+  gray: "#ECECEC",
   disabled: "#D4D4D4",
 }
 

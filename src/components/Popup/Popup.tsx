@@ -1,7 +1,7 @@
 import React from "react";
 import { css, cx } from "@emotion/css";
 import { Snackbar, Alert, Dialog, DialogContent, DialogActions, Button, DialogTitle, IconButton } from "@mui/material";
-import Close from "@mui/icons-material/Close";
+import { X } from "@phosphor-icons/react";
 
 import { styleSettingZIndex, styleSettingColor, breakpoints, styleSettingHeight } from "styles/variables.style";
 import useDialog from "hooks/useDialog";
@@ -83,12 +83,12 @@ const PopupProvider = (props: Props) => {
   );
 
   const handleConfirm = React.useCallback(() => {
-    resolver.current && resolver.current(true);
+    if(resolver.current) resolver.current(true);
     handleCloseConfirm();
   }, [handleCloseConfirm]);
 
   const handleCancel = React.useCallback(() => {
-    resolver.current && resolver.current(false);
+    if(resolver.current) resolver.current(false);
     handleCloseConfirm();
   }, [handleCloseConfirm]);
 
@@ -124,7 +124,7 @@ const PopupProvider = (props: Props) => {
       <Dialog open={openDialog} onClose={handleCloseDialog} className={cx(styleDialog, configDialog.className)}>
         {!configDialog.hideCloseButton && (
           <IconButton className="close-button" title="close" onClick={handleCloseDialog}>
-            <Close fontSize="small" />
+            <X size="small" />
           </IconButton>
         )}
         {configDialog.img && <div className="dialog-img">{configDialog.img}</div>}

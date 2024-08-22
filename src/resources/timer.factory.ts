@@ -24,8 +24,7 @@ const createTimer = (response: Timer): Timer => {
     id: ServiceFormat.toString(response['id']),
     mode: response['mode'],
     name: ServiceFormat.toString(response['name']),
-    ring: ServiceFormat.toArray<number>(response['ring']),
-    active: ServiceFormat.toBoolean(response['active'])
+    ring: ServiceFormat.toArray<number>(response['ring'])
   };
 };
 

@@ -1,36 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { css, cx } from "@emotion/css";
-import { IconButton, Button } from "@mui/material";
-import { List, X } from "@phosphor-icons/react";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import useDialog from "hooks/useDialog";
-import useTop from "hooks/useTop";
-import Logo from "assets/logo.svg?react";
-import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from "styles/variables.style";
-import { pageLinks } from "routes/constants";
-import Sidebar from "layouts/components/Sidebar/Sidebar";
-import SidebarMenu from "layouts/components/Sidebar/components/SidebarMenu/SidebarMenu";
-import menu from "layouts/components/Sidebar/menu";
+import { css, cx } from '@emotion/css';
+import { IconButton } from '@mui/material';
+import { List, X, Alarm } from '@phosphor-icons/react';
 
-const Header = () => {
+import useDialog from 'hooks/useDialog';
+import useTop from 'hooks/useTop';
+import Logo from 'assets/logo.svg?react';
+import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
+import { pageLinks } from 'routes/constants';
+import Sidebar from 'layouts/components/Sidebar/Sidebar';
+// import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
+// import menu from 'layouts/components/Sidebar/menu';
+
+type Props = {
+  renderButton?: React.ReactNode;
+};
+
+const Header = (props: Props) => {
   const [isTop] = useTop();
   const [openDrawer, handleOpenDrawer, handleCloseDrawer, handleToggleDrawer] = useDialog(false);
+  const location = useLocation();
 
   return (
-    <header className={cx("DD-Header", style(isTop))}>
-      <div className="header-fixed">
-        <div className="header-container">
-          <div className="header-to-home">
-            <div className="header-logo">
+    <header className={cx('DD-Header', style(isTop))}>
+      <div className='header-fixed'>
+        <div className='header-container'>
+          <div className='header-to-home'>
+            <div className='header-logo'>
               <Logo />
             </div>
-            <div>辯論計時小幫手 2.0</div>
+            <div>
+            {[pageLinks.timers].includes(location.pathname) ? <>
+              自訂計時器
+            </> : <>
+              辯論計時小幫手 2.0
+            </>}</div>
           </div>
-          <SidebarMenu className="header-menu" list={menu} />
-          <Button variant="contained" className="dd-gradient-button header-to-stake" component={Link} to={pageLinks.timer}>Stake</Button>
-          <IconButton className="header-menu-button" title="menu" onClick={handleToggleDrawer}>
-            {openDrawer ? <X color="inherit" /> : <List color="inherit" />}
+          {/* <SidebarMenu className='header-menu' list={menu} /> */}
+          {![pageLinks.timers].includes(location.pathname) && <>
+            <IconButton className='header-to-timers' component={Link} to={pageLinks.timers}>
+              <Alarm size={28} />
+            </IconButton>
+          </>}
+          {props.renderButton && props.renderButton()}
+          <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawer}>
+            {openDrawer ? <X color='inherit' /> : <List color='inherit' />}
           </IconButton>
         </div>
       </div>
@@ -45,7 +61,8 @@ const style = (_isTop: boolean) => css`
   position: relative;
   height: ${styleSettingHeight.header};
   width: 100%;
-  background-color: ${styleSettingColor.background.default};
+  background-color: ${styleSettingColor.background.dark};
+  color: ${styleSettingColor.text.primary};
 
   .header-fixed {
     position: fixed;
@@ -56,8 +73,8 @@ const style = (_isTop: boolean) => css`
     background-color: ${styleSettingColor.background.dark};
     transition: 0.5s;
     box-shadow: ${_isTop
-    ? "unset"
-    : "0 2.8px 2.2px 0 rgb(178 183 219 / 1%), 0 6.7px 5.3px 0 rgb(178 183 219 / 2%), 0 12.5px 10px 0 rgb(178 183 219 / 3%), 0 22.3px 17.9px 0 rgb(178 183 219 / 3%),0 41.8px 33.4px 0 rgb(178 183 219 / 4%), 0 100px 80px 0 rgb(178 183 219 / 5%)"};
+    ? 'unset'
+    : '0 2.8px 2.2px 0 rgb(178 183 219 / 1%), 0 6.7px 5.3px 0 rgb(178 183 219 / 2%), 0 12.5px 10px 0 rgb(178 183 219 / 3%), 0 22.3px 17.9px 0 rgb(178 183 219 / 3%),0 41.8px 33.4px 0 rgb(178 183 219 / 4%), 0 100px 80px 0 rgb(178 183 219 / 5%)'};
 
     .header-container {
       padding: 9px;
@@ -72,7 +89,6 @@ const style = (_isTop: boolean) => css`
         display: flex;
         justify-content: center;
         align-items: center;
-        color: ${styleSettingColor.text.primary};
         font-size: 20px;
 
         .header-logo {
@@ -89,13 +105,8 @@ const style = (_isTop: boolean) => css`
         }
       }
 
-      .header-testnet-tag {
-        margin-left: 5px;
-        background-color: ${styleSettingColor.warning};
-        border-radius: 5px;
-        padding: 3px 6px;
-        box-sizing: border-box;
-        font-size: 12px;
+      .MuiIconButton-root {
+        color: ${styleSettingColor.text.primary};
       }
 
       .header-menu {
@@ -108,6 +119,7 @@ const style = (_isTop: boolean) => css`
 
         .MuiButtonBase-root {
           padding: 0 8px;
+          box-sizing: border-box;
         }
 
         .MuiListItemIcon-root {
@@ -121,7 +133,7 @@ const style = (_isTop: boolean) => css`
         }
       }
 
-      .header-to-stake {
+      .header-to-timers {
         margin-left: 8px;
         width: 60px;
       }

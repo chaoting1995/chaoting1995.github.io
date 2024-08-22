@@ -5,5 +5,4 @@ export type Timer = {
   mode: EnumTimerMode;
   name: string;
   ring: number[];
-  active: boolean;
 }

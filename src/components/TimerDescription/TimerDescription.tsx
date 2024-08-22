@@ -35,11 +35,11 @@ const TimerDescription = (props: Props) => {
 export default TimerDescription;
 
 const style = () => css`
+  margin-bottom: 16px;
   width: 100%;
   padding: 16px 16px;
   box-sizing: border-box;
   background-color: ${styleSettingColor.background.light};
-  font-size: 22px;
   
   .info-name {
     font-size: 24px;
@@ -50,6 +50,6 @@ const style = () => css`
   .info-ring-time {
     display: flex;
     justify-content: flex-start;
+    font-size: 20px;
   }
 `;
-

@@ -2,7 +2,7 @@ import React from "react";
 import { css, cx } from "@emotion/css";
 
 import useInnerHeight from "hooks/useInnerHeight";
-import { ReactComponent as ImgMaintenance } from "assets/img-maintenance.svg";
+import ImgMaintenance from "assets/img-maintenance.svg?react";
 
 import basicStyle from "styles/basic.style";
 import { styleSettingColor } from "styles/variables.style";
@@ -41,7 +41,7 @@ const style = (_innerHeight: number) => css`
   ${basicStyle}
  
   height: ${_innerHeight}px;
-  background-color: ${styleSettingColor.bg};
+  background-color: ${styleSettingColor.gray};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +49,7 @@ const style = (_innerHeight: number) => css`
   main {
     ${styleContainerSection}
     padding: 0 15px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;

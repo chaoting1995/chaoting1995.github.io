@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate , RouteObject } from "react-router-dom";
 
+import Timers from "pages/Timers/Timers";
 import Timer from "pages/Timer/Timer";
 import NotFound from "pages/NotFound/NotFound";
 import { PAGE_LINKS } from "routes/constants";
@@ -18,6 +19,14 @@ const routes: Array<RouteObject> = [
   {
     path: PAGE_LINKS.timer,
     element: <Timer />,
+  },
+  {
+    path: PAGE_LINKS.timerID,
+    element: <Timer />,
+  },
+  {
+    path: PAGE_LINKS.timers,
+    element: <Timers />,
   },
   // {
   //   path: "",

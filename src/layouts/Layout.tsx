@@ -11,6 +11,7 @@ type Props = {
   children?: React.ReactNode;
   mainClassName?: string;
   layoutClassName?: string;
+  renderButton?: React.ReactNode;
 };
 
 const Layout = (props: Props) => {
@@ -19,7 +20,7 @@ const Layout = (props: Props) => {
 
   return (
     <div className={cx("DD-Layout", style(innerHeight), props.layoutClassName)}>
-      <Header />
+      <Header renderButton={props.renderButton}/>
       <main id="websiteTop" className={props.mainClassName}>
         {props.children}
       </main>
@@ -30,15 +31,13 @@ const Layout = (props: Props) => {
 export default Layout;
 
 const style = (_innerHeight: number) => css`
-  background-color: ${styleSettingColor.background.light};
-  color: ${styleSettingColor.text.primary};
-
+  background-color: ${styleSettingColor.background.light}ee;
+  
   main {
     margin: 0 auto;
     width: 100%;
     max-width: ${breakpoints.sm};
     min-height: calc(${_innerHeight}px - ${styleSettingHeight.header});
     width: 100%;
-    background-color: ${styleSettingColor.background.default};
   }
 `;

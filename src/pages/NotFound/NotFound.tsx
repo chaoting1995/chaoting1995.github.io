@@ -4,7 +4,6 @@ import { css, cx } from "@emotion/css";
 import { Button } from "@mui/material";
 
 import useInnerHeight from "hooks/useInnerHeight";
-import ImgError from "assets/img-error.svg";
 
 import basicStyle from "styles/basic.style";
 import { styleSettingColor } from "styles/variables.style";
@@ -23,9 +22,6 @@ const NotFound = () => {
         <p>We could not find what you were looking for.</p>
         <p>Please contact the owner of the site that linked you to the original URL and let them know their link is broken.</p>
       </div>
-      <div className="img-box">
-        <ImgError />
-      </div>
       <Button className="dd-gradient-button" component={Link} to={pageLinks.timer} >Back to home</Button>
     </main>
   </div>;
@@ -37,7 +33,7 @@ const style = (_innerHeight: number) => css`
   ${basicStyle}
  
   height: ${_innerHeight}px;
-  background-color: ${styleSettingColor.bg};
+  background-color: ${styleSettingColor.gray};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +41,7 @@ const style = (_innerHeight: number) => css`
   main {
     ${styleContainerSection}
     padding: 0 15px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
