@@ -13,8 +13,10 @@ export function audioClick(): void {
 export function audioBell(): void {
   const sound = new Howl({
     src: [bellAudio],
+    html5: true,  // 强制使用 HTML5 Audio
   });
   sound.play();
+  
 }
 
 const UtilAudio = {
@@ -23,7 +25,3 @@ const UtilAudio = {
 };
 
 export default UtilAudio;
-
-//--一般方法，ios會出事-----------------------------------
-// const audio = new Audio(btnAudio);
-// audio.play();
