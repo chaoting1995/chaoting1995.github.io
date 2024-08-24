@@ -14,6 +14,7 @@ const TimersProvider = (props: Props) => {
   }, []);
 
   const addTimer = (timer: Timer) => {
+    console.log("addTimer",timer)
     const updatedTimers = [...timers, timer];
     setTimers(updatedTimers);
     ResourceTimer.updateTimers(updatedTimers);

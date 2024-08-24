@@ -3,30 +3,34 @@ import { useParams } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 
 import Layout from 'layouts/Layout';
-import { DEFAULT_TIMERS, DEFAULT_TIMER } from 'resources/timer.constant';
+import { DEFAULT_TIMER } from 'resources/timer.constant';
 import { Timer as TypeTimer } from 'resources/timer.type';
 import TimerModeNormal from 'modules/timer/components/TimerModeNormal';
 import TimerModeCrossfire from 'modules/timer/components/TimerModeCrossfire';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
-import useInnerHeight from "hooks/useInnerHeight";
+import useInnerHeight from 'hooks/useInnerHeight';
+import useTimers from 'context/Timers/useTimers';
 
 const Timer = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
+  const { timers } = useTimers();
   const [timer, setTimer] = React.useState<TypeTimer>(DEFAULT_TIMER);
 
   const creator: Record<EnumTimerMode, React.ReactNode> = {
-    [EnumTimerMode.Normal]: <TimerModeNormal timer={timer} className="timer-mode" />,
-    [EnumTimerMode.Crossfire]: <TimerModeCrossfire timer={timer} className="timer-mode" />
+    [EnumTimerMode.Normal]: <TimerModeNormal timer={timer} className='timer-mode' />,
+    [EnumTimerMode.Crossfire]: <TimerModeCrossfire timer={timer} className='timer-mode' />
   }
 
   React.useEffect(() => {
+    console.log('Timer id',id)
     if (!id) return;
-    const currentTimer = DEFAULT_TIMERS.find(item => item.id === id);
+    const currentTimer = timers.find(item => item.id === id);
+    console.log('currentTimer',currentTimer)
     if (!currentTimer) return;
     setTimer(currentTimer);
-  }, [id]);
+  }, [id, timers]);
 
   return <Layout mainClassName={cx('DT-Timer', style(innerHeight))}>
     {creator[timer.mode]}

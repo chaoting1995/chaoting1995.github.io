@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
@@ -14,24 +15,23 @@ import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import BottomDrawer from 'components/BottomDrawer';
 import TimerEditor from 'modules/timer/components/TimerEditor';
+import { EMPTY_TIMER } from 'resources/timer.constant';
 
 const Timers = () => {
   const location = useLocation();
   const popup = usePopup();
   const [open, handleOpen, handleClose] = useDialog(false);
   const { timers, addTimer, editTimer, deleteTimer } = useTimers();
-  const [selectedTimer, setSelectedTimer] = React.useState<Timer | null | undefined>(null);
+  const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER);
 
   const handleOpenEditor = React.useCallback((timerID?: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
 
-    let _timer: Timer | null | undefined;
+    let _timer: Timer = EMPTY_TIMER;
 
-    if(!timerID) {
-      _timer = null;
-    } else {
-      _timer = timers.find(item => item.id === timerID);
+    if(timerID) {
+      _timer = timers.find(item => item.id === timerID) || EMPTY_TIMER;
     };
   
     setSelectedTimer(_timer);
@@ -39,12 +39,15 @@ const Timers = () => {
   }, [handleOpen, timers])
 
   const handleSave =  React.useCallback((timer: Timer) => {
-    if (!selectedTimer) {
+    console.log('timer',timer);
+    
+    if (!selectedTimer.id) {
+      console.log('handleSave addTimer');
       addTimer(timer);
-      return;
+    } else {
+      editTimer(timer.id, timer);
     };
 
-    editTimer(timer.id, timer);
     handleClose();
   }, [addTimer, editTimer, selectedTimer, handleClose]);
 
@@ -130,7 +133,7 @@ const style = css`
       gap: 5px;
     }
   }
-  
+
   .MuiIconButton-root {
     color: ${styleSettingColor.text.secondary};
   }

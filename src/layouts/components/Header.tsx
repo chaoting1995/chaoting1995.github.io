@@ -79,9 +79,11 @@ const style = (_isTop: boolean) => css`
     : '0 2.8px 2.2px 0 rgb(178 183 219 / 1%), 0 6.7px 5.3px 0 rgb(178 183 219 / 2%), 0 12.5px 10px 0 rgb(178 183 219 / 3%), 0 22.3px 17.9px 0 rgb(178 183 219 / 3%),0 41.8px 33.4px 0 rgb(178 183 219 / 4%), 0 100px 80px 0 rgb(178 183 219 / 5%)'};
 
     .header-container {
+      margin: 0 auto;
       padding: 9px 16px;
       box-sizing: border-box;
       width: 100%;
+      max-width: ${breakpoints.sm};
       height: 100%;
       display: flex;
       align-items: center;

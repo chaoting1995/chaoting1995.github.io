@@ -1,4 +1,4 @@
-import { PiggyBank } from "@phosphor-icons/react";
+import { CallBell } from "@phosphor-icons/react";
 
 import ServiceFormat from "services/format.service";
 
@@ -9,7 +9,7 @@ const menu: Array<SidebarMenuItem> = [
   {
     label: ServiceFormat.toUppercaseFirstLetter(PAGE_LINKS.timer),
     path: PAGE_LINKS.timer,
-    icon: <PiggyBank />,
+    icon: <CallBell />,
   },
 ];
 

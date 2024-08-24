@@ -17,7 +17,7 @@ const toIntegerNumber = (input: unknown, defaultValue?: number, radix?: number):
   }
 };
 
-const toNumber = (input: unknown, defaultValue?: number) => {
+const toNumber = (input: unknown, defaultValue?: number): number => {
   if (typeof input !== 'number') {
     input = Number(input);
   }
