@@ -2,21 +2,23 @@ import React from 'react';
 import { css, cx } from '@emotion/css';
 
 import { Timer } from 'resources/timer.type';
-import TimerMoniteor from 'components/TimerMoniteor/TimerMoniteor';
-import TimerSlider from 'components/TimerSlider/TimerSlider';
-import TimerDescription from 'components/TimerDescription/TimerDescription';
-import TimerController from 'components/TimerController/TimerController';
-import TimerToggleController from 'components/TimerToggleController/TimerToggleController';
+import TimerMoniteor from 'modules/timer/components/TimerMoniteor';
+import TimerSlider from 'modules/timer/components/TimerSlider';
+import TimerDescription from 'modules/timer/components/TimerDescription';
+import TimerController from 'modules/timer/components/TimerController';
+import TimerToggleController from 'modules/timer/components/TimerToggleController';
 import useAutoRing from "hooks/useAutoRing";
-import useTimer from "hooks/useTimer";
-import { EnumSide } from "enums/enumSide";
+import useTimer from "modules/timer/hooks/useTimer";
+import { EnumSide } from "modules/timer/enums/enumSide";
+import usePopup from "context/Popup/usePopup";
 
 type Props = {
   timer: Timer;
   className?: string;
 };
 
-const TimerCrossfire = (props: Props) => {
+const TimerModeCrossfire = (props: Props) => {
+  const popup = usePopup();
   const [currentSide, setCurrentSide] = React.useState<EnumSide>(EnumSide.Positive);
 
   const timerSeconds = props.timer.ring.at(-1) || 0;
@@ -45,8 +47,13 @@ const TimerCrossfire = (props: Props) => {
   }
 
   const handleToggleStart = () => {
-    if (!positiveSide.isRunning && !negativeSide.isRunning) return;
-
+    if (!positiveSide.isRunning && !negativeSide.isRunning) {
+      popup.notice(({ 
+        message: "無計時器在運作", 
+        severity: "warning",
+      }));
+      return;
+    }
     const creator: Record<EnumSide, () => void> = {
       [EnumSide.Negative]: () => {
         negativeSide.onPause();
@@ -62,7 +69,7 @@ const TimerCrossfire = (props: Props) => {
     creator[currentSide]();
   }
 
-  return <div className={cx('DT-TimerCrossfire', style(), props.className)}>
+  return <div className={cx('DT-TimerModeCrossfire', style(), props.className)}>
     <div>
       <TimerMoniteor milliseconds={positiveSide.currentMilliseconds} />
       <TimerMoniteor milliseconds={negativeSide.currentMilliseconds} />
@@ -91,7 +98,7 @@ const TimerCrossfire = (props: Props) => {
   </div>;
 };
 
-export default TimerCrossfire;
+export default TimerModeCrossfire;
 
 const style = () => css`
   .bottom-section {

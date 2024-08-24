@@ -1,9 +1,9 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 import routes from "routes";
-import PageLoading from "pages/PageLoading/PageLoading";
-import OfflineHandle from "components/OfflineHandle";
-import TimersProvider from 'provider/Timers/TimersProvider';
+import PageLoading from "pages/PageLoading";
+import TimersProvider from 'context/Timers/Timers.provider';
+// import OfflineHandle from "components/OfflineHandle";
 
 function App() {
   const element = useRoutes(routes);
@@ -14,7 +14,7 @@ function App() {
           {element}
         </TimersProvider>
       </React.Suspense>
-      <OfflineHandle />
+      {/* <OfflineHandle /> */}
   </>
   );
 }

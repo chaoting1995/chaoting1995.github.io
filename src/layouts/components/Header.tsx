@@ -15,7 +15,7 @@ import Sidebar from 'layouts/components/Sidebar/Sidebar';
 // import menu from 'layouts/components/Sidebar/menu';
 
 type Props = {
-  renderButton?: React.ReactNode;
+  renderButtons?: React.ReactNode;
 };
 
 const Header = (props: Props) => {
@@ -38,16 +38,18 @@ const Header = (props: Props) => {
               辯論計時小幫手 2.0
             </>}</div>
           </div>
-          {/* <SidebarMenu className='header-menu' list={menu} /> */}
-          {![pageLinks.timers].includes(location.pathname) && <>
-            <IconButton className='header-to-timers' component={Link} to={pageLinks.timers}>
-              <Alarm size={28} />
+          <div className='header-button-group'>
+            {/* <SidebarMenu className='header-menu' list={menu} /> */}
+            {![pageLinks.timers].includes(location.pathname) && <>
+              <IconButton component={Link} to={pageLinks.timers}>
+                <Alarm size={28} />
+              </IconButton>
+            </>}
+            {props.renderButtons && props.renderButtons}
+            <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawer}>
+              {openDrawer ? <X /> : <List />}
             </IconButton>
-          </>}
-          {props.renderButton && props.renderButton()}
-          <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawer}>
-            {openDrawer ? <X color='inherit' /> : <List color='inherit' />}
-          </IconButton>
+          </div>
         </div>
       </div>
       <Sidebar open={openDrawer} onOpen={handleOpenDrawer} onClose={handleCloseDrawer} />
@@ -77,19 +79,19 @@ const style = (_isTop: boolean) => css`
     : '0 2.8px 2.2px 0 rgb(178 183 219 / 1%), 0 6.7px 5.3px 0 rgb(178 183 219 / 2%), 0 12.5px 10px 0 rgb(178 183 219 / 3%), 0 22.3px 17.9px 0 rgb(178 183 219 / 3%),0 41.8px 33.4px 0 rgb(178 183 219 / 4%), 0 100px 80px 0 rgb(178 183 219 / 5%)'};
 
     .header-container {
-      padding: 9px;
+      padding: 9px 16px;
       box-sizing: border-box;
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
+      font-size: 20px;
 
       .header-to-home {
         margin-right: auto; 
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 20px;
 
         .header-logo {
           margin-right: 5px;
@@ -105,8 +107,15 @@ const style = (_isTop: boolean) => css`
         }
       }
 
-      .MuiIconButton-root {
-        color: ${styleSettingColor.text.primary};
+      
+      .header-button-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .MuiIconButton-root {
+          color: ${styleSettingColor.text.primary};
+        }
       }
 
       .header-menu {
@@ -125,7 +134,7 @@ const style = (_isTop: boolean) => css`
         .MuiListItemIcon-root {
           font-size: 16px;
           min-width: 23px;
-          color: ${styleSettingColor.primary};
+          color: ${styleSettingColor.text.primary};
         }
 
         .MuiTypography-root {
@@ -135,12 +144,9 @@ const style = (_isTop: boolean) => css`
 
       .header-to-timers {
         margin-left: 8px;
-        width: 60px;
       }
 
       .header-menu-button {
-        margin-left: 8px;
-
         @media(min-width: ${breakpoints.md}) {
           display: none;
         }

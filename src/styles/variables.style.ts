@@ -9,6 +9,7 @@ export const styleSettingZIndex = {
   sidebar: 1500,
   offlineHandle: 9998,
   popup: 9999,
+  popupMenu: 10000,
 };
 
 export const styleSettingColor = {
@@ -28,6 +29,7 @@ export const styleSettingColor = {
   text: {
     primary: "#FFFFFF",
     secondary: "#2d2d2d",
+    gray: "#757575",
   },
   gray: "#ECECEC",
   disabled: "#D4D4D4",

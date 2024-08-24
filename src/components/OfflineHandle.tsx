@@ -1,16 +1,16 @@
 import React from "react";
 
-import usePopup from "hooks/usePopup";
+import usePopup from "context/Popup/usePopup";
 import { css, cx } from "@emotion/css";
 import { Button } from "@mui/material";
 import { WifiSlash } from "@phosphor-icons/react";
 
-import ImgError from "assets/img-error.svg";
+// import ImgError from "assets/img-error.svg?react";
 import { styleSettingZIndex } from "styles/variables.style";
 import basicStyle from "styles/basic.style";
 
-const offlineTitle = "No internet connection";
-const onlineTitle = "Internet connection is successful !";
+const offlineTitle = "無網路連線";
+const onlineTitle = "網路連線成功!";
 const OfflineHandle = () => {
   const popup = usePopup();
 
@@ -52,11 +52,13 @@ const OfflineHandle = () => {
 
   return (
     <div className={cx("OfflineHandle", style)}>
-      <div className="img-box">
+      {/* <div className="img-box">
         <ImgError />
-      </div>
-      <div className="message-error"><WifiSlash />{offlineTitle}</div>
-      <Button className="dd-gradient-button" onClick={handleRetry} >Retry</Button>
+      </div> */}
+      <WifiSlash size={40}/>
+      <div className="message-error">{offlineTitle}</div>
+      <br/>
+      <Button variant="outlined" onClick={handleRetry} >重試</Button>
     </div>
   );
 };

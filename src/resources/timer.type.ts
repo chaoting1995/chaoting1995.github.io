@@ -1,4 +1,4 @@
-import { EnumTimerMode } from "enums/enumTimerMode"
+import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode'
 
 export type Timer = {
   id: string;

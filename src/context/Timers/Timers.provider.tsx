@@ -1,5 +1,5 @@
-import { TimersContext } from "provider/Timers/Timers.context";
-import React, { useState, useContext, useEffect } from 'react';
+import { TimersContext } from 'context/Timers/Timers.context';
+import React from 'react';
 import ResourceTimer from 'resources/timer.resource';
 import { Timer } from 'resources/timer.type';
 type Props = {
@@ -7,10 +7,9 @@ type Props = {
 };
 
 const TimersProvider = (props: Props) => {
-  const [timers, setTimers] = useState<Timer[]>([]);
+  const [timers, setTimers] = React.useState<Timer[]>([]);
 
-  useEffect(() => {
-    // 初始加载时从 localStorage 获取 timers
+  React.useEffect(() => {
     setTimers(ResourceTimer.getTimers());
   }, []);
 
@@ -46,11 +45,3 @@ const TimersProvider = (props: Props) => {
 };
 
 export default TimersProvider;
-
-export const useTimers = () => {
-  const context = useContext(TimersContext);
-  if (!context) {
-    throw new Error('useTimers must be used within a TimersProvider');
-  }
-  return context;
-};

@@ -1,9 +1,9 @@
 const toString = (input: unknown, defaultValue?: string): string => {
   if (input === 0) {
-    return "0";
+    return '0';
   }
 
-  return input ? input.toString() : defaultValue ? defaultValue : "";
+  return input ? input.toString() : defaultValue ? defaultValue : '';
 };
 
 const toIntegerNumber = (input: unknown, defaultValue?: number, radix?: number): number => {
@@ -18,7 +18,7 @@ const toIntegerNumber = (input: unknown, defaultValue?: number, radix?: number):
 };
 
 const toNumber = (input: unknown, defaultValue?: number) => {
-  if (typeof input !== "number") {
+  if (typeof input !== 'number') {
     input = Number(input);
   }
 
@@ -30,10 +30,10 @@ const toNumber = (input: unknown, defaultValue?: number) => {
 };
 
 const toBoolean = (input: unknown, defaultValue?: boolean): boolean => {
-  if (typeof input === "string") {
-    if (input === "true") {
+  if (typeof input === 'string') {
+    if (input === 'true') {
       input = true;
-    } else if (input === "false") {
+    } else if (input === 'false') {
       input = false;
     }
   }
@@ -55,12 +55,14 @@ const toRoundDown = (input: unknown, decimal: number) => {
 };
 
 const toArray = <T>(inputs: unknown): Array<T> => {
-  const items: Array<T> = [];
+  let items: Array<T> = [];
 
   if (!Array.isArray(inputs)) {
-    console.warn(`Inputs must be array`, { inputs }, "ServiceFormat", "toArray");
+    console.warn(`Inputs must be array`, { inputs }, 'ServiceFormat', 'toArray');
     return items;
   }
+  
+  items = inputs;
 
   return items;
 };
@@ -69,7 +71,7 @@ const toObjectArray = <T>(inputs: T[], parser: (input: T) => T | undefined): Arr
   const items: Array<T> = [];
 
   if (!Array.isArray(inputs)) {
-    console.warn(`Inputs must be array`, { inputs }, "ServiceFormat", "toObjectArray");
+    console.warn(`Inputs must be array`, { inputs }, 'ServiceFormat', 'toObjectArray');
     return items;
   }
 

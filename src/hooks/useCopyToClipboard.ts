@@ -1,4 +1,4 @@
-import usePopup from "hooks/usePopup";
+import usePopup from "context/Popup/usePopup";
 
 const useCopyToClipboard = () => {
   const popup = usePopup();

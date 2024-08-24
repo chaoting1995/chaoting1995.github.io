@@ -11,7 +11,7 @@ type Props = {
   open: boolean;
   onClose: () => void;
   onOpen: () => void;
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 const BottomDrawer = (props: Props) => {
@@ -35,27 +35,29 @@ export default BottomDrawer;
 const style = css`
   ${basicStyle}
 
+  &.MuiDrawer-root,
   &.MuiDialog-root {
     z-index: ${styleSettingZIndex.popup};
   }
 
   .MuiDrawer-paper {
+    width: 100%;
+    max-width: calc(${breakpoints.sm} - 32px);
     background-color: #fff;
     overflow: inherit;
     max-height: 90%;
+    border-radius: 25px 25px 0 0;
+    padding: 16px 0;
     box-sizing: border-box;
-    border-radius: 20px 20px 0 0;
     
     @media(min-width: ${breakpoints.sm}) {
-        border-radius: 20px;
-        width: ${breakpoints.sm};
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%)!important;
-        height: fit-content;
-        padding-left: 8px;
-        padding-right: 8px;
-        box-sizing: border-box;
+      border-radius: 25px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%)!important;
+      height: fit-content;
+      padding: 30px 0;
+      box-sizing: border-box;
     }
 
    .dd-drawer.dd-card {

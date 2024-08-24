@@ -11,7 +11,7 @@ type Props = {
   children?: React.ReactNode;
   mainClassName?: string;
   layoutClassName?: string;
-  renderButton?: React.ReactNode;
+  renderButtons?: React.ReactNode;
 };
 
 const Layout = (props: Props) => {
@@ -20,7 +20,7 @@ const Layout = (props: Props) => {
 
   return (
     <div className={cx("DD-Layout", style(innerHeight), props.layoutClassName)}>
-      <Header renderButton={props.renderButton}/>
+      <Header renderButtons={props.renderButtons}/>
       <main id="websiteTop" className={props.mainClassName}>
         {props.children}
       </main>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { Play, Pause, CallBell, ArrowCounterClockwise } from "@phosphor-icons/react";
+import { Play, Pause, CallBell, ArrowCounterClockwise } from '@phosphor-icons/react';
 
-import { styleSettingColor } from "styles/variables.style";
+import { styleSettingColor } from 'styles/variables.style';
 // import { Timer } from 'resources/timer.type';
-import CircleButton from 'components/CircleButton/CircleButton';
-import UtilAudio from "utils/audio";
+import CircleButton from 'components/CircleButton';
+import UtilAudio from 'utils/audio';
 
 type Props = {
   className?: string,

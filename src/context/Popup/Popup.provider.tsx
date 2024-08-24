@@ -3,7 +3,7 @@ import { css, cx } from "@emotion/css";
 import { Snackbar, Alert, Dialog, DialogContent, DialogActions, Button, DialogTitle, IconButton } from "@mui/material";
 import { X } from "@phosphor-icons/react";
 
-import { styleSettingZIndex, styleSettingColor, breakpoints, styleSettingHeight } from "styles/variables.style";
+import { styleSettingZIndex, styleSettingColor, styleSettingHeight } from "styles/variables.style";
 import useDialog from "hooks/useDialog";
 
 import { ContextPopup, ParamsConfirm, ParamsDialog, ParamsNotice } from "./Popup.context";
@@ -14,6 +14,8 @@ import {
   DEFAULT_CONFIG_CONFIRM,
   DEFAULT_CONFIG_DIALOG,
 } from "./Popup.constant";
+
+type ConfirmDialogResolverCurrent = (result: boolean) => void;
 
 type Props = {
   children?: JSX.Element;
@@ -45,9 +47,9 @@ const PopupProvider = (props: Props) => {
 
   const handleCloseNoticeWithReset = () => {
     handleCloseNotice();
-    setTimeout(() => {
-      setConfigNotice(DEFAULT_CONFIG_NOTICE);
-    }, 1000);
+    // setTimeout(() => {
+    //   setConfigNotice(DEFAULT_CONFIG_NOTICE);
+    // }, 1000);
   };
 
   const dialog = React.useCallback(
@@ -65,7 +67,7 @@ const PopupProvider = (props: Props) => {
     [handleOpenDialog]
   );
 
-  const resolver = React.useRef<Function>();
+  const resolver = React.useRef<ConfirmDialogResolverCurrent>();
   const confirm = React.useCallback(
     (params: ParamsConfirm): Promise<boolean> => {
       const _configConfirm = { ...DEFAULT_CONFIG_CONFIRM };
@@ -97,7 +99,7 @@ const PopupProvider = (props: Props) => {
   return (
     <ContextPopup.Provider value={popup}>
       <Snackbar
-        className={cx(styleNotice, configNotice.className)}
+        className={cx(styleNotice, "hint-under-header", configNotice.className)}
         open={openNotice}
         autoHideDuration={configNotice.duration}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -113,10 +115,10 @@ const PopupProvider = (props: Props) => {
       <Dialog open={openConfirm} onClose={handleCloseConfirm} className={cx(styleDialog, configConfirm.className)}>
         {configConfirm.img && <div className="dialog-img">{configConfirm.img}</div>}
         {configConfirm.title && <DialogTitle>{configConfirm.title}</DialogTitle>}
-        <DialogContent>{configConfirm.message}</DialogContent>
+        {configConfirm.message && <DialogContent>{configConfirm.message}</DialogContent>}
         <DialogActions>
-          <Button onClick={handleCancel}>{BUTTON_CANCEL}</Button>
-          <Button onClick={handleConfirm} autoFocus>
+          <Button onClick={handleCancel} variant="outlined" className="dialog-confirm-cancel">{BUTTON_CANCEL}</Button>
+          <Button onClick={handleConfirm} variant="outlined" color="error" autoFocus>
             {BUTTON_CONFIRM}
           </Button>
         </DialogActions>
@@ -145,6 +147,7 @@ const styleDialog = css`
 
   &.MuiDialog-root .MuiPaper-root {
     min-width: 100px;
+    width: 220px;
   }
 
   .close-button {
@@ -158,6 +161,10 @@ const styleDialog = css`
     padding: 3px;
   }
 
+  .MuiDialogTitle-root {
+    text-align: center;
+  }
+
   .dialog-img {
     width: 100%;
     display: flex;
@@ -165,21 +172,31 @@ const styleDialog = css`
     margin-bottom: 10px;
     margin-left: auto;
   }
+
+  .MuiDialogActions-root {
+    padding: 0 24px 16px;
+    justify-content: center;
+
+    button {
+      min-width: 50%;
+    }
+
+    .MuiButton-root.dialog-confirm-cancel {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      color: #959595;
+    }
+  }
 `;
 
 const styleNotice = css`
   &.MuiSnackbar-root {
     z-index: ${styleSettingZIndex.popup};
 
-    @media(max-width: ${breakpoints.sm}) {
-      width: 100%;
-    }
-
     &.hint-under-header {
       width: 100%;
       right: 0;
       left: 0;
-      top: ${styleSettingHeight.header};
+      top: calc(${styleSettingHeight.header} + 10px);
       transform: unset;
 
       .MuiAlert-root {
@@ -188,20 +205,16 @@ const styleNotice = css`
     }
   }
 
-  & .MuiAlert-root {
-      width: 100%;
-  }
-
   & .MuiAlert-message {
     word-break: break-all;
   }
 
   & .MuiAlert-filledWarning {
     background-color: ${styleSettingColor.warning};
-    color: ${styleSettingColor.text.primary};
+    color: ${styleSettingColor.text.secondary};
     
     a, .button {
-      color: ${styleSettingColor.text.primary};
+      color: ${styleSettingColor.text.secondary};
       text-decoration: underline;
     }
   }

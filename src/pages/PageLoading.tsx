@@ -18,7 +18,7 @@ export default PageLoading;
 
 const style = (_innerHeight: number) => css`
   height: ${_innerHeight}px;
-  background-color: ${styleSettingColor.bg};
+  background-color: ${styleSettingColor.gray};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,4 +1,4 @@
-import { EnumTimerMode } from "enums/enumTimerMode";
+import { EnumTimerMode } from "modules/timer/enums/enumTimerMode";
 import { Timer } from "resources/timer.type";
 
 export const LOCALSTORAGE_KEY_TIMERS = "DT_LOCALSTORAGE_KEY_TIMERS";
@@ -29,4 +29,11 @@ export const DEFAULT_TIMER: Timer = {
   mode: EnumTimerMode.Normal,
   name: "(目前無設定計時器)",
   ring: [5, 10, 15]
+};
+
+export const EMPTY_TIMER: Timer = {
+  id: "",
+  mode: EnumTimerMode.Normal,
+  name: "",
+  ring: []
 };

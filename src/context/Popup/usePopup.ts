@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ContextPopup, ContextValuePopup } from "components/Popup/Popup.context";
+import { ContextPopup, ContextValuePopup } from "context/Popup/Popup.context";
 
 const usePopup = (): ContextValuePopup => {
   const context = React.useContext(ContextPopup);

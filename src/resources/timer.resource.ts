@@ -1,6 +1,6 @@
-import { DEFAULT_TIMERS, LOCALSTORAGE_KEY_TIMERS } from "resources/timer.constant";
-import FactoryTimer from "resources/timer.factory";
-import { Timer } from "resources/timer.type";
+import { DEFAULT_TIMERS, LOCALSTORAGE_KEY_TIMERS } from 'resources/timer.constant';
+import FactoryTimer from 'resources/timer.factory';
+import { Timer } from 'resources/timer.type';
 
 const getTimers = (): Timer[] => {
   const timersJSONString = localStorage.getItem(LOCALSTORAGE_KEY_TIMERS);
