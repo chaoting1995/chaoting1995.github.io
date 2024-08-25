@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 import { styleSettingColor } from "styles/variables.style";
 
 type Props = {
-  className?: string,
+  className?: string;
   onClick: () => void;
 };
 

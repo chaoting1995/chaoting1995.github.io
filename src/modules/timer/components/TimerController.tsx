@@ -7,12 +7,13 @@ import CircleButton from 'components/CircleButton';
 import UtilAudio from 'utils/audio';
 
 type Props = {
-  className?: string,
-  timerSeconds: number,
+  className?: string;
+  timerSeconds: number;
+  currentSeconds: number;
   isRunning: boolean;
-  onStart: () => void,
-  onPause: () => void,
-  onReset: () => void,
+  onStart: () => void;
+  onPause: () => void;
+  onReset: () => void;
 };
 
 const TimerController = (props: Props) => {
@@ -21,6 +22,9 @@ const TimerController = (props: Props) => {
       props.onPause()
     } else {
       props.onStart();
+      if(props.currentSeconds === 0) {
+        UtilAudio.audioBell();
+      }
     }
   };
 

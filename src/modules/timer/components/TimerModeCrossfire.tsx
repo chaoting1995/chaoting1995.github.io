@@ -33,6 +33,7 @@ const TimerModeCrossfire = (props: Props) => {
       [EnumSide.Negative]: negativeSide.onStart,
     }
     creator[currentSide]();
+
   }
 
   const handleReset = () => {
@@ -90,6 +91,7 @@ const TimerModeCrossfire = (props: Props) => {
       <TimerController 
         timerSeconds={timerSeconds}
         isRunning={positiveSide.isRunning || negativeSide.isRunning}
+        currentSeconds={positiveSide.currentSeconds}
         onStart={handleStart}
         onPause={handlePause}
         onReset={handleReset}

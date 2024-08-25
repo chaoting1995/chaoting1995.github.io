@@ -24,10 +24,8 @@ const Timer = () => {
   }
 
   React.useEffect(() => {
-    console.log('Timer id',id)
     if (!id) return;
     const currentTimer = timers.find(item => item.id === id);
-    console.log('currentTimer',currentTimer)
     if (!currentTimer) return;
     setTimer(currentTimer);
   }, [id, timers]);

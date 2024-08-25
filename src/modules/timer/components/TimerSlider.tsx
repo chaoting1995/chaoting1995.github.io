@@ -6,9 +6,9 @@ import Slider from '@mui/material/Slider';
 import { styleSettingColor } from "styles/variables.style";
 
 type Props = {
-  className?: string,
-  timerSeconds: number,
-  currentSeconds: number,
+  className?: string;
+  timerSeconds: number;
+  currentSeconds: number;
   onChange: (seconds: number) => void;
 };
 
