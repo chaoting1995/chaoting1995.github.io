@@ -20,7 +20,7 @@ export const DEFAULT_TIMERS: Array<Timer> = [
     id: "debate-timer-003",
     mode: EnumTimerMode.Crossfire,
     name: "自由辯論",
-    ring: [180, 210, 240]
+    ring: [210, 240]
   },
 ]
 

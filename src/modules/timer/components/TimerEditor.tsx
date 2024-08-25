@@ -64,7 +64,7 @@ const TimerEditor = (props: Props) => {
   });
 
  const DEFAULT_RING_TIMES = 3;
-  const [ringTimes] = React.useState<number>(props.timer.ring.length || DEFAULT_RING_TIMES);
+  const [ringTimes, setRingTimes] = React.useState<number>(props.timer.ring.length || DEFAULT_RING_TIMES);
   const [columnRing, setColumnRing] = React.useState<ColumRingItemWithStatus[]>(
     Array(ringTimes).fill('').map((item, index) => {
       return createRingItemWithStatus(
@@ -193,6 +193,26 @@ const TimerEditor = (props: Props) => {
 
     props.onSave(newTimer);
   }
+
+  React.useEffect(() => {
+    if (columnMode.value === EnumTimerMode.Crossfire) {
+      setRingTimes(2);
+      setColumnRing(prevState => {
+        return Array(2).fill('').map((item, index) => {
+          return prevState[index] ? prevState[index] : createRingItemWithStatus(item)
+        })
+      })
+    };
+    
+    if (columnMode.value === EnumTimerMode.Normal) {
+      setRingTimes(3);
+      setColumnRing(prevState => {
+        return Array(3).fill('').map((item, index) => {
+          return prevState[index] ? prevState[index] : createRingItemWithStatus(item)
+        })
+      })
+    };
+  }, [columnMode.value, props.timer.ring])
 
   return <div className={cx('DT-TimerEditor', style)}>
     <div className='drawer-header'>
