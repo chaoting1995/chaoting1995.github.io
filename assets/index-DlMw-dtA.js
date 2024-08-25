@@ -1209,4 +1209,4 @@ Error generating stack: `+i.message+`
       text-decoration: underline;
     }
   }
-`;N2(document.getElementById("root")).render(_.jsx(x.StrictMode,{children:_.jsx(FL,{children:_.jsx(H6,{basename:"./",children:_.jsx(jL,{})})})}));
+`;N2(document.getElementById("root")).render(_.jsx(x.StrictMode,{children:_.jsx(FL,{children:_.jsx(H6,{children:_.jsx(jL,{})})})}));
