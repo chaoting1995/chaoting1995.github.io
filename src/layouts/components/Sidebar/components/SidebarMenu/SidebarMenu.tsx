@@ -32,12 +32,14 @@ const SidebarMenu = (props: Props) => {
     }
 
     if (link) {
-      !isBlank
-        ? redirectWithAnchor(link)
-        : redirectWithAnchor(link, "_blank");
+      if(!isBlank) {
+        redirectWithAnchor(link)
+      } else {
+        redirectWithAnchor(link, "_blank");
+      }
     }
 
-    props.onClose && props.onClose();
+    if (props.onClose) props.onClose();
   };
 
   return (
@@ -50,6 +52,7 @@ const SidebarMenu = (props: Props) => {
           </ListItemButton>
         </ListItem>
       ))}
+      <ListItem className="version-info">v1.0.0-bata</ListItem>
     </List>
   );
 };
@@ -58,10 +61,17 @@ const style = css`
   &.MuiList-root {
     padding-top: 0;
     padding-bottom: 0;
+    height: 100%;
   }
 
+  .version-info,
   .MuiButtonBase-root {
     padding: 4px 24px;
+    box-sizing: border-box;
+  }
+
+  .version-info {
+    margin-top: auto;
   }
 
   .MuiListItemIcon-root {
