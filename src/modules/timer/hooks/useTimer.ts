@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import React  from 'react';
 
-interface UseTimer {
+export interface UseTimer {
   currentMilliseconds: number;
   currentSeconds: number;
   isRunning: boolean;
@@ -11,44 +11,44 @@ interface UseTimer {
 }
 
 const useTimer = (totalSeconds: number): UseTimer => {
-  const [currentMilliseconds, setCurrentMilliseconds] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-  const timerRef = useRef<number | null>(null);
-  const startTimestampRef = useRef<number | null>(null);
+  const [currentMilliseconds, setCurrentMilliseconds] = React.useState(0);
+  const [isRunning, setIsRunning] = React.useState(false);
+  const timerRef = React.useRef<number | null>(null);
+  const startTimestampRef = React.useRef<number | null>(null);
 
-  const onStart = () => {
+  const onStart = React.useCallback(() => {
     if (!isRunning) {
       setIsRunning(true);
       startTimestampRef.current = Date.now() - currentMilliseconds;
     }
-  };
+  }, [isRunning, currentMilliseconds]);
 
-  const onPause = () => {
+  const onPause = React.useCallback(() => {
     if (isRunning) {
       setIsRunning(false);
       if (timerRef.current !== null) {
         clearInterval(timerRef.current);
       }
     }
-  };
+  }, [isRunning]);
 
-  const onReset = () => {
+  const onReset = React.useCallback(() => {
     setIsRunning(false);
     setCurrentMilliseconds(0);
     startTimestampRef.current = null;
     if (timerRef.current !== null) {
       clearInterval(timerRef.current);
     }
-  };
+  }, []);
 
-  const onChange = (seconds: number) => {
+  const onChange = React.useCallback((seconds: number) => {
     setCurrentMilliseconds(seconds * 1000);
     if (seconds >= totalSeconds) {
       setIsRunning(false);
     }
-  };
+  }, [totalSeconds]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isRunning) {
       timerRef.current = window.setInterval(() => {
         if (startTimestampRef.current !== null) {

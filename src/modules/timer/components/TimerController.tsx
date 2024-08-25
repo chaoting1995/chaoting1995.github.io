@@ -8,8 +8,6 @@ import UtilAudio from 'utils/audio';
 
 type Props = {
   className?: string;
-  timerSeconds: number;
-  currentSeconds: number;
   isRunning: boolean;
   onStart: () => void;
   onPause: () => void;
@@ -19,12 +17,9 @@ type Props = {
 const TimerController = (props: Props) => {
   const onTrigger = () => {
     if (props.isRunning) {
-      props.onPause()
+      props.onPause();
     } else {
       props.onStart();
-      if(props.currentSeconds === 0) {
-        UtilAudio.audioBell();
-      }
     }
   };
 
@@ -34,7 +29,10 @@ const TimerController = (props: Props) => {
 
   return <div className={cx('DT-TimerController', props.className, style())}>
     <CircleButton onClick={onTrigger}>
-      {props.isRunning ? <Pause size={40} /> : <Play size={40} />}
+      {props.isRunning 
+        ? <Pause size={40} /> 
+        : <Play size={40} />
+      }
     </CircleButton>
     <CircleButton onClick={onResetWithPuase}>
       <ArrowCounterClockwise size={40} />
