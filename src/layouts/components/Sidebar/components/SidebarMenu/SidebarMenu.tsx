@@ -52,7 +52,7 @@ const SidebarMenu = (props: Props) => {
           </ListItemButton>
         </ListItem>
       ))}
-      <ListItem className="version-info">v1.0.1-bata</ListItem>
+      <ListItem className="version-info">{import.meta.env.VITE_APP_VERSION}</ListItem>
     </List>
   );
 };
