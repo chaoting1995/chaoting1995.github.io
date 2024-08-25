@@ -53,7 +53,8 @@ const useTimer = (totalSeconds: number): UseTimer => {
       timerRef.current = window.setInterval(() => {
         if (startTimestampRef.current !== null) {
           const elapsedTime = Date.now() - startTimestampRef.current;
-          setCurrentMilliseconds(elapsedTime);
+          const updatedMilliseconds = Math.min(elapsedTime, totalSeconds * 1000);
+          setCurrentMilliseconds(updatedMilliseconds);
 
           if (elapsedTime >= totalSeconds * 1000) {
             clearInterval(timerRef.current as number);
