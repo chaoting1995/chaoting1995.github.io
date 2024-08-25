@@ -8,7 +8,7 @@ import PopupProvider from "context/Popup/Popup.provider";
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <PopupProvider>
-      <BrowserRouter basename="./">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </PopupProvider>
