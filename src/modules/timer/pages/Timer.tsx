@@ -42,7 +42,7 @@ const style = (_innerHeight: number) => css`
   color: ${styleSettingColor.text.primary};
 
   .timer-mode {
-    padding: 30px 0;
+    padding: 20px 0;
     box-sizing: border-box;
     min-height: calc(${_innerHeight}px - ${styleSettingHeight.header});
     display: flex;

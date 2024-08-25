@@ -38,6 +38,7 @@ const style = () => css`
   margin-bottom: 16px;
   width: 100%;
   padding: 16px 16px;
+  padding-top: 10px;
   box-sizing: border-box;
   background-color: ${styleSettingColor.background.light};
   
@@ -50,6 +51,6 @@ const style = () => css`
   .info-ring-time {
     display: flex;
     justify-content: flex-start;
-    font-size: 20px;
+    font-size: 18px;
   }
 `;

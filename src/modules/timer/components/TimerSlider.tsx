@@ -49,6 +49,7 @@ const style = () => css`
     width: 18px;
     height: 18px;
     box-shadow: 0px 0px 0px 15px ${styleSettingColor.background.dark}40;
+   
     &:hover, &:focus, &:active {
       box-shadow: 0px 0px 0px 15px ${styleSettingColor.background.dark}60;
     }

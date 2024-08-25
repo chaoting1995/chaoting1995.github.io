@@ -147,12 +147,6 @@ const style = (_isTop: boolean) => css`
       .header-to-timers {
         margin-left: 8px;
       }
-
-      .header-menu-button {
-        @media(min-width: ${breakpoints.md}) {
-          display: none;
-        }
-      }
     }
   }
 `;
