@@ -41,6 +41,7 @@ const TimerModeNormal = (props: Props) => {
         timerSeconds={timerSeconds}
         currentSeconds={currentSeconds}
         onChange={onChange}
+        isRunning={isRunning}
         />
       <TimerDescription timer={props.timer} />
       <TimerController

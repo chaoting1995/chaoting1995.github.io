@@ -60,7 +60,7 @@ const TimerModeCrossfire = (props: Props) => {
 
   const handleToggleStart = React.useCallback(() => {
     if (!positiveSide.isRunning && !negativeSide.isRunning) {
-      popup.notice(({  message: '不能切換，無計時器在運作', severity: 'warning' }));
+      popup.notice(({  message: '不能切換，所有計時器已結束', severity: 'warning' }));
       return;
     }
 
@@ -75,13 +75,16 @@ const TimerModeCrossfire = (props: Props) => {
   },[creator, currentSide, handleStart, negativeSide.isRunning, otherSide, popup, positiveSide.isRunning, timerSeconds])
 
   React.useEffect(() => {
+    const newSide = otherSide[currentSide];
+
     // 「當前計時器」結束，自動切換到「另一邊計時器」
-    if (creator[currentSide].currentSeconds >= timerSeconds) {
-      const newSide = otherSide[currentSide];
+    if (
+      creator[currentSide].currentSeconds >= timerSeconds 
+      && creator[newSide].currentSeconds < timerSeconds
+    ) {
       handleStart(newSide)(); // 啟動「另一邊計時器」
       setCurrentSide(newSide); // 切換當前持方
     }
-    
   }, [currentSide, creator, handleStart, otherSide, timerSeconds]);
 
   return <div className={cx('DT-TimerModeCrossfire', style(), props.className)}>
@@ -91,11 +94,13 @@ const TimerModeCrossfire = (props: Props) => {
     </div>
     <div className='bottom-section'>
       <TimerSlider 
+        isRunning={positiveSide.isRunning}
         timerSeconds={timerSeconds}
         currentSeconds={positiveSide.currentSeconds}
         onChange={positiveSide.onChange}
       />
-      <TimerSlider 
+      <TimerSlider
+        isRunning={negativeSide.isRunning}
         timerSeconds={timerSeconds}
         currentSeconds={negativeSide.currentSeconds}
         onChange={negativeSide.onChange}

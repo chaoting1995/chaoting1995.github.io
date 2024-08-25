@@ -39,10 +39,7 @@ const Timers = () => {
   }, [handleOpen, timers])
 
   const handleSave =  React.useCallback((timer: Timer) => {
-    console.log('timer',timer);
-    
     if (!selectedTimer.id) {
-      console.log('handleSave addTimer');
       addTimer(timer);
     } else {
       editTimer(timer.id, timer);
