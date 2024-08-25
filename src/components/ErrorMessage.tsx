@@ -2,7 +2,7 @@ import React from "react";
 import { cx, css } from "@emotion/css";
 import { Button } from "@mui/material";
 
-import { ReactComponent as ImgError } from "assets/img-error.svg";
+import ImgError from "assets/img-error.svg?react";
 import { styleSettingColor } from "styles/variables.style";
 
 type PropsComponentErrorMessage = {

@@ -9,7 +9,7 @@ const useCopyToClipboard = () => {
         popup.notice({ message: successMessage });
       })
       .catch((e) => {
-        conosle.warn("Unable to copy", e, "useCopyToClipboard");
+        console.warn("Unable to copy", e, "useCopyToClipboard");
         popup.notice({
           message: `Unable to copy`,
           severity: "error",

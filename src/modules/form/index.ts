@@ -1,2 +1,2 @@
 export * from './form';
-export * from './useFormColumnColumn';
+export * from './useFormColumn';

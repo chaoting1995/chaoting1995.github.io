@@ -25,7 +25,7 @@ const toNumber = (input: unknown, defaultValue?: number): number => {
   if (isNaN(Number(input))) {
     return defaultValue ? defaultValue : 0;
   } else {
-    return input;
+    return input as number;
   }
 };
 

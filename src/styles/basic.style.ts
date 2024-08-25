@@ -87,7 +87,7 @@ const basicStyle = css`
   }
 
   .dd-divider {
-    background-color: ${styleSettingColor.bg};
+    background-color: ${styleSettingColor.gray};
     width: 100%;
     height: 2px;
   }

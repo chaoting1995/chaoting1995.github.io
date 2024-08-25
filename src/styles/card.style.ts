@@ -29,7 +29,7 @@ export const styleCard = css`
 
     .dd-card-divider {
       margin: 10px 0;
-      background-color: ${styleSettingColor.bg};
+      background-color: ${styleSettingColor.gray};
       height: 2px;
       width: calc(100% + 16px);
       margin-left: -8px;
@@ -37,7 +37,7 @@ export const styleCard = css`
 
     .dd-list-divider {
       margin: 0;
-      background-color: ${styleSettingColor.bg};
+      background-color: ${styleSettingColor.gray};
       height: 2px;
       width: calc(100% + 16px);
       margin-left: -8px;
