@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 
-import clickAudio from 'Audio/click.mp3';
-import bellAudio from 'Audio/bell.mp3';
+import clickAudio from 'audio/click.mp3';
+import bellAudio from 'audio/bell.mp3';
 
 export function audioClick(): void {
   const sound = new Howl({
