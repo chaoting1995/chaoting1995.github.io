@@ -52,6 +52,10 @@ const SidebarMenu = (props: Props) => {
           </ListItemButton>
         </ListItem>
       ))}
+      <ListItem className="version-info">
+        辯論計時小幫手2.0<br/>
+        辯論計時小幫手的致敬之作
+      </ListItem>
       <ListItem className="version-info">{import.meta.env.VITE_APP_VERSION}</ListItem>
     </List>
   );
@@ -66,7 +70,7 @@ const style = css`
 
   .version-info,
   .MuiButtonBase-root {
-    padding: 4px 24px;
+    padding: 14px 24px;
     box-sizing: border-box;
   }
 

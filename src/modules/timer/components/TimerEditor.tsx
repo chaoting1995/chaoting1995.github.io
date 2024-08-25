@@ -46,7 +46,6 @@ const createRingItemWithStatus = (item: number | ''): ColumRingItemWithStatus =>
 }
 
 const TimerEditor = (props: Props) => {
-  const id = React.useId();
   // const [open, handleOpen, handleClose] = useDialog(false);
 
   const columnName = useFormColumn<string>({ 
@@ -186,7 +185,7 @@ const TimerEditor = (props: Props) => {
 
     // formTimer 物件，轉換乘 timer 物件
     const newTimer: Timer = {
-      id: props.timer?.id || `debate-timer-${id}`,
+      id: props.timer?.id || `debate-timer-${uuidv4()}`,
       name: columnName.value,
       mode: columnMode.value as EnumTimerMode,
       ring: columnRing.map(item => ServiceFormat.toNumber(item.seconds))
