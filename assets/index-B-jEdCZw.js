@@ -639,7 +639,7 @@ Error generating stack: `+i.message+`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-`,$9=e=>{const t=gp(),n=(o,i="_self")=>{const a=document.createElement("a");a.href=o,a.target=i,a.click()},r=(o,i,a)=>()=>{o&&t(o),i&&(a?n(i,"_blank"):n(i)),e.onClose&&e.onClose()};return _.jsxs(e0,{className:qe("SidebarMenu",C9,e.className),children:[e.list.map(o=>_.jsx(mf,{disablePadding:!0,children:_.jsxs(ib,{onClick:r(o.path,o.link,o.isBlank),children:[_.jsx(uP,{children:o.icon}),_.jsx(mP,{primary:o.label})]})},o.label)),_.jsx(mf,{className:"version-info",children:"v1.0.0-bata"})]})},C9=Te`
+`,$9=e=>{const t=gp(),n=(o,i="_self")=>{const a=document.createElement("a");a.href=o,a.target=i,a.click()},r=(o,i,a)=>()=>{o&&t(o),i&&(a?n(i,"_blank"):n(i)),e.onClose&&e.onClose()};return _.jsxs(e0,{className:qe("SidebarMenu",C9,e.className),children:[e.list.map(o=>_.jsx(mf,{disablePadding:!0,children:_.jsxs(ib,{onClick:r(o.path,o.link,o.isBlank),children:[_.jsx(uP,{children:o.icon}),_.jsx(mP,{primary:o.label})]})},o.label)),_.jsx(mf,{className:"version-info",children:"v1.0.1-bata"})]})},C9=Te`
   &.MuiList-root {
     padding-top: 0;
     padding-bottom: 0;
