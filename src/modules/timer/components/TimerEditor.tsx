@@ -375,8 +375,6 @@ const style = css`
   .save-button.MuiButton-root:hover {
     margin-top: 10px;
     font-size: 20px;
-    border: 1px solid ${styleSettingColor.background.dark};
-    color: ${styleSettingColor.background.dark};
     background-color: ${styleSettingColor.background.dark}1a;
   }
 `;

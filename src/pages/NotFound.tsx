@@ -22,7 +22,7 @@ const NotFound = () => {
         <p>We could not find what you were looking for.</p>
         <p>Please contact the owner of the site that linked you to the original URL and let them know their link is broken.</p>
       </div>
-      <Button variant="outlined" className="back-button" component={Link} to={pageLinks.timer} >Back to home</Button>
+      <Button variant="outlined" component={Link} to={pageLinks.timer} >Back to home</Button>
     </main>
   </div>;
 };
@@ -89,11 +89,5 @@ const style = (_innerHeight: number) => css`
       -webkit-filter: grayscale(75%);
       filter: grayscale(75%);
     }
-  }
-
-  .back-button.MuiButton-root,
-  .back-button.MuiButton-root:hover {
-    border: 1px solid ${styleSettingColor.background.dark};
-    color: ${styleSettingColor.background.dark};
   }
 `;

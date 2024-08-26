@@ -1,11 +1,14 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
+
 import routes from 'routes';
 import PageLoading from 'pages/PageLoading';
 import TimersProvider from 'context/Timers/Timers.provider';
 // import OfflineHandle from 'components/OfflineHandle';
 import ServiceGA4 from 'modules/ga4/services/ga4.service';
 import { HelmetProvider } from 'react-helmet-async';
+import { theme } from 'styles/muiTheme';
 
 function App() {
   ServiceGA4.init();
@@ -18,9 +21,11 @@ function App() {
   return (<>
       <React.Suspense fallback={<PageLoading />}>
         <HelmetProvider>
-          <TimersProvider>
-            {element}
-          </TimersProvider>
+          <ThemeProvider theme={theme}>
+            <TimersProvider>
+              {element}
+            </TimersProvider>
+          </ThemeProvider>
         </HelmetProvider>
       </React.Suspense>
       {/* <OfflineHandle /> */}
