@@ -11,7 +11,8 @@ import Logo from 'assets/logo.svg?react';
 import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
 import { pageLinks } from 'routes/constants';
 import Sidebar from 'layouts/components/Sidebar/Sidebar';
-import { isDev } from "env/env";
+import { isDev } from 'env/env';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 // import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
 // import menu from 'layouts/components/Sidebar/menu';
 
@@ -23,6 +24,15 @@ const Header = (props: Props) => {
   const [isTop] = useTop();
   const [openDrawer, handleOpenDrawer, handleCloseDrawer, handleToggleDrawer] = useDialog(false);
   const location = useLocation();
+
+  const handleTrakingHeaderButtonTimers = () => {
+    ServiceGA4.event(GA_EVENT.DT_Header_Button_Timers);
+  };
+
+  const handleToggleDrawerWithTrakingHeaderButtonMenu = () => {
+    handleToggleDrawer();
+    ServiceGA4.event(GA_EVENT.DT_Header_Button_Menu);
+  };
 
   return (
     <header className={cx('DD-Header', style(isTop))}>
@@ -38,17 +48,17 @@ const Header = (props: Props) => {
             </> : <>
               辯論計時小幫手 2.0
             </>}</div>
-            {isDev && <div className="header-testnet-tag">TEST</div>}
+            {isDev && <div className='header-testnet-tag'>TEST</div>}
           </div>
           <div className='header-button-group'>
             {/* <SidebarMenu className='header-menu' list={menu} /> */}
             {![pageLinks.timers].includes(location.pathname) && <>
-              <IconButton component={Link} to={pageLinks.timers}>
+              <IconButton component={Link} to={pageLinks.timers} onClick={handleTrakingHeaderButtonTimers}>
                 <Alarm size={28} />
               </IconButton>
             </>}
             {props.renderButtons && props.renderButtons}
-            <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawer}>
+            <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawerWithTrakingHeaderButtonMenu}>
               {openDrawer ? <X /> : <List />}
             </IconButton>
           </div>

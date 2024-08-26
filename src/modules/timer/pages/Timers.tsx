@@ -16,13 +16,23 @@ import useDialog from 'hooks/useDialog';
 import BottomDrawer from 'components/BottomDrawer';
 import TimerEditor from 'modules/timer/components/TimerEditor';
 import { EMPTY_TIMER } from 'resources/timer.constant';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 
 const Timers = () => {
   const location = useLocation();
   const popup = usePopup();
   const [open, handleOpen, handleClose] = useDialog(false);
   const { timers, addTimer, editTimer, deleteTimer } = useTimers();
-  const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER);
+  const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER); 
+  
+  const handleTrakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
+    const newGaEvent = {
+      ...GA_EVENT.DT_Timers_Item_To_Timer,
+      label: `${GA_EVENT.DT_Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
+    }
+    ServiceGA4.event(newGaEvent);
+  };
 
   const handleOpenEditor = React.useCallback((timerID?: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -30,12 +40,18 @@ const Timers = () => {
 
     let _timer: Timer = EMPTY_TIMER;
 
-    if(timerID) {
+    if (timerID) {
       _timer = timers.find(item => item.id === timerID) || EMPTY_TIMER;
     };
-  
+    
     setSelectedTimer(_timer);
     handleOpen();
+    
+    if (timerID) {
+      ServiceGA4.event(GA_EVENT.DT_Timers_Button_Edit_Timer);
+    } else {
+      ServiceGA4.event(GA_EVENT.DT_Header_Button_Add_Timer);
+    }
   }, [handleOpen, timers])
 
   const handleSave =  React.useCallback((timer: Timer) => {
@@ -70,11 +86,12 @@ const Timers = () => {
     </> : <></>}
   >
     <List disablePadding>
-      {timers.map((item) => <ListItem
-        key={item.id}
-        disablePadding
-      >
-        <ListItemButton component={Link} to={`${pageLinks.timerID.replace(':id', item.id)}`}>
+      {timers.map((item) => <ListItem key={item.id} disablePadding>
+        <ListItemButton 
+          component={Link} 
+          to={`${pageLinks.timerID.replace(':id', item.id)}`}
+          onClick={handleTrakingTimersItemToTimer(item.name, item.mode)}
+        >
           <div className='timer-item-name'>{item.name}</div>
         </ListItemButton>
         <ListItemSecondaryAction className='timer-item-actions'>

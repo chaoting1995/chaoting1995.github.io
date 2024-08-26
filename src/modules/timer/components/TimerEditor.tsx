@@ -10,7 +10,8 @@ import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { breakpoints, styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
 import useFormColumn from 'modules/form/useFormColumn';
-import ServiceFormat from "services/format.service";
+import ServiceFormat from 'services/format.service';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 // import useDialog from 'hooks/useDialog';
 // import BottomDrawer from 'components/BottomDrawer';
 
@@ -63,7 +64,7 @@ const TimerEditor = (props: Props) => {
     }
   });
 
- const DEFAULT_RING_TIMES = 3;
+  const DEFAULT_RING_TIMES = 3;
   const [ringTimes, setRingTimes] = React.useState<number>(props.timer.ring.length || DEFAULT_RING_TIMES);
   const [columnRing, setColumnRing] = React.useState<ColumRingItemWithStatus[]>(
     Array(ringTimes).fill('').map((item, index) => {
@@ -90,7 +91,7 @@ const TimerEditor = (props: Props) => {
         const newSeconds = event.target.value;
 
         const isPositiveInteger = /^\d+$/.test(newSeconds);
-        const isEmptyString = newSeconds === "";
+        const isEmptyString = newSeconds === '';
         if (!isPositiveInteger && !isEmptyString) return item;
 
         item.seconds = newSeconds as number | '';
@@ -140,7 +141,7 @@ const TimerEditor = (props: Props) => {
     }
 
     for (const item of columnRing) {
-      const conditionEmptyString = item.seconds === "";
+      const conditionEmptyString = item.seconds === '';
       if (conditionEmptyString) { 
         setRrrorStatus(item.id, '此欄位必填');
         isValid = false; 
@@ -192,6 +193,7 @@ const TimerEditor = (props: Props) => {
     }
 
     props.onSave(newTimer);
+    ServiceGA4.event(GA_EVENT.DT_TimersEditor_Button_Submit);  
   }
 
   React.useEffect(() => {
