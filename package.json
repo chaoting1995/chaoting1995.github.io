@@ -1,7 +1,7 @@
 {
   "name": "debateTimer",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,6 +23,7 @@
     "react": "^18.3.1",
     "react-animations": "^1.0.0",
     "react-dom": "^18.3.1",
+    "react-ga4": "^2.1.0",
     "react-helmet": "^6.1.0",
     "react-router-dom": "6.2.2",
     "react-spinners": "^0.13.8",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/howler": "^2.2.11",
+    "@types/node": "^22.5.0",
     "@types/react": "^18.3.3",
     "@types/react-animations": "^1.0.0",
     "@types/react-dom": "^18.3.0",

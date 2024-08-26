@@ -11,6 +11,7 @@ import Logo from 'assets/logo.svg?react';
 import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
 import { pageLinks } from 'routes/constants';
 import Sidebar from 'layouts/components/Sidebar/Sidebar';
+import { isDev } from "env/env";
 // import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
 // import menu from 'layouts/components/Sidebar/menu';
 
@@ -37,6 +38,7 @@ const Header = (props: Props) => {
             </> : <>
               辯論計時小幫手 2.0
             </>}</div>
+            {isDev && <div className="header-testnet-tag">TEST</div>}
           </div>
           <div className='header-button-group'>
             {/* <SidebarMenu className='header-menu' list={menu} /> */}
@@ -109,6 +111,15 @@ const style = (_isTop: boolean) => css`
         }
       }
 
+      .header-testnet-tag {
+        margin-left: 10px;
+        background-color: ${styleSettingColor.warning};
+        color: ${styleSettingColor.text.secondary};
+        border-radius: 5px;
+        padding: 3px 6px;
+        box-sizing: border-box;
+        font-size: 12px;
+      }
       
       .header-button-group {
         display: flex;

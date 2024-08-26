@@ -56,7 +56,7 @@ const SidebarMenu = (props: Props) => {
         辯論計時小幫手2.0<br/>
         辯論計時小幫手的致敬之作
       </ListItem>
-      <ListItem className="version-info">{import.meta.env.VITE_APP_VERSION}</ListItem>
+      <ListItem className="version-info">v{process.env.VERSION}</ListItem>
     </List>
   );
 };
