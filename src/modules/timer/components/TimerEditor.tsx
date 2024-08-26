@@ -273,7 +273,11 @@ const TimerEditor = (props: Props) => {
           inputProps={{ inputMode: 'numeric' }}
           placeholder={`第${index + 1}次鈴響(秒)`}
           InputProps={{
-            inputProps: { min: 0 },
+            inputProps: { 
+              min: 0,
+              inputMode: 'numeric', // 显示数字键盘
+              pattern: '[0-9]*' // 仅允许数字输入
+            },
             startAdornment: (
               <InputAdornment position='start'>
                 <CallBell size={22} />
