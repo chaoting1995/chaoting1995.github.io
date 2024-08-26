@@ -122,13 +122,13 @@ const style = (_isTop: boolean) => css`
       }
 
       .header-testnet-tag {
-        margin-left: 10px;
+        margin-left: 5px;
         background-color: ${styleSettingColor.warning};
         color: ${styleSettingColor.text.secondary};
         border-radius: 5px;
         padding: 3px 6px;
         box-sizing: border-box;
-        font-size: 12px;
+        font-size: 10px;
       }
       
       .header-button-group {
