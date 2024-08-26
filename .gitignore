@@ -24,6 +24,6 @@ dist-ssr
 *.sw?
 
 # misc
-.env
+# .env
 .env.development
 .env.production
