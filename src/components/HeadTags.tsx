@@ -1,6 +1,5 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import ServiceFormat from "services/format.service";
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 export type Props = {
   children?: JSX.Element;
@@ -13,27 +12,26 @@ export type Props = {
 };
 
 const HeadTags = (props: Props) => {
-  const titleWithPrefixBrand = `${props.title} | ${ServiceFormat.toString(props.titleWithPrefixBrand)}`;
+  const titleWithPrefixBrand = `辯論計時小幫手 2.0${props.titleWithPrefixBrand && ` | ${props.titleWithPrefixBrand}`}`;
 
   return (
     <Helmet>
-      {props.title && <title>{!props.titleWithPrefixBrand ? props.title : titleWithPrefixBrand}</title>}
-      {props.description && <meta name="description" content={props.description} />}
+      <title>{titleWithPrefixBrand}</title>
+      {props.description && <meta name='description' content={props.description} />}
 
-      <meta property="og:type" content="website" />
-      <meta property="og:locale" content="en_US" />
-      {props.title && <meta property="og:title" content={!props.titleWithPrefixBrand ? props.title : titleWithPrefixBrand} />}
-      {props.description && <meta property="og:description" content={props.description} />}
-      {props.hubURL && <meta property="og:url" content={props.hubURL} />}
-      {props.image && <meta property="og:image" content={props.image} />}
+      <meta property='og:type' content='website' />
+      {props.title && <meta property='og:title' content={titleWithPrefixBrand} />}
+      {props.description && <meta property='og:description' content={props.description} />}
+      {props.hubURL && <meta property='og:url' content={props.hubURL} />}
+      {props.image && <meta property='og:image' content={props.image} />}
 
-      {props.favicon && <link rel="icon" href={props.favicon} />}
+      {props.favicon && <link rel='icon' href={props.favicon} />}
 
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@DefiDolly" />
-      {props.title && <meta name="twitter:title" content={!props.titleWithPrefixBrand ? props.title : titleWithPrefixBrand} />}
-      {props.description && <meta name="twitter:description" content={props.description} />}
-      {props.image && <meta name="twitter:image" content={props.image} />}
+      <meta name='twitter:card' content='summary_large_image' />
+      <meta name='twitter:site' content='@DefiDolly' />
+      {props.title && <meta name='twitter:title' content={titleWithPrefixBrand} />}
+      {props.description && <meta name='twitter:description' content={props.description} />}
+      {props.image && <meta name='twitter:image' content={props.image} />}
       {props.children}
     </Helmet >
   );

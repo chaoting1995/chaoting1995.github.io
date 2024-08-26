@@ -5,7 +5,6 @@ import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
-import Layout from 'layouts/Layout';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { pageLinks } from 'routes/constants';
@@ -13,11 +12,13 @@ import useTimers from 'context/Timers/useTimers';
 import { Timer } from 'resources/timer.type';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
-import BottomDrawer from 'components/BottomDrawer';
-import TimerEditor from 'modules/timer/components/TimerEditor';
 import { EMPTY_TIMER } from 'resources/timer.constant';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
+import Layout from 'layouts/Layout';
+import BottomDrawer from 'components/BottomDrawer';
+import TimerEditor from 'modules/timer/components/TimerEditor';
+import HeadTags from 'components/HeadTags';
 
 const Timers = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const Timers = () => {
       ...GA_EVENT.DT_Timers_Item_To_Timer,
       label: `${GA_EVENT.DT_Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
     }
+
     ServiceGA4.event(newGaEvent);
   };
 
@@ -85,6 +87,7 @@ const Timers = () => {
       </IconButton>
     </> : <></>}
   >
+    <HeadTags titleWithPrefixBrand='自定計時器' />
     <List disablePadding>
       {timers.map((item) => <ListItem key={item.id} disablePadding>
         <ListItemButton 
