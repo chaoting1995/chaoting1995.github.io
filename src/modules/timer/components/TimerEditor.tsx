@@ -193,7 +193,11 @@ const TimerEditor = (props: Props) => {
     }
 
     props.onSave(newTimer);
-    ServiceGA4.event(GA_EVENT.DT_TimersEditor_Button_Submit);  
+    const newGaEvent = {
+      ...GA_EVENT.DT_TimersEditor_Button_Submit,
+      label: `DT_TimersEditor_Button_Submit${props.timer?.id ? '_Edit' : '_Add'}`
+    };
+    ServiceGA4.event(newGaEvent);  
   }
 
   React.useEffect(() => {
