@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.10] - 2024-08-28
+
+### Fixed
+- 計時器編輯器 > 視窗高度不足時，彈窗自動出現捲軸
+
 ## [1.0.0-beta.9] - 2024-08-28
 
 ### Changed
@@ -19,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - 計時器編輯器 > 修正表單驗證邏輯
-
+s
 ## [1.0.0-beta.6] - 2024-08-28
 
 ### Added
