@@ -79,14 +79,14 @@ const style = css`
   
   .setting-title {
     margin-bottom: 10px;
-    font-size: 22px;
+    font-size: 18px;
     color: ${styleSettingColor.background.dark};
   }
   
   .setting-subtitle {
     margin-top: -10px;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: ${styleSettingColor.text.secondary};
   }
 
@@ -99,7 +99,7 @@ const style = css`
 
     .template-button.MuiButton-root,
     .template-button.MuiButton-root:hover {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
   
@@ -112,14 +112,14 @@ const style = css`
 
     .info-ring-times {
       width: 100%;
-      font-size: 20px;
+      font-size: 18px;
       text-align: center;
     };
   
     .ring-times-button.MuiButton-root,
     .ring-times-button.MuiButton-root:hover {
       width: 100%;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 `;

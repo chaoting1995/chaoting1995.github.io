@@ -103,10 +103,10 @@ const Timers = () => {
         </ListItemButton>
         <ListItemSecondaryAction className='timer-item-actions'>
           <IconButton onClick={handleOpenEditor(item.id)}>
-            <PencilSimple size={28} />
+            <PencilSimple size={26} />
           </IconButton>
           <IconButton onClick={handleDelete(item.id)}>
-            <Trash size={28} />
+            <Trash size={26} />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>)}
@@ -122,18 +122,18 @@ export default Timers;
 const style = css`
   background-color: ${styleSettingColor.gray};
   color: ${styleSettingColor.text.secondary};
-  font-size: 22px;
+  font-size: 20px;
   
   .timers-empty-box {
     padding: 8px 16px;
     padding-top: 40px;
     box-sizing: border-box;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
 
     .add-button {
       margin-top: 10px;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 

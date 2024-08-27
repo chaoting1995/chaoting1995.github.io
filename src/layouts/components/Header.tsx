@@ -59,7 +59,7 @@ const Header = (props: Props) => {
             </>}
             {props.renderButtons && props.renderButtons}
             <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawerWithTrakingHeaderButtonMenu}>
-              {openDrawer ? <X /> : <List />}
+              {openDrawer ? <X size={28}/> : <List size={28}/>}
             </IconButton>
           </div>
         </div>

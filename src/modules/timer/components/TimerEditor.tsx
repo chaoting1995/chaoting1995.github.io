@@ -331,7 +331,7 @@ const style = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .drawer-header,
@@ -357,7 +357,7 @@ const style = css`
     
     .drawer-title {
       color: ${styleSettingColor.background.dark};
-      font-size: 24px;
+      font-size: 22px;
       margin: 0 auto; 
     }
 
@@ -369,7 +369,6 @@ const style = css`
       @media(min-width: ${breakpoints.sm}) {
         right: 32px;
       }
-
     }
   }
 
@@ -384,7 +383,7 @@ const style = css`
     }
     
     .MuiInput-root {
-      font-size: 22px;
+      font-size: 18px;
     }
 
     .MuiFormHelperText-root {
@@ -396,7 +395,7 @@ const style = css`
   .save-button.MuiButton-root,
   .save-button.MuiButton-root:hover {
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 18px;
     background-color: ${styleSettingColor.background.dark}1a;
   }
 `;

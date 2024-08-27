@@ -63,7 +63,6 @@ const style = css`
   padding: 16px 16px 4px;
   box-sizing: border-box;
   background-color: ${styleSettingColor.background.light};
-  font-size: 22px;
   display: flex;
   justify-content: center;
   gap: 24px;
