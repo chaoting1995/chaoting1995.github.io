@@ -145,18 +145,6 @@ const TimerEditor = (props: Props) => {
     }
 
     let isValid = true;
-    const isSorted = (array: number[]): boolean => {
-      return array.every((value, index) => index === 0 || array[index - 1] < value);
-    };
-    const conditionIsNoSorted = !isSorted(columnRing.map(item => ServiceFormat.toNumber(item.seconds)))
-    if (conditionIsNoSorted) {
-      columnRing.forEach(item => {
-        if (conditionIsNoSorted) {
-          setRrrorStatus(item.id, '秒數要由小到大排序');
-          isValid = false;
-        }
-      })
-    }
 
     for (const item of columnRing) {
       const conditionEmptyString = item.seconds === '';
@@ -192,6 +180,20 @@ const TimerEditor = (props: Props) => {
       if (isValid) removeRrrorStatus(item.id);
     }
     
+    if (!isValid) return isValid; // 單一欄位未通過驗證時，提前回傳 isValid
+
+    const isSorted = (array: number[]): boolean => {
+      return array.every((value, index) => index === 0 || array[index - 1] < value);
+    };
+    const conditionIsNoSorted = !isSorted(columnRing.map(item => ServiceFormat.toNumber(item.seconds)))
+    if (conditionIsNoSorted) {
+      columnRing.forEach(item => {
+        if (conditionIsNoSorted) {
+          setRrrorStatus(item.id, '秒數要由小到大排序');
+          isValid = false;
+        }
+      })
+    }
     return isValid;
   },[columnRing])
 
