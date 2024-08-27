@@ -2,7 +2,7 @@ import React from 'react'
 import { css, cx } from '@emotion/css';
 import { Button } from '@mui/material';
 
-import { breakpoints, styleSettingColor } from 'styles/variables.style';
+import { styleSettingColor } from 'styles/variables.style';
 import { TEMPLATE_TIMERS } from 'resources/timer.constant';
 import { Timer } from 'resources/timer.type';
 
@@ -64,18 +64,7 @@ const TimerEditorSetting = (props: Props) => {
 export default TimerEditorSetting;
 
 const style = css`
-  padding: 0 16px;
   padding-top: 16px;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media(min-width: ${breakpoints.sm}) {
-    padding: 0 32px;
-    padding-top: 16px;
-  }
   
   .setting-title {
     margin-bottom: 10px;

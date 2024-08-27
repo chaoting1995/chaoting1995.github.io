@@ -7,7 +7,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidv4 } from 'uuid';
 import { Timer } from 'resources/timer.type';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
-import { breakpoints, styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
+import { styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
 import useFormColumn from 'modules/form/useFormColumn';
 import ServiceFormat from 'services/format.service';
@@ -243,6 +243,7 @@ const TimerEditor = (props: Props) => {
         </IconButton>
       </div>
       <TimerEditorSetting
+        className="drawer-body"
         ringTimes={ringTimes}
         onChangeRingTimes={setRingTimes}
         onUseTemplateTimer={handleUseTemplateTimer}
@@ -337,17 +338,15 @@ const style = css`
   .drawer-header,
   .drawer-body {
     width: 100%;
-    padding: 0 16px;
-    padding-bottom: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
     box-sizing: border-box;
-    
-    @media(min-width: ${breakpoints.sm}) {
-      padding: 0 32px;
-      padding-bottom: 16px;
-    }
   }
 
   .drawer-header {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    box-sizing: border-box;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -365,23 +364,19 @@ const style = css`
       color: ${styleSettingColor.text.gray};
       position: absolute;
       right: 16px;
-    
-      @media(min-width: ${breakpoints.sm}) {
-        right: 32px;
-      }
     }
   }
 
   .drawer-body {
+    max-height: calc(90vh - 32px - 32px);
     overflow-y: auto;
+    padding-bottom: 32px;
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
     gap: 5px;
-    
-    .MuiPopover-root.MuiMenu-root.MuiModal-root {
-      z-index: ${styleSettingZIndex.popupMenu};
-    }
-    
+
     .MuiInput-root {
       font-size: 18px;
     }

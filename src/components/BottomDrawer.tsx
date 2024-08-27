@@ -42,12 +42,11 @@ const style = css`
 
   .MuiDrawer-paper {
     width: 100%;
-    max-width: calc(${breakpoints.sm} - 32px);
+    max-width: ${breakpoints.sm};
     background-color: #fff;
     overflow: inherit;
     max-height: 90%;
     border-radius: 25px 25px 0 0;
-    padding: 16px 0;
     box-sizing: border-box;
     
     @media(min-width: ${breakpoints.sm}) {
@@ -56,7 +55,6 @@ const style = css`
       left: 50%;
       transform: translate(-50%, -50%)!important;
       height: fit-content;
-      padding: 30px 0;
       box-sizing: border-box;
     }
 
