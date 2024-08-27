@@ -154,10 +154,10 @@ const style = css`
   }
 
   .timer-item {
-    padding: 0px 16px;
-    box-sizing: border-box;
+    /* padding: 0px 16px;s */
 
     &-name {
+      width: calc(100% - 42px - 42px);
       ${styleLineEllipsis(1)}
     }
     
