@@ -12,7 +12,7 @@ export type Props = {
 };
 
 const HeadTags = (props: Props) => {
-  const titleWithPrefixBrand = `辯論計時小幫手 2.0${props.titleWithPrefixBrand && ` | ${props.titleWithPrefixBrand}`}`;
+  const titleWithPrefixBrand = `辯論計時小幫手 2.0${props.titleWithPrefixBrand ? ` | ${props.titleWithPrefixBrand}` : ''}`;
 
   return (
     <Helmet>
