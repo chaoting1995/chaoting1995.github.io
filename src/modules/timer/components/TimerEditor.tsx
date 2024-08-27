@@ -71,6 +71,7 @@ const TimerEditor = (props: Props) => {
   });
 
   const DEFAULT_RING_TIMES = 3;
+  console.log("props.timer.ring",props.timer.ring, props.timer.ring.length || DEFAULT_RING_TIMES)
   const [ringTimes, setRingTimes] = React.useState<number>(props.timer.ring.length || DEFAULT_RING_TIMES);
   const [columnRing, setColumnRing] = React.useState<ColumRingItemWithStatus[]>(
     Array(ringTimes).fill('').map((item, index) => {
@@ -78,6 +79,7 @@ const TimerEditor = (props: Props) => {
       return createRingItemWithStatus(ringItem);
     })
   );
+  console.log("columnRing",columnRing)
   
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     columnName.onChange(event.target.value);
@@ -220,11 +222,12 @@ const TimerEditor = (props: Props) => {
     ServiceGA4.event(newGaEvent);
   }
 
-  // 依照 columnMode，決定 ringTimes
+  // 依照 columnMode & props.timer.ring，決定 ringTimes
   React.useEffect(() => {
     if (!columnMode.value) return;
-    setRingTimes(ringTimesByColumnMode[columnMode.value]);
-  }, [columnMode.value])
+    const newRingTimes = !props.timer.id ? ringTimesByColumnMode[columnMode.value] : props.timer.ring.length;
+    setRingTimes(newRingTimes);
+  }, [props.timer, columnMode.value])
 
   // 依照 ringTimes，決定 columnRing 表單欄位數量
   React.useEffect(() => {

@@ -27,7 +27,7 @@ const TimerEditorSetting = (props: Props) => {
   return (
     <div className={cx('DT-TimerEditorSetting', style, props.className)}>
       <div className="setting-title">鈴響次數</div>
-      <div className="setting-subtitle">注意：請先選擇完「計時器模式」</div>
+      <div className="setting-subtitle">注意：先選擇計時器模式，再修改鈴響次數</div>
       <div className='ring-times-button-group'>
         <Button 
           variant='outlined' 
