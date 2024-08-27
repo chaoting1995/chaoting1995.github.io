@@ -65,6 +65,7 @@ export default TimerEditorSetting;
 
 const style = css`
   padding-top: 16px;
+  box-sizing: border-box;
   
   .setting-title {
     margin-bottom: 10px;

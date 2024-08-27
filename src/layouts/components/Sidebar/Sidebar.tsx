@@ -43,6 +43,7 @@ const style = css`
     color: ${styleSettingColor.disabled};
     font-size: 14px;
     padding: 16px 16px 0;
+    box-sizing: border-box;
   }
 
   ${basicStyle}
