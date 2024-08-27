@@ -71,7 +71,6 @@ const TimerEditor = (props: Props) => {
   });
 
   const DEFAULT_RING_TIMES = 3;
-  console.log("props.timer.ring",props.timer.ring, props.timer.ring.length || DEFAULT_RING_TIMES)
   const [ringTimes, setRingTimes] = React.useState<number>(props.timer.ring.length || DEFAULT_RING_TIMES);
   const [columnRing, setColumnRing] = React.useState<ColumRingItemWithStatus[]>(
     Array(ringTimes).fill('').map((item, index) => {
@@ -79,8 +78,7 @@ const TimerEditor = (props: Props) => {
       return createRingItemWithStatus(ringItem);
     })
   );
-  console.log("columnRing",columnRing)
-  
+
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     columnName.onChange(event.target.value);
   };
