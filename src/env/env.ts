@@ -7,7 +7,7 @@ type EnvSetting = {
 
 export const ALL_ENV_SETTING: Record<EnumEnv, EnvSetting> = {
   [EnumEnv.Development]: {
-    evaluationID: 'G-G8B3ZHFC3Y',
+    evaluationID: '',
   },
   [EnumEnv.Production]: {
     evaluationID: 'G-G8B3ZHFC3Y',
