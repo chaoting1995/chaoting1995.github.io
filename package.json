@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
-    "ga4-info": "node create-ga-config.cjs"
+    "ga4-info": "node create-ga-config.cjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
@@ -34,7 +36,16 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.7.0",
     "@eslint/js": "^9.9.0",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/react-vite": "^8.2.9",
+    "@storybook/test": "^8.2.9",
     "@types/howler": "^2.2.11",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.3",
@@ -46,9 +57,11 @@
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
+    "eslint-plugin-storybook": "^0.8.0",
     "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "papaparse": "^5.4.1",
+    "storybook": "^8.2.9",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",
@@ -57,5 +70,10 @@
     "vite-tsconfig-paths": "^5.0.1"
   },
   "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903",
-  "homepage": "https://chaoting1995.github.io/debateTimer"
+  "homepage": "https://chaoting1995.github.io/debateTimer",
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
 }
