@@ -1,21 +1,21 @@
-import { css, keyframes } from "@emotion/css";
+import { css, keyframes } from '@emotion/css';
 import {
   headShake,
   rubberBand,
   bounceOut,
   bounceInDown,
-} from "react-animations";
+} from 'react-animations';
 
-import { styleButton } from "styles/button.style";
-import { stylePage } from "styles/page.style";
-import { styleSettingColor } from "styles/variables.style";
-import { styleCard } from "styles/card.style";
-import { styleInput } from "styles/input.style";
+import { styleButton } from 'styles/button.style';
+import { stylePage } from 'styles/page.style';
+import { styleSettingColor } from 'styles/variables.style';
+import { styleCard } from 'styles/card.style';
+import { styleInput } from 'styles/input.style';
 
 const basicStyle = css`
-  font-family: "Inter", sans-serif, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
 
   // remove the blue box that appears on click when use android mobile
   input,

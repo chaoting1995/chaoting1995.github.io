@@ -9,9 +9,10 @@ import TimersProvider from 'context/Timers/Timers.provider';
 import ServiceGA4 from 'modules/ga4/services/ga4.service';
 import { HelmetProvider } from 'react-helmet-async';
 import { theme } from 'styles/muiTheme';
+import { isDev } from "env/env";
 
 function App() {
-  ServiceGA4.init();
+  if (!isDev) ServiceGA4.init();
   window.onpageshow = function (event) {
     if (event.persisted) window.location.reload();
   };

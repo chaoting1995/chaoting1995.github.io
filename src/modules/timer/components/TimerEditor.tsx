@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { CallBell } from '@phosphor-icons/react';
-import { TextField, MenuItem, InputAdornment, Button, FormControl, Select, FormHelperText } from '@mui/material';
+import { CallBell, Gear, XCircle } from '@phosphor-icons/react';
+import { TextField, MenuItem, InputAdornment, Button, FormControl, Select, FormHelperText, IconButton } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -12,8 +12,9 @@ import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';
 import useFormColumn from 'modules/form/useFormColumn';
 import ServiceFormat from 'services/format.service';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
-// import useDialog from 'hooks/useDialog';
-// import BottomDrawer from 'components/BottomDrawer';
+import useDialog from 'hooks/useDialog';
+// import IOSSwitch from 'components/IOSSwitch';
+import TimerEditorSetting from 'modules/timer/components/TimerEditorSetting';
 
 type ColumRingItemWithStatus = {
   id: string;
@@ -32,6 +33,11 @@ const options: Array<{ value: EnumTimerMode, label: string; }> = [
   }
 ];
 
+const ringTimesByColumnMode: Record<EnumTimerMode, number> = {
+  [EnumTimerMode.Normal]: 3,
+  [EnumTimerMode.Crossfire]: 2,
+};
+
 type Props = {
   className?: string;
   timer: Timer;
@@ -47,7 +53,7 @@ const createRingItemWithStatus = (item: number | ''): ColumRingItemWithStatus =>
 }
 
 const TimerEditor = (props: Props) => {
-  // const [open, handleOpen, handleClose] = useDialog(false);
+  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
 
   const columnName = useFormColumn<string>({ 
     value: props.timer.name, 
@@ -68,9 +74,8 @@ const TimerEditor = (props: Props) => {
   const [ringTimes, setRingTimes] = React.useState<number>(props.timer.ring.length || DEFAULT_RING_TIMES);
   const [columnRing, setColumnRing] = React.useState<ColumRingItemWithStatus[]>(
     Array(ringTimes).fill('').map((item, index) => {
-      return createRingItemWithStatus(
-        props.timer.ring[index] ? props.timer.ring[index]: item
-      )
+      const ringItem = props.timer.ring[index] ? props.timer.ring[index]: item;
+      return createRingItemWithStatus(ringItem);
     })
   );
   
@@ -79,7 +84,6 @@ const TimerEditor = (props: Props) => {
   };
 
   const handleChangeMode = (event: SelectChangeEvent<EnumTimerMode>) => {
-    // if(!IsEnumTimerMode(event.target.value as EnumTimerMode)) return;
     columnMode.onChange(event.target.value as EnumTimerMode);
   };
 
@@ -100,6 +104,15 @@ const TimerEditor = (props: Props) => {
       return newState;
     })
   };
+
+  const handleUseTemplateTimer = (timer: Timer) => {
+    columnName.onChange(timer.name);
+    columnMode.onChange(timer.mode);
+    setColumnRing(Array(ringTimesByColumnMode[timer.mode]).fill('').map((item, index) => {
+      const ringItem = timer.ring[index] ? timer.ring[index]: item;
+      return createRingItemWithStatus(ringItem);
+    }))
+  }
 
   const customVarifyRing = React.useCallback((): boolean => {
     const setRrrorStatus = (_id: string, message: string) => {
@@ -200,42 +213,42 @@ const TimerEditor = (props: Props) => {
     ServiceGA4.event(newGaEvent);  
   }
 
+  // 依照 columnMode，決定 ringTimes
   React.useEffect(() => {
-    if (columnMode.value === EnumTimerMode.Crossfire) {
-      setRingTimes(2);
-      setColumnRing(prevState => {
-        return Array(2).fill('').map((item, index) => {
-          return prevState[index] ? prevState[index] : createRingItemWithStatus(item)
-        })
-      })
-    };
-    
-    if (columnMode.value === EnumTimerMode.Normal) {
-      setRingTimes(3);
-      setColumnRing(prevState => {
-        return Array(3).fill('').map((item, index) => {
-          return prevState[index] ? prevState[index] : createRingItemWithStatus(item)
-        })
-      })
-    };
-  }, [columnMode.value, props.timer.ring])
+    if (!columnMode.value) return;
+    setRingTimes(ringTimesByColumnMode[columnMode.value]);
+  }, [columnMode.value])
 
+  // 依照 ringTimes，決定 columnRing 表單欄位數量
+  React.useEffect(() => {
+    setColumnRing(prevState => Array(ringTimes).fill('').map((item, index) => {
+      return prevState[index] ? prevState[index] : createRingItemWithStatus(item)
+    }))
+  }, [ringTimes])
+
+  if (openSetting) {
+    return <div className={cx('DT-TimerEditor', style)}>
+      <div className='drawer-header'>
+        <div className='drawer-title'>進階設定</div>
+        <IconButton className='drawer-title-button' onClick={handleCloseSetting}>
+          <XCircle size={28}/>
+        </IconButton>
+      </div>
+      <TimerEditorSetting
+        ringTimes={ringTimes}
+        onChangeRingTimes={setRingTimes}
+        onUseTemplateTimer={handleUseTemplateTimer}
+        onCloseSetting={handleCloseSetting}
+      />
+    </div>
+  }
+  
   return <div className={cx('DT-TimerEditor', style)}>
     <div className='drawer-header'>
-      <div className='drawer-title'>{!props.timer ? `新增計時器` : `編輯計時器`}</div>
-      {/* <IconButton>
-        <Gear size={28} className='icon-gear'/>
+      <div className='drawer-title'>{!props.timer.id ? `新增計時器` : `編輯計時器`}</div>
+      <IconButton className='drawer-title-button' onClick={handleOpenSetting}>
+        <Gear size={28}/>
       </IconButton>
-      <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-        <div className='ring-times-button-group'>
-        <Button variant='outlined' className='ring-times-button' onClick={handleSave}>
-          -
-        </Button>
-        <Button variant='outlined' className='ring-times-button' onClick={handleSave}>
-          +
-        </Button>
-      </div>
-      </BottomDrawer> */}
     </div>
     <form className='drawer-body'>
       <TextField 
@@ -332,7 +345,7 @@ const style = css`
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    border-bottom: 1px solid  ${styleSettingColor.background.light}; 
+    border-bottom: 1px solid  ${styleSettingColor.background.light};
     
     .drawer-title {
       color: ${styleSettingColor.background.dark};
@@ -340,8 +353,15 @@ const style = css`
       margin: 0 auto; 
     }
 
-    .icon-gear {
+    .drawer-title-button {
       color: ${styleSettingColor.text.gray};
+      position: absolute;
+      right: 16px;
+    
+      @media(min-width: ${breakpoints.sm}) {
+        right: 32px;
+      }
+
     }
   }
 
@@ -362,20 +382,6 @@ const style = css`
     .MuiFormHelperText-root {
       position: absolute;
       bottom: -22px;
-    }
-  }
-
-  .ring-times-button-group {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-
-    .ring-times-button.MuiButton-root,
-    .ring-times-button.MuiButton-root:hover {
-      width: 100%;
-      font-size: 18px;
-      border: 1px solid ${styleSettingColor.background.dark};
-      color: ${styleSettingColor.background.dark};
     }
   }
 

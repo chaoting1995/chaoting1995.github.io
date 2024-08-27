@@ -19,14 +19,15 @@ export function audioBell(): void {
 
     // 播放监听事件
   sound.on('play', function (id) {
-    console.log('音乐播放了',id);
-      const duration = sound.duration(id);
-      console.log(duration, 'duration');
+    // console.log('音乐播放了',id);
+      sound.duration(id);
+      // const duration = sound.duration(id);
+      // console.log(duration, 'duration');
   })
   
   // 音频结束监听
   sound.on('end', function () {
-      console.log('音乐播放停止')
+      // console.log('音乐播放停止')
       // 销毁实例
       sound.unload();
   })

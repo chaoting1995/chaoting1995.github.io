@@ -106,6 +106,10 @@ const style = (_isTop: boolean) => css`
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        div {
+          width: max-content;
+        }
 
         .header-logo {
           margin-right: 5px;

@@ -7,5 +7,8 @@ export const theme = createTheme({
     primary: {
       main: styleSettingColor.background.dark
     },
+    secondary: {
+      main: styleSettingColor.text.secondary
+    },
   },
 });
