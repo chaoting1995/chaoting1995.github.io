@@ -682,6 +682,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     color: ${q.disabled};
     font-size: 14px;
     padding: 16px 16px 0;
+    box-sizing: border-box;
   }
 
   ${nm}
@@ -848,6 +849,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }
 `;var mt=[];for(var _d=0;_d<256;++_d)mt.push((_d+256).toString(16).slice(1));function ML(e,t=0){return(mt[e[t+0]]+mt[e[t+1]]+mt[e[t+2]]+mt[e[t+3]]+"-"+mt[e[t+4]]+mt[e[t+5]]+"-"+mt[e[t+6]]+mt[e[t+7]]+"-"+mt[e[t+8]]+mt[e[t+9]]+"-"+mt[e[t+10]]+mt[e[t+11]]+mt[e[t+12]]+mt[e[t+13]]+mt[e[t+14]]+mt[e[t+15]]).toLowerCase()}var ts,AL=new Uint8Array(16);function IL(){if(!ts&&(ts=typeof crypto<"u"&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto),!ts))throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return ts(AL)}var RL=typeof crypto<"u"&&crypto.randomUUID&&crypto.randomUUID.bind(crypto);const ny={randomUUID:RL};function wb(e,t,n){if(ny.randomUUID&&!t&&!e)return ny.randomUUID();e=e||{};var r=e.random||(e.rng||IL)();return r[6]=r[6]&15|64,r[8]=r[8]&63|128,ML(r)}const jo={message:"",hasError:!1},Os={message:"",hasError:!0},ry=e=>{const[t,n]=b.useState(e.defaultValue),[r,o]=b.useState(jo);b.useEffect(()=>{n(e.value)},[e.value]);const a=b.useCallback(s=>{n(s)},[]),i=b.useCallback(()=>{if(!e.verifyRules)return!0;if(e.verifyRules.require){const s=t!=="";return o(s?jo:{...Os,message:"此欄位必填"}),s}if(e.verifyRules.requireSelect){const s=t!=="";return o(s?jo:{...Os,message:"此欄位必選"}),s}if(e.verifyRules.enumTypeGuide){const u=!!((d,m)=>Object.values(d).includes(m))(e.verifyRules.enumTypeGuide,t);return o(u?jo:{...Os,message:`此欄位必須是${Object.values(e.verifyRules.enumTypeGuide).join(",")}`}),u}return!0},[t,e.verifyRules]);return{value:t,status:r,onChange:a,onVarify:i}},LL=(e,t)=>e===0?"0":e?e.toString():t||"",jL=(e,t,n)=>(n=n||10,e=parseInt(String(e),n),isNaN(Number(e))?t||0:Number(e)),NL=(e,t)=>(typeof e!="number"&&(e=Number(e)),isNaN(Number(e))?t||0:e),DL=(e,t)=>(typeof e=="string"&&(e==="true"?e=!0:e==="false"&&(e=!1)),e==null?t||!1:!!e),FL=e=>e.replace(/^./,e[0].toUpperCase()),zL=(e,t)=>(e=Number(e),isNaN(Number(e))&&(e=0),Math.floor((Number(e)+Number.EPSILON)*Math.pow(10,t))/Math.pow(10,t)),HL=e=>{let t=[];return Array.isArray(e)?(t=e,t):(console.warn("Inputs must be array",{inputs:e},"ServiceFormat","toArray"),t)},BL=(e,t)=>{const n=[];if(!Array.isArray(e))return console.warn("Inputs must be array",{inputs:e},"ServiceFormat","toObjectArray"),n;if(e.length<=0)return n;for(const r of e){const o=t(r);o&&n.push(o)}return n},Gr={toString:LL,toIntegerNumber:jL,toNumber:NL,toBoolean:DL,toUppercaseFirstLetter:FL,toRoundDown:zL,toArray:HL,toObjectArray:BL},VL=e=>{const t=r=>()=>{e.onChangeRingTimes(r)},n=r=>()=>{e.onUseTemplateTimer(r),e.onCloseSetting()};return x.jsxs("div",{className:Ve("DT-TimerEditorSetting",UL,e.className),children:[x.jsx("div",{className:"setting-title",children:"鈴響次數"}),x.jsx("div",{className:"setting-subtitle",children:"注意：先選擇計時器模式，再修改鈴響次數"}),x.jsxs("div",{className:"ring-times-button-group",children:[x.jsx(xr,{variant:"outlined",color:"secondary",className:"ring-times-button",disabled:e.ringTimes<=1,onClick:t(e.ringTimes-1),children:"-"}),x.jsx("div",{className:"info-ring-times",children:e.ringTimes}),x.jsx(xr,{variant:"outlined",color:"secondary",className:"ring-times-button",disabled:e.ringTimes>=5,onClick:t(e.ringTimes+1),children:"+"})]}),x.jsx("div",{className:"setting-title",children:"使用模板"}),x.jsx("div",{className:"template-button-group",children:rL.map(r=>x.jsx(xr,{variant:"outlined",color:"secondary",className:"template-button",onClick:n(r),children:r.name},r.name))})]})},UL=Oe`
   padding-top: 16px;
+  box-sizing: border-box;
   
   .setting-title {
     margin-bottom: 10px;
@@ -997,10 +999,10 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   }
 
   .timer-item {
-    padding: 0px 16px;
-    box-sizing: border-box;
+    /* padding: 0px 16px;s */
 
     &-name {
+      width: calc(100% - 42px - 42px);
       ${eL(1)}
     }
     
