@@ -11,6 +11,7 @@ import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
 import useTimers from 'context/Timers/useTimers';
+import HeadTags from 'components/HeadTags';
 
 const Timer = () => {
   const [innerHeight] = useInnerHeight();
@@ -31,6 +32,7 @@ const Timer = () => {
   }, [id, timers]);
 
   return <Layout mainClassName={cx('DT-Timer', style(innerHeight))}>
+    <HeadTags />
     {creator[timer.mode]}
   </Layout>;
 };
