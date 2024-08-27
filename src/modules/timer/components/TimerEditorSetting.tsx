@@ -52,7 +52,7 @@ const TimerEditorSetting = (props: Props) => {
       <div className="setting-title">使用模板</div>
       <div className='template-button-group'>
         {TEMPLATE_TIMERS.map((item) => (
-          <Button variant='outlined' color="secondary" className='template-button' onClick={handleUseTemplateTimer(item)}>
+          <Button key={item.name} variant='outlined' color="secondary" className='template-button' onClick={handleUseTemplateTimer(item)}>
             {item.name}
           </Button>
         ))}
@@ -84,6 +84,7 @@ const style = css`
   }
   
   .setting-subtitle {
+    margin-top: -10px;
     margin-bottom: 10px;
     font-size: 16px;
     color: ${styleSettingColor.text.secondary};

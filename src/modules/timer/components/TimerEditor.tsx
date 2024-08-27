@@ -105,6 +105,11 @@ const TimerEditor = (props: Props) => {
     })
   };
 
+  const handleOpenSettingWithTraking = () => {
+    handleOpenSetting();
+    ServiceGA4.event(GA_EVENT.DT_TimersEditor_Button_Settting);
+  }
+
   const handleUseTemplateTimer = (timer: Timer) => {
     columnName.onChange(timer.name);
     columnMode.onChange(timer.mode);
@@ -210,7 +215,7 @@ const TimerEditor = (props: Props) => {
       ...GA_EVENT.DT_TimersEditor_Button_Submit,
       label: `DT_TimersEditor_Button_Submit${props.timer?.id ? '_Edit' : '_Add'}`
     };
-    ServiceGA4.event(newGaEvent);  
+    ServiceGA4.event(newGaEvent);
   }
 
   // 依照 columnMode，決定 ringTimes
@@ -246,7 +251,7 @@ const TimerEditor = (props: Props) => {
   return <div className={cx('DT-TimerEditor', style)}>
     <div className='drawer-header'>
       <div className='drawer-title'>{!props.timer.id ? `新增計時器` : `編輯計時器`}</div>
-      <IconButton className='drawer-title-button' onClick={handleOpenSetting}>
+      <IconButton className='drawer-title-button' onClick={handleOpenSettingWithTraking}>
         <Gear size={28}/>
       </IconButton>
     </div>

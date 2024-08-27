@@ -33,8 +33,13 @@ const GA_EVENT_STRING = {
   },
   "DT_TimersEditor_Button_Submit": {
     "category": "TimerEditor",
-    "action": "click",
+    "action": "submit",
     "label": "DT_TimersEditor_Button_Submit"
+  },
+  "DT_TimersEditor_Button_Settting": {
+    "category": "TimerEditor",
+    "action": "click",
+    "label": "DT_TimersEditor_Button_Settting"
   }
 };
 export default GA_EVENT_STRING;

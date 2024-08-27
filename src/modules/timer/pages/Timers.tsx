@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus } from '@phosphor-icons/react';
-import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
+import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction, Button } from '@mui/material';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
@@ -89,6 +89,10 @@ const Timers = () => {
   >
     <HeadTags titleWithPrefixBrand='自定計時器' />
     <List disablePadding>
+      {timers.length === 0 && <div className="timers-empty-box">
+        <div>尚無計時器</div>
+        <Button variant="outlined" className="add-button" onClick={handleOpenEditor()}>新增計時器</Button>
+      </div>}
       {timers.map((item) => <ListItem key={item.id} disablePadding>
         <ListItemButton 
           component={Link} 
@@ -120,6 +124,19 @@ const style = css`
   color: ${styleSettingColor.text.secondary};
   font-size: 22px;
   
+  .timers-empty-box {
+    padding: 8px 16px;
+    padding-top: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 18px;
+
+    .add-button {
+      margin-top: 10px;
+      font-size: 20px;
+    }
+  }
+
   a {
     color: ${styleSettingColor.text.secondary};
   }
