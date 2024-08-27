@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.8] - 2024-08-28
+
+### Fixed
+- 計時器編輯器 > 按照所設「響鈴次數」，正確顯示所有「響鈴時間點欄位」
+
 ## [1.0.0-beta.7] - 2024-08-28
 
 ### Fixed
