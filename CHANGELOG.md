@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-beta.10] - 2024-08-28
 
+### Changed
+- 計時器編輯器 > 將「鈴響次數設定」移至「響鈴時間點欄位」下方
+- GA4
+
+## [1.0.0-beta.10] - 2024-08-28
+
 ### Fixed
 - 計時器編輯器 > 視窗高度不足時，彈窗自動出現捲軸
 

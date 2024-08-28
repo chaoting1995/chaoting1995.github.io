@@ -12,10 +12,27 @@ export const pageView = (path: string) => {
   return ReactGA.send({ hitType: 'pageview', page: path });
 };
 
-// custom event with label being an optional parameter
-export const event = (param: string) => ReactGA.event(param);
+type Param = {
+  category: string;
+  action: string;
+  label: string;
+};
 
-export const GA_EVENT = JSON.parse(JSON.stringify(ga4EventConfig));
+// custom event with label being an optional parameter
+export const event = (param: Param) => ReactGA.event(
+  param.label,
+  {
+  category: param.category,
+  action: param.action,
+  label: param.label,
+  params: {
+    header_type: param.category,
+    button_name: param.label
+  }
+});
+
+type GA4EventConfigKeys = keyof typeof ga4EventConfig;
+export const GA_EVENT: Record<GA4EventConfigKeys, Param> = ga4EventConfig;
 // demo: ServiceGA4.event(GA_EVENT.Clint_UserNftList_Click);
 
 const ServiceGA4 = {
