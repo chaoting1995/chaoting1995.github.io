@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, useSearchParams } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
 import routes from 'routes';
@@ -12,7 +12,9 @@ import { theme } from 'styles/muiTheme';
 import { isDev } from "env/env";
 
 function App() {
-  if (!isDev) ServiceGA4.init();
+  const [searchParams] = useSearchParams();
+
+  if (!isDev || !searchParams.get('avoidGA')) ServiceGA4.init();
   window.onpageshow = function (event) {
     if (event.persisted) window.location.reload();
   };
