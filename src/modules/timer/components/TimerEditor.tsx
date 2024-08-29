@@ -132,6 +132,7 @@ const TimerEditor = (props: Props) => {
           return createRingItemWithStatus(ringItem);
         })
     );
+    setRingTimes(ringTimesByColumnMode[timer.mode]);
     handleCloseSetting();
   }, [columnMode, columnName, handleCloseSetting]);
 
@@ -223,7 +224,7 @@ const TimerEditor = (props: Props) => {
     if (!customVarifyRing()) isValid = false;
     if (!isValid) return;
 
-    // formTimer 物件，轉換乘 timer 物件
+    // formTimer 物件，轉換成 timer 物件
     const newTimer: Timer = {
       id: props.timer?.id || `debate-timer-${uuidv4()}`,
       name: columnName.value,
