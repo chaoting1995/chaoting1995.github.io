@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { css, cx } from "@emotion/css";
-import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from "@mui/material";
-import { styleSettingColor } from "styles/variables.style";
+import { useNavigate } from 'react-router-dom';
+import { css, cx } from '@emotion/css';
+import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
+
+import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 
 export type SidebarMenuItem = {
   label: string;
@@ -19,8 +20,8 @@ type Props = {
 
 const SidebarMenu = (props: Props) => {
   const navigate = useNavigate();
-  const redirectWithAnchor = (link: string, target: string = "_self") => {
-    const anchor = document.createElement("a");
+  const redirectWithAnchor = (link: string, target: string = '_self') => {
+    const anchor = document.createElement('a');
     anchor.href = link;
     anchor.target = target;
     anchor.click();
@@ -35,7 +36,7 @@ const SidebarMenu = (props: Props) => {
       if(!isBlank) {
         redirectWithAnchor(link)
       } else {
-        redirectWithAnchor(link, "_blank");
+        redirectWithAnchor(link, '_blank');
       }
     }
 
@@ -43,7 +44,7 @@ const SidebarMenu = (props: Props) => {
   };
 
   return (
-    <List className={cx("SidebarMenu", style, props.className)}>
+    <List className={cx('SidebarMenu', style, props.className)}>
       {props.list.map((item) => (
         <ListItem key={item.label} disablePadding>
           <ListItemButton onClick={handleToPage(item.path, item.link, item.isBlank)}>
@@ -52,11 +53,7 @@ const SidebarMenu = (props: Props) => {
           </ListItemButton>
         </ListItem>
       ))}
-      <ListItem className="version-info">
-        辯論計時小幫手2.0<br/>
-        辯論計時小幫手的致敬之作
-      </ListItem>
-      <ListItem className="version-info">v{process.env.VERSION}</ListItem>
+      <ListItem className='version-info'>v{process.env.VERSION}</ListItem>
     </List>
   );
 };
@@ -74,21 +71,21 @@ const style = css`
     box-sizing: border-box;
   }
 
-  .version-info {
-    margin-top: auto;
-  }
-
   .MuiListItemIcon-root {
     font-size: 20px;
     min-width: 30px;
-    color: ${styleSettingColor.primary};
+    color: ${styleSettingColor.text.secondary}
   }
 
   .MuiTypography-root {
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .version-info {
+    color: ${styleSettingColor.disabled};
+    position: absolute;
+    bottom: ${styleSettingHeight.header};
   }
 `;
 
 export default SidebarMenu;
-
-// TODO: Shouldn't use js to handle a link function, should use Component <Link> & element <a> for SEO

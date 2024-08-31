@@ -1,5 +1,5 @@
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
-import { Timer } from 'resources/timer.type';
+import { Timer } from 'modules/timer/resources/timer.type';
 
 export const LOCALSTORAGE_KEY_TIMERS = 'DT_LOCALSTORAGE_KEY_TIMERS';
 

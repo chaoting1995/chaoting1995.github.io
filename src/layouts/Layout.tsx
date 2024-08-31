@@ -4,7 +4,6 @@ import { css, cx } from "@emotion/css";
 import { breakpoints, styleSettingColor, styleSettingHeight } from "styles/variables.style";
 import useScrollHandler from "hooks/useScrollHandler";
 import useInnerHeight from "hooks/useInnerHeight";
-
 import Header from "layouts/components/Header";
 
 type Props = {
@@ -12,6 +11,7 @@ type Props = {
   mainClassName?: string;
   layoutClassName?: string;
   renderButtons?: React.ReactNode;
+  title?: string;
 };
 
 const Layout = (props: Props) => {
@@ -20,7 +20,7 @@ const Layout = (props: Props) => {
 
   return (
     <div className={cx("DD-Layout", style(innerHeight), props.layoutClassName)}>
-      <Header renderButtons={props.renderButtons}/>
+      <Header renderButtons={props.renderButtons} title={props.title} />
       <main id="websiteTop" className={props.mainClassName}>
         {props.children}
       </main>

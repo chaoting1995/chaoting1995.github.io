@@ -1,16 +1,19 @@
-// import { CallBell } from "@phosphor-icons/react";
+import { Timer, ChatsCircle } from '@phosphor-icons/react';
 
-// import ServiceFormat from "services/format.service";
-
-// import { PAGE_LINKS } from "routes/constants";
-import { SidebarMenuItem } from "layouts/components/Sidebar/components/SidebarMenu/SidebarMenu";
+import { pageLinks, PAGE_TITLE } from 'routes/constants';
+import { SidebarMenuItem } from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
 
 const menu: Array<SidebarMenuItem> = [
-  // {
-  //   label: ServiceFormat.toUppercaseFirstLetter(PAGE_LINKS.timer),
-  //   path: PAGE_LINKS.timer,
-  //   icon: <CallBell />,
-  // },
+  {
+    label: PAGE_TITLE.timer,
+    path: pageLinks.timer,
+    icon: <Timer />,
+  },
+  {
+    label: PAGE_TITLE.topicCreator,
+    path: pageLinks.topicCreator,
+    icon: <ChatsCircle />,
+  },
 ];
 
 export default menu;

@@ -1,39 +1,43 @@
-import React from "react";
-import { Navigate , RouteObject } from "react-router-dom";
+import React from 'react';
+import { Navigate , RouteObject } from 'react-router-dom';
 
-import Timers from "modules/timer/pages/Timers";
-import Timer from "modules/timer/pages/Timer";
-import NotFound from "pages/NotFound";
-import { PAGE_LINKS } from "routes/constants";
-// import Maintenance = from /"pages/Maintenance/Maintenance";
+import { Timers, Timer } from 'modules/timer';
+import { TopicCreator } from 'modules/topic';
+import NotFound from 'pages/NotFound';
+import { PAGE_LINK } from 'routes/constants';
+// import Maintenance = from /'pages/Maintenance/Maintenance';
 
 const routes: Array<RouteObject> = [
   {
     index: true,
-    element: <Navigate to={PAGE_LINKS.timer} replace />
+    element: <Navigate to={PAGE_LINK.timer} replace />
   },
   {
-    path: "",
+    path: '',
     element: <Timer />,
   },
   {
-    path: PAGE_LINKS.timer,
+    path: PAGE_LINK.timer,
     element: <Timer />,
   },
   {
-    path: PAGE_LINKS.timerID,
+    path: PAGE_LINK.timerID,
     element: <Timer />,
   },
   {
-    path: PAGE_LINKS.timers,
+    path: PAGE_LINK.timers,
     element: <Timers />,
   },
+  {
+    path: PAGE_LINK.topicCreator,
+    element: <TopicCreator />,
+  },
   // {
-  //   path: "",
+  //   path: '',
   //   element: <Maintenance />,
   // },
   {
-    path: "*",
+    path: '*',
     element: <NotFound />
   }
 ];

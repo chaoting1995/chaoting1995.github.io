@@ -27,7 +27,7 @@ const TimerController = (props: Props) => {
     props.onReset();
   };
 
-  return <div className={cx('DT-TimerController', props.className, style())}>
+  return <div className={cx('DT-TimerController', props.className, style)}>
     <CircleButton onClick={onTrigger}>
       {props.isRunning 
         ? <Pause size={40} /> 
@@ -45,7 +45,7 @@ const TimerController = (props: Props) => {
 
 export default TimerController;
 
-const style = () => css`
+const style = css`
   display: flex;
   justify-content: center;
   gap: 20px;

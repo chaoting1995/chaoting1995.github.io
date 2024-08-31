@@ -3,8 +3,8 @@ import { css, cx } from '@emotion/css';
 import { Button } from '@mui/material';
 
 import { styleSettingColor } from 'styles/variables.style';
-import { TEMPLATE_TIMERS } from 'resources/timer.constant';
-import { Timer } from 'resources/timer.type';
+import { TEMPLATE_TIMERS } from 'modules/timer/resources/timer.constant';
+import { Timer } from 'modules/timer/resources/timer.type';
 
 type Props = {
   className?: string;

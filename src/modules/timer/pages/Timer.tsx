@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 
 import Layout from 'layouts/Layout';
-import { DEFAULT_TIMER } from 'resources/timer.constant';
-import { Timer as TypeTimer } from 'resources/timer.type';
+import { DEFAULT_TIMER } from 'modules/timer/resources/timer.constant';
+import { Timer as TypeTimer } from 'modules/timer/resources/timer.type';
 import TimerModeNormal from 'modules/timer/components/TimerModeNormal';
 import TimerModeCrossfire from 'modules/timer/components/TimerModeCrossfire';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
@@ -12,8 +12,9 @@ import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
 import useTimers from 'context/Timers/useTimers';
 import HeadTags from 'components/HeadTags';
+import { PAGE_TITLE } from "routes/constants";
 
-const Timer = () => {
+const Timer: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
   const { timers } = useTimers();
@@ -31,8 +32,8 @@ const Timer = () => {
     setTimer(currentTimer);
   }, [id, timers]);
 
-  return <Layout mainClassName={cx('DT-Timer', style(innerHeight))}>
-    <HeadTags />
+  return <Layout title={PAGE_TITLE.timer} mainClassName={cx('DT-Timer', style(innerHeight))}>
+    <HeadTags title={PAGE_TITLE.timer} />
     {creator[timer.mode]}
   </Layout>;
 };

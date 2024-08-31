@@ -1,5 +1,5 @@
 import React from "react";
-import { Timer } from 'resources/timer.type';
+import { Timer } from 'modules/timer/resources/timer.type';
 
 export type TimersContextType = {
   timers: Timer[];

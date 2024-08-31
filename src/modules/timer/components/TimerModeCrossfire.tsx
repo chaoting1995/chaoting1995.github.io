@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import { Timer } from 'resources/timer.type';
+import { Timer } from 'modules/timer/resources/timer.type';
 import TimerMoniteor from 'modules/timer/components/TimerMoniteor';
 import TimerSlider from 'modules/timer/components/TimerSlider';
 import TimerDescription from 'modules/timer/components/TimerDescription';
@@ -9,7 +9,7 @@ import TimerController from 'modules/timer/components/TimerController';
 import TimerToggleController from 'modules/timer/components/TimerToggleController';
 import useAutoRing from 'hooks/useAutoRing';
 import useTimer, { UseTimer } from 'modules/timer/hooks/useTimer';
-import { EnumSide } from 'modules/timer/enums/enumSide';
+import { EnumSide } from 'enums/enumSide';
 import usePopup from 'context/Popup/usePopup';
 import UtilAudio from 'utils/audio';
 
@@ -87,7 +87,7 @@ const TimerModeCrossfire = (props: Props) => {
     }
   }, [currentSide, creator, handleStart, otherSide, timerSeconds]);
 
-  return <div className={cx('DT-TimerModeCrossfire', style(), props.className)}>
+  return <div className={cx('DT-TimerModeCrossfire', style, props.className)}>
     <div>
       <TimerMoniteor milliseconds={positiveSide.currentMilliseconds} />
       <TimerMoniteor milliseconds={negativeSide.currentMilliseconds} />
@@ -119,7 +119,7 @@ const TimerModeCrossfire = (props: Props) => {
 
 export default TimerModeCrossfire;
 
-const style = () => css`
+const style = css`
   .bottom-section {
     width: 100%;
   }

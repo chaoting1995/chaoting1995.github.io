@@ -14,7 +14,7 @@ import {
 import { SelectChangeEvent } from '@mui/material/Select';
 
 import { v4 as uuidv4 } from 'uuid';
-import { Timer } from 'resources/timer.type';
+import { Timer } from 'modules/timer/resources/timer.type';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
 import { Status, STATUS_LOADED, STATUS_ERROR } from 'modules/form/form';

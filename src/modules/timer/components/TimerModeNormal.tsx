@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import { Timer } from 'resources/timer.type';
+import { Timer } from 'modules/timer/resources/timer.type';
 import TimerMonitor from 'modules/timer/components/TimerMoniteor';
 import TimerSlider from 'modules/timer/components/TimerSlider';
 import TimerDescription from 'modules/timer/components/TimerDescription';
@@ -34,7 +34,7 @@ const TimerModeNormal = (props: Props) => {
     onStart();
   }, [currentMilliseconds, currentSeconds, onStart, popup, timerSeconds])
 
-  return <div className={cx('DT-TimerModeNormal', style(), props.className)}>
+  return <div className={cx('DT-TimerModeNormal', style, props.className)}>
     <TimerMonitor milliseconds={currentMilliseconds} />
     <div className='bottom-section'>
       <TimerSlider 
@@ -56,7 +56,7 @@ const TimerModeNormal = (props: Props) => {
 
 export default TimerModeNormal;
 
-const style = () => css`
+const style = css`
   .bottom-section {
     width: 100%;
   }

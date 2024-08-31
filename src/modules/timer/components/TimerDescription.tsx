@@ -3,7 +3,7 @@ import { css, cx } from '@emotion/css';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { styleSettingColor } from 'styles/variables.style';
-import { Timer } from 'resources/timer.type';
+import { Timer } from 'modules/timer/resources/timer.type';
 
 dayjs.extend(duration);
 
@@ -20,7 +20,7 @@ const TimerDescription = (props: Props) => {
     );
   };
 
-  return <div className={cx('DT-TimerDescription', style())}>
+  return <div className={cx('DT-TimerDescription', style)}>
     <div className='info-name'>{props.timer.name}</div>
     <div>
       {props.timer.ring.map((item, index) => <div key={index} className='info-ring-time'>
@@ -34,10 +34,10 @@ const TimerDescription = (props: Props) => {
 
 export default TimerDescription;
 
-const style = () => css`
+const style = css`
   margin-bottom: 16px;
   width: 100%;
-  padding: 16px 16px;
+  padding: 16px;
   padding-top: 10px;
   box-sizing: border-box;
   background-color: ${styleSettingColor.background.light};

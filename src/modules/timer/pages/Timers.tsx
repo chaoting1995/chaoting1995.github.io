@@ -1,27 +1,26 @@
 
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction, Button } from '@mui/material';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
-import { pageLinks } from 'routes/constants';
+import { PAGE_TITLE, pageLinks } from 'routes/constants';
 import useTimers from 'context/Timers/useTimers';
-import { Timer } from 'resources/timer.type';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
-import { EMPTY_TIMER } from 'resources/timer.constant';
+import { Timer } from 'modules/timer/resources/timer.type';
+import { EMPTY_TIMER } from 'modules/timer/resources/timer.constant';
+import Layout from 'layouts/Layout';
+import HeadTags from 'components/HeadTags';
+import BottomDrawer from 'components/BottomDrawer';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
-import Layout from 'layouts/Layout';
-import BottomDrawer from 'components/BottomDrawer';
 import TimerEditor from 'modules/timer/components/TimerEditor';
-import HeadTags from 'components/HeadTags';
 
-const Timers = () => {
-  const location = useLocation();
+const Timers: React.FC = () => {
   const popup = usePopup();
   const [open, handleOpen, handleClose] = useDialog(false);
   const { timers, addTimer, editTimer, deleteTimer } = useTimers();
@@ -81,13 +80,13 @@ const Timers = () => {
 
   return <Layout
     mainClassName={cx('DT-Timers', style)}
-    renderButtons={[pageLinks.timers].includes(location.pathname) ? <>
+    title={PAGE_TITLE.timers}
+    renderButtons={
       <IconButton onClick={handleOpenEditor()}>
         <Plus size={28} />
       </IconButton>
-    </> : <></>}
-  >
-    <HeadTags titleWithPrefixBrand='自定計時器' />
+  }>
+    <HeadTags title={`${PAGE_TITLE.timer} | ${PAGE_TITLE.timers}`} />
     <List disablePadding>
       {timers.length === 0 && <div className="timers-empty-box">
         <div>尚無計時器</div>
@@ -154,8 +153,6 @@ const style = css`
   }
 
   .timer-item {
-    /* padding: 0px 16px;s */
-
     &-name {
       width: calc(100% - 42px - 42px);
       ${styleLineEllipsis(1)}

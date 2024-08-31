@@ -1,11 +1,11 @@
-import React from "react";
-import { css, cx } from "@emotion/css";
-import { SwipeableDrawer } from "@mui/material";
+import React from 'react';
+import { css, cx } from '@emotion/css';
+import { SwipeableDrawer } from '@mui/material';
 
-import basicStyle from "styles/basic.style";
-import { styleSettingColor, styleSettingHeight, styleSettingZIndex } from "styles/variables.style";
-import SidebarMenu from "layouts/components/Sidebar/components/SidebarMenu/SidebarMenu";
-import menu from "layouts/components/Sidebar/menu";
+import basicStyle from 'styles/basic.style';
+import { styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
+import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
+import menu from 'layouts/components/Sidebar/menu';
 
 type Props = {
   className?: string;
@@ -17,8 +17,8 @@ type Props = {
 const Sidebar = (props: Props) => {
   return (
     <SwipeableDrawer
-      className={cx("DD-Sidebar", style, props.className)}
-      anchor="right"
+      className={cx('DD-Sidebar', style, props.className)}
+      anchor='right'
       open={props.open}
       onClose={props.onClose}
       onOpen={props.onOpen}>

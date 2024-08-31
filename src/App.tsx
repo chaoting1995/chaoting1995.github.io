@@ -9,12 +9,12 @@ import TimersProvider from 'context/Timers/Timers.provider';
 import ServiceGA4 from 'modules/ga4/services/ga4.service';
 import { HelmetProvider } from 'react-helmet-async';
 import { theme } from 'styles/muiTheme';
-import { isDev } from "env/env";
+import { isDev } from 'env/env';
 
 function App() {
   const [searchParams] = useSearchParams();
 
-  if (!isDev || !searchParams.get('avoidGA')) ServiceGA4.init();
+  if (!isDev && !searchParams.get('avoidGA')) ServiceGA4.init();
   window.onpageshow = function (event) {
     if (event.persisted) window.location.reload();
   };

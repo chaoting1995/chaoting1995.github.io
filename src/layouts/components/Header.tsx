@@ -18,6 +18,7 @@ import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   renderButtons?: React.ReactNode;
+  title?: string;
 };
 
 const Header = (props: Props) => {
@@ -43,11 +44,8 @@ const Header = (props: Props) => {
               <Logo />
             </div>
             <div>
-            {[pageLinks.timers].includes(location.pathname) ? <>
-              自訂計時器
-            </> : <>
-              辯論計時小幫手 2.0
-            </>}</div>
+              {!props.title ? '辯論計時小幫手 2.0' : props.title}
+            </div>
             {isDev && <div className='header-testnet-tag'>TEST</div>}
           </div>
           <div className='header-button-group'>
@@ -99,7 +97,7 @@ const style = (_isTop: boolean) => css`
       height: 100%;
       display: flex;
       align-items: center;
-      font-size: 20px;
+      font-size: 22px;
 
       .header-to-home {
         margin-right: auto; 
