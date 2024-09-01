@@ -33,7 +33,7 @@ const ErrorMessage = (props: PropsComponentErrorMessage) => {
     </div>
     <div className="dd-error-message-button-box">
       {props.onRetry &&
-        <Button className="dd-primary-button" variant="contained" disabled={props.disabled} onClick={props.onRetry} >
+        <Button variant="contained" disabled={props.disabled} onClick={props.onRetry} >
           {props.buttonRetryLabel || "Retry"}
         </Button>}
       {props.renderButton && props.renderButton()}

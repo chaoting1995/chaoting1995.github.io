@@ -40,15 +40,11 @@ const TopicModeCombined = (props: Props) => {
   return (
     <div className={cx('DT-TopicModeCombined', style, props.className)}>
       <div className='top-section'>
-        <TopicBox className='combined-topic'>
-          {slotMachineTopicA.topic.name}
-        </TopicBox>
+        <TopicBox className='combined-topic'>{slotMachineTopicA.topic.name}</TopicBox>
         <TopicBox className='combined-topic-middle' onClick={handleChange(switchMiddleItem[currentMiddleItem])}>
           {middleItemWoding[currentMiddleItem]}
         </TopicBox>
-        <TopicBox className='combined-topic'>
-          {slotMachineTopicB.topic.name}
-        </TopicBox>
+        <TopicBox className='combined-topic'>{slotMachineTopicB.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         {props.renderSection}

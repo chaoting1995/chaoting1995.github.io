@@ -9,7 +9,7 @@ import TimerController from 'modules/timer/components/TimerController';
 import TimerToggleController from 'modules/timer/components/TimerToggleController';
 import useAutoRing from 'hooks/useAutoRing';
 import useTimer, { UseTimer } from 'modules/timer/hooks/useTimer';
-import { EnumSide } from 'enums/enumSide';
+import { EnumSide } from 'modules/side/enums/enumSide';
 import usePopup from 'context/Popup/usePopup';
 import UtilAudio from 'utils/audio';
 

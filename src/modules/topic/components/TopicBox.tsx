@@ -1,14 +1,15 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { CardActionArea } from "@mui/material";
+import { CardActionArea } from '@mui/material';
 
-import { styleSettingColor } from "styles/variables.style";
+import { styleSettingColor } from 'styles/variables.style';
 
 type Props = {
   className?: string;
   children?: React.ReactNode;
   onClick?: () => void;
 }
+
 
 const TopicBox: React.FC<Props> = (props) => {
   return (

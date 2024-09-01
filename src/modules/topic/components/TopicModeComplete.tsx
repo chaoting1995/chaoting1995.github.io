@@ -17,9 +17,7 @@ const TopicModeComplete = (props: Props) => {
   return (
     <div className={cx('DT-TopicModeComplete', style, props.className)}>
       <div className='top-section'>
-        <TopicBox className='complete-topic'>
-          {slotMachine.topic.name}
-        </TopicBox>
+        <TopicBox className='complete-topic'>{slotMachine.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         {props.renderSection}

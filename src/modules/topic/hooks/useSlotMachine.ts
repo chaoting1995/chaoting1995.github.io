@@ -16,7 +16,9 @@ const useSlotMachine = (topics: Topic[]): UseSlotMachine => {
   const onSpin = (excludeTopic?: Topic) => {
     const newTopics = topics.filter(item => excludeTopic ? item.id !== excludeTopic.id : item);
     const chosenTopic = newTopics[Math.floor(Math.random() * topics.length)];
+
     setIsSpinning(true);
+
     setTimeout(() => {
       setIsSpinning(false);
       setTopic(chosenTopic);

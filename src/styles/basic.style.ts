@@ -139,7 +139,6 @@ const basicStyle = css`
     border-radius: 4px;
   }
 
-  ${styleButton}
   ${styleInput}
   ${stylePage}
   ${styleCard}
