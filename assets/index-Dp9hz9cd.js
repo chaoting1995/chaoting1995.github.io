@@ -1088,7 +1088,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   .bottom-section {
     width: 100%;
   }
-`,Pb=g.createContext({}),Om=()=>{const e=g.useContext(Pb);if(!e)throw new Error("useTopicMode must be used within a TopicModeProvider");return e},vF=()=>{const[e]=bl(),{topicMode:t}=Om(),n={[pn.Complete]:x.jsx(dF,{className:"topic-mode"}),[pn.Combined]:x.jsx(hF,{className:"topic-mode"})};return x.jsxs(km,{title:Jn.topicCreator,mainClassName:$e("DT-TopicCreator",yF(e)),children:[x.jsx(Tm,{title:Jn.topicCreator,description:"瓦力2號2011 是哲耀學長發明的紙牌遊戲，用於辯論的鍛鍊。玩家可以在隨機配對的辯題中，大量練習不同的辯題。"}),n[t]]})},yF=e=>ge`
+`,Pb=g.createContext({}),Om=()=>{const e=g.useContext(Pb);if(!e)throw new Error("useTopicMode must be used within a TopicModeProvider");return e},vF=()=>{const[e]=bl(),{topicMode:t}=Om(),n={[pn.Complete]:x.jsx(dF,{className:"topic-mode"}),[pn.Combined]:x.jsx(hF,{className:"topic-mode"})};return x.jsxs(km,{title:Jn.topicCreator,mainClassName:$e("DT-TopicCreator",yF(e)),children:[x.jsx(Tm,{title:Jn.topicCreator,description:"「瓦力2號」，又名「瓦力二號」、「瓦力2號2011」，是哲耀學長發明的紙牌遊戲，用於辯論的鍛鍊。玩家可以在隨機配對的辯題中，大量練習不同的辯題。"}),n[t]]})},yF=e=>ge`
   background-color: ${re.background.default};
   color: ${re.text.primary};
 
