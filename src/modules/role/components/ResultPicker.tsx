@@ -27,9 +27,6 @@ const ResultPicker = (props: Props) => {
     });
   };
 
-  React.useEffect(() => {
-    console.log({startJudge})
-  }, [startJudge])
   return (
     <div className={cx('DT-ResultPicker', props.className, style, { 'selected': !!startJudge })}>
       <div className='result-picker-title'>{!side ? '判決' : '勝方'}</div>

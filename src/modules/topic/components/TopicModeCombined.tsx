@@ -26,7 +26,6 @@ const TopicModeCombined = (props: Props) => {
   const slotMachineTopicB = useSlotMachine(DEFAULT_TOPIC_COMBINED, 1);
 
   const handleChange = (middleItem: EnumMiddleItem) => () => {
-    console.log('middleItem', middleItem);
     setCurrentMiddleItem(middleItem);
   };
 

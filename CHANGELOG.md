@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0-beta.??] - 2024-??-??
 
 ### Fixed
-- 瓦力二號
+- 修復：判決器 bug
 
 ## [1.0.0-beta.15] - 2024-09-02
 - 增補 head tags
