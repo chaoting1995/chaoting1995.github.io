@@ -6,7 +6,6 @@ import {
   bounceInDown,
 } from 'react-animations';
 
-import { styleButton } from 'styles/button.style';
 import { stylePage } from 'styles/page.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleCard } from 'styles/card.style';

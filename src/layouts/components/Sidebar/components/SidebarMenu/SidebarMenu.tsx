@@ -3,7 +3,7 @@ import { css, cx } from '@emotion/css';
 import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
 
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
-import TestTag from "components/testTag";
+import TestTag from "components/TestTag";
 
 export type SidebarMenuItem = {
   label: string;
