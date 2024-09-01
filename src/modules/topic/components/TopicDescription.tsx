@@ -34,27 +34,8 @@ const style = css`
   display: flex;
   justify-content: flex-start;
 
-  .label-topic-mode,
-  .MuiInput-root {
+  .label-topic-mode {
     font-size: 20px;
     color: ${styleSettingColor.text.primary};
   }
-  
-  .label-topic-mode {
-    padding: 4px 0 5px;
-    box-sizing: border-box;
-  }
-
-  .MuiSvgIcon-root {
-    color: ${styleSettingColor.text.primary};
-  }
-  
-  .MuiInput-root::before {
-    content: unset;
-  }
-
-  .MuiInput-root:hover:not(.Mui-disabled, .Mui-error)::before {
-    border-bottom: 2px solid ${styleSettingColor.text.primary};
-  }
-
 `;
