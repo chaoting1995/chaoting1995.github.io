@@ -9,40 +9,20 @@ import { PAGE_TITLE } from 'routes/constants';
 import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
 import TopicModeComplete from 'modules/topic/components/TopicModeComplete';
 import TopicModeCombined from 'modules/topic/components/TopicModeCombined';
-import TopicDescription from 'modules/topic/components/TopicDescription';
+import useTopicMode from 'modules/topic/context/TopicMode/useTopicMode';
 
 const TopicCreator: React.FC = () => {
   const [innerHeight] = useInnerHeight();
-  const [currentTopicMode, setCurrentTopicMode] = React.useState(EnumTopicMode.Complete);
-
-  const handleChangeTopicMode = React.useCallback((topicMode: EnumTopicMode) => {
-    setCurrentTopicMode(topicMode);
-  }, []);
+  const { topicMode } = useTopicMode();
 
   const topicCreator: Record<EnumTopicMode, React.ReactNode> = {
-    [EnumTopicMode.Complete]: <TopicModeComplete
-      className='topic-mode' 
-      renderSection={
-        <TopicDescription 
-          topicMode={currentTopicMode} 
-          onChangeTopicMode={handleChangeTopicMode}
-        />
-      }
-    />,
-    [EnumTopicMode.Combined]: <TopicModeCombined 
-      className='topic-mode'
-      renderSection={
-        <TopicDescription 
-          topicMode={currentTopicMode} 
-          onChangeTopicMode={handleChangeTopicMode}
-        />
-      }
-    />
+    [EnumTopicMode.Complete]: <TopicModeComplete className='topic-mode' />,
+    [EnumTopicMode.Combined]: <TopicModeCombined className='topic-mode' />
   }
 
   return <Layout title={PAGE_TITLE.topicCreator} mainClassName={cx('DT-TopicCreator', style(innerHeight))}>
-    <HeadTags title={PAGE_TITLE.topicCreator} />
-    {topicCreator[currentTopicMode]}
+    <HeadTags title={PAGE_TITLE.topicCreator} description='瓦力2號2011 是哲耀學長發明的紙牌遊戲，用於辯論的鍛鍊。玩家可以在隨機配對的辯題中，大量練習不同的辯題。' />
+    {topicCreator[topicMode]}
   </Layout>;
 }
 

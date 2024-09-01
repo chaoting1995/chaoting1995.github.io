@@ -10,7 +10,7 @@ import TimerModeCrossfire from 'modules/timer/components/TimerModeCrossfire';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
-import useTimers from 'context/Timers/useTimers';
+import useTimers from 'modules/timer/context/Timers/useTimers';
 import HeadTags from 'components/HeadTags';
 import { PAGE_TITLE } from "routes/constants";
 
@@ -18,7 +18,7 @@ const Timer: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
   const { timers } = useTimers();
-  const [timer, setTimer] = React.useState<TypeTimer>(DEFAULT_TIMER);
+  const [timer, setTimer] = React.useState<TypeTimer>(timers.length === 0 ? DEFAULT_TIMER : timers[0]);
 
   const creator: Record<EnumTimerMode, React.ReactNode> = {
     [EnumTimerMode.Normal]: <TimerModeNormal timer={timer} className='timer-mode' />,
@@ -33,7 +33,7 @@ const Timer: React.FC = () => {
   }, [id, timers]);
 
   return <Layout title={PAGE_TITLE.timer} mainClassName={cx('DT-Timer', style(innerHeight))}>
-    <HeadTags title={PAGE_TITLE.timer} />
+    <HeadTags title={PAGE_TITLE.timerWithVersion} />
     {creator[timer.mode]}
   </Layout>;
 };

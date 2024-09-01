@@ -1,7 +1,7 @@
 {
   "name": "debateTimer",
   "private": true,
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.15",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -24,6 +24,7 @@
     "howler": "^2.2.3",
     "react": "^18.3.1",
     "react-animations": "^1.0.0",
+    "react-canvas-confetti": "^2.0.7",
     "react-dom": "^18.3.1",
     "react-ga4": "^2.1.0",
     "react-helmet": "^6.1.0",

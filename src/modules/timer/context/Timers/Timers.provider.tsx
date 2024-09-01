@@ -1,4 +1,4 @@
-import { TimersContext } from 'context/Timers/Timers.context';
+import { TimersContext } from 'modules/timer/context/Timers/Timers.context';
 import React from 'react';
 import ResourceTimer from 'modules/timer/resources/timer.resource';
 import { Timer } from 'modules/timer/resources/timer.type';

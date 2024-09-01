@@ -11,7 +11,6 @@ import Logo from 'assets/logo.svg?react';
 import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
 import { pageLinks } from 'routes/constants';
 import Sidebar from 'layouts/components/Sidebar/Sidebar';
-import { isDev } from 'env/env';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 // import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
 // import menu from 'layouts/components/Sidebar/menu';
@@ -46,18 +45,17 @@ const Header = (props: Props) => {
             <div>
               {!props.title ? '辯論計時小幫手 2.0' : props.title}
             </div>
-            {isDev && <div className='header-testnet-tag'>TEST</div>}
           </div>
           <div className='header-button-group'>
             {/* <SidebarMenu className='header-menu' list={menu} /> */}
             {![pageLinks.timers].includes(location.pathname) && <>
               <IconButton component={Link} to={pageLinks.timers} onClick={handleTrakingHeaderButtonTimers}>
-                <Alarm size={28} />
+                <Alarm size={28} weight="light"/>
               </IconButton>
             </>}
             {props.renderButtons && props.renderButtons}
             <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawerWithTrakingHeaderButtonMenu}>
-              {openDrawer ? <X size={28}/> : <List size={28}/>}
+              {openDrawer ? <X size={28} weight="light"/> : <List size={28} weight="light"/>}
             </IconButton>
           </div>
         </div>
@@ -96,6 +94,7 @@ const style = (_isTop: boolean) => css`
       max-width: ${breakpoints.sm};
       height: 100%;
       display: flex;
+      /* flex-wrap: wrap; */
       align-items: center;
       font-size: 22px;
 
@@ -123,16 +122,6 @@ const style = (_isTop: boolean) => css`
         }
       }
 
-      .header-testnet-tag {
-        margin-left: 5px;
-        background-color: ${styleSettingColor.warning};
-        color: ${styleSettingColor.text.secondary};
-        border-radius: 5px;
-        padding: 3px 6px;
-        box-sizing: border-box;
-        font-size: 10px;
-      }
-      
       .header-button-group {
         display: flex;
         align-items: center;

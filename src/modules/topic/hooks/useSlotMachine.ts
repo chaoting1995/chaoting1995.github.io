@@ -9,9 +9,15 @@ export type UseSlotMachine = {
   onSpin: (excludeTopic?: Topic) => Topic;
 }
 
-const useSlotMachine = (topics: Topic[]): UseSlotMachine => {
+const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine => {
   const [isSpinning, setIsSpinning] = React.useState(false);
-  const [topic, setTopic] = React.useState<Topic>(topics.length === 0 ? EMPTY_TOPIC : topics[0]);
+  const defaultItem = React.useMemo(() => {
+    if (topics.length === 0) return EMPTY_TOPIC;
+    if (!defaultIndex || !topics[defaultIndex]) return topics[0];
+    return topics[defaultIndex];
+  }, [topics, defaultIndex])
+
+  const [topic, setTopic] = React.useState<Topic>(defaultItem);
 
   const onSpin = (excludeTopic?: Topic) => {
     const newTopics = topics.filter(item => excludeTopic ? item.id !== excludeTopic.id : item);

@@ -3,6 +3,7 @@ import { css, cx } from '@emotion/css';
 import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
 
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
+import TestTag from "components/testTag";
 
 export type SidebarMenuItem = {
   label: string;
@@ -53,7 +54,7 @@ const SidebarMenu = (props: Props) => {
           </ListItemButton>
         </ListItem>
       ))}
-      <ListItem className='version-info'>v{process.env.VERSION}</ListItem>
+      <ListItem className='version-info'>v{process.env.VERSION} <TestTag /></ListItem>
     </List>
   );
 };
@@ -82,7 +83,7 @@ const style = css`
   }
 
   .version-info {
-    color: ${styleSettingColor.disabled};
+    color: ${styleSettingColor.text.gray};
     position: absolute;
     bottom: ${styleSettingHeight.header};
   }

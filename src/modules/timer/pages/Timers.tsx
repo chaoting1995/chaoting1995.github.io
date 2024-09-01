@@ -8,7 +8,7 @@ import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction, Bu
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { PAGE_TITLE, pageLinks } from 'routes/constants';
-import useTimers from 'context/Timers/useTimers';
+import useTimers from 'modules/timer/context/Timers/useTimers';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import { Timer } from 'modules/timer/resources/timer.type';
@@ -83,10 +83,10 @@ const Timers: React.FC = () => {
     title={PAGE_TITLE.timers}
     renderButtons={
       <IconButton onClick={handleOpenEditor()}>
-        <Plus size={28} />
+        <Plus size={28} weight="light"/>
       </IconButton>
   }>
-    <HeadTags title={`${PAGE_TITLE.timer} | ${PAGE_TITLE.timers}`} />
+    <HeadTags title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} />
     <List disablePadding>
       {timers.length === 0 && <div className="timers-empty-box">
         <div>尚無計時器</div>
@@ -102,10 +102,10 @@ const Timers: React.FC = () => {
         </ListItemButton>
         <ListItemSecondaryAction className='timer-item-actions'>
           <IconButton onClick={handleOpenEditor(item.id)}>
-            <PencilSimple size={26} />
+            <PencilSimple size={26} weight="light"/>
           </IconButton>
           <IconButton onClick={handleDelete(item.id)}>
-            <Trash size={26} />
+            <Trash size={26} weight="light" />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>)}

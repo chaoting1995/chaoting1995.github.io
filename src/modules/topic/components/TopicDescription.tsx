@@ -1,52 +1,24 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { MenuItem, TextField } from '@mui/material';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumTopicMode } from "modules/topic/enums/enumTopicMode";
+import useTopicMode from 'modules/topic/context/TopicMode/useTopicMode';
 
-type TopicModeOption = {
-  value: EnumTopicMode;
-  label: string;
-};
-
-const options: TopicModeOption[] = [
-  {
-    value: EnumTopicMode.Complete,
-    label: '完整辯題',
-  },
-  {
-    value: EnumTopicMode.Combined,
-    label: '組合辯題',
-  }
-]
+const topicModeWording: Record<EnumTopicMode, string> = {
+  [EnumTopicMode.Complete]: '完整辯題',
+  [EnumTopicMode.Combined]: '組合辯題',
+}
 
 type Props = {
   className?: string;
-  topicMode: EnumTopicMode;
-  onChangeTopicMode: (topicMode: EnumTopicMode) => void;
 };
 
 const TopicDescription = (props: Props) => {
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
-    props.onChangeTopicMode(event.target.value as EnumTopicMode);
-  };
+  const { topicMode } = useTopicMode();
 
   return <div className={cx('DT-TopicDescription', style, props.className)}>
-    <div className='label-topic-mode'>辯題模式：</div>
-    <TextField
-      select
-      value={props.topicMode}
-      onChange={handleChange}
-      variant="standard"
-    >
-      {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </TextField>
+    <div className='label-topic-mode'>辯題模式：{topicModeWording[topicMode]}</div>
   </div>;
 };
 

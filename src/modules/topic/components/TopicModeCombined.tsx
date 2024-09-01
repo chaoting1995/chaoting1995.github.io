@@ -1,8 +1,7 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import TopicBox from 'modules/topic/components/TopicBox';
-import TopicController from 'modules/topic/components/TopicController';
+import { TopicBox, TopicDescription, TopicController }  from 'modules/topic';
 import { EnumMiddleItem } from 'modules/topic/enums/enumMiddleItem';
 import { DEFAULT_TOPIC_COMBINED } from 'modules/topic/resources/topic.constant';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
@@ -19,13 +18,12 @@ const switchMiddleItem: Record<EnumMiddleItem, EnumMiddleItem> = {
 
 type Props = {
   className?: string;
-  renderSection?: React.ReactNode;
 };
 
 const TopicModeCombined = (props: Props) => {
   const [currentMiddleItem, setCurrentMiddleItem] = React.useState(EnumMiddleItem.Causal);
   const slotMachineTopicA = useSlotMachine(DEFAULT_TOPIC_COMBINED);
-  const slotMachineTopicB = useSlotMachine(DEFAULT_TOPIC_COMBINED);
+  const slotMachineTopicB = useSlotMachine(DEFAULT_TOPIC_COMBINED, 1);
 
   const handleChange = (middleItem: EnumMiddleItem) => () => {
     console.log('middleItem', middleItem);
@@ -47,7 +45,7 @@ const TopicModeCombined = (props: Props) => {
         <TopicBox className='combined-topic'>{slotMachineTopicB.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
-        {props.renderSection}
+        <TopicDescription />
         <TopicController
           onSpin={handleSpin}
           disabledOnSpin={slotMachineTopicA.isSpinning || slotMachineTopicB.isSpinning}

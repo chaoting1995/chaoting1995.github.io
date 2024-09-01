@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import usePopup from "context/Popup/usePopup";
-import { css, cx } from "@emotion/css";
-import { Button } from "@mui/material";
-import { WifiSlash } from "@phosphor-icons/react";
+import usePopup from 'context/Popup/usePopup';
+import { css, cx } from '@emotion/css';
+import { Button } from '@mui/material';
+import { WifiSlash } from '@phosphor-icons/react';
 
-// import ImgError from "assets/img-error.svg?react";
-import { styleSettingZIndex } from "styles/variables.style";
-import basicStyle from "styles/basic.style";
+// import ImgError from 'assets/img-error.svg?react';
+import { styleSettingZIndex } from 'styles/variables.style';
+import basicStyle from 'styles/basic.style';
 
-const offlineTitle = "無網路連線";
-const onlineTitle = "網路連線成功!";
+const offlineTitle = '無網路連線';
+const onlineTitle = '網路連線成功!';
 const OfflineHandle = () => {
   const popup = usePopup();
 
@@ -18,18 +18,18 @@ const OfflineHandle = () => {
 
   const eventHandler = React.useCallback(
     (event: Event) => {
-      const severity = event.type === "offline" ? "error" : "success";
-      const message = severity === "error" ? offlineTitle : onlineTitle;
+      const severity = event.type === 'offline' ? 'error' : 'success';
+      const message = severity === 'error' ? offlineTitle : onlineTitle;
 
       popup.notice(({ message, severity }));
 
-      if (event.type !== "offline") {
-        setIsOffLine(event.type === "offline");
+      if (event.type !== 'offline') {
+        setIsOffLine(event.type === 'offline');
         return;
       }
 
       setTimeout(() => {
-        setIsOffLine(event.type === "offline");
+        setIsOffLine(event.type === 'offline');
       }, 1500);
     },
     [popup]
@@ -40,25 +40,25 @@ const OfflineHandle = () => {
   React.useEffect(() => {
     setIsOffLine(!navigator.onLine);
 
-    window.addEventListener("offline", eventHandler);
-    window.addEventListener("online", eventHandler);
+    window.addEventListener('offline', eventHandler);
+    window.addEventListener('online', eventHandler);
     return () => {
-      window.removeEventListener("offline", eventHandler);
-      window.removeEventListener("online", eventHandler);
+      window.removeEventListener('offline', eventHandler);
+      window.removeEventListener('online', eventHandler);
     };
   }, [eventHandler]);
 
   if (!isOffLine) return <></>;
 
   return (
-    <div className={cx("OfflineHandle", style)}>
-      {/* <div className="img-box">
+    <div className={cx('OfflineHandle', style)}>
+      {/* <div className='img-box'>
         <ImgError />
       </div> */}
-      <WifiSlash size={40}/>
-      <div className="message-error">{offlineTitle}</div>
+      <WifiSlash size={40} />
+      <div className='message-error'>{offlineTitle}</div>
       <br/>
-      <Button variant="outlined" onClick={handleRetry} >重試</Button>
+      <Button variant='outlined' onClick={handleRetry} >重試</Button>
     </div>
   );
 };

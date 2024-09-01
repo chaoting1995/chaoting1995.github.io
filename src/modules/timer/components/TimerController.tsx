@@ -3,7 +3,7 @@ import { css, cx } from '@emotion/css';
 import { Play, Pause, CallBell, ArrowCounterClockwise } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
-import CircleButton from 'components/CircleButton';
+import { CircleButton } from 'components';
 import UtilAudio from 'utils/audio';
 
 type Props = {
@@ -30,15 +30,15 @@ const TimerController = (props: Props) => {
   return <div className={cx('DT-TimerController', props.className, style)}>
     <CircleButton onClick={onTrigger}>
       {props.isRunning 
-        ? <Pause size={40} /> 
-        : <Play size={40} />
+        ? <Pause size={40} weight="thin"/> 
+        : <Play size={40} weight="thin"/>
       }
     </CircleButton>
     <CircleButton onClick={onResetWithPuase}>
-      <ArrowCounterClockwise size={40} />
+      <ArrowCounterClockwise size={40} weight="thin"/>
     </CircleButton>
     <CircleButton onClick={UtilAudio.audioBell}>
-      <CallBell size={40} />
+      <CallBell size={40} weight="thin"/>
     </CircleButton>
   </div>;
 };
@@ -56,6 +56,12 @@ const style = css`
     min-width: 85px;
     border: 1px solid ${styleSettingColor.text.primary};
     color: ${styleSettingColor.text.primary};
+
+    @media(max-width: 300px) {
+      height: 65px;
+      width: 65px;
+      min-width: 65px;
+    }
   }
 `;
 

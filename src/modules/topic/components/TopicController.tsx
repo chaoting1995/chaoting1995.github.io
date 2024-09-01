@@ -1,14 +1,27 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { ArrowsClockwise, MaskHappy, Gavel } from '@phosphor-icons/react';
+import { 
+  ArrowsClockwise, 
+  MaskHappy,
+  // Orange,
+  // OrangeSlice,
+  Circle,
+  ChartPieSlice,
+  // ChartPie,
+ } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
-import CircleButton from 'components/CircleButton';
+import { CircleButton, Dialog } from 'components';
 import UtilAudio from 'utils/audio';
-import Dialog from 'components/Dialog';
 import useDialog from 'hooks/useDialog';
-import SidePicker from "modules/side/components/SidePicker";
+import { RolePicker } from 'modules/role';
+import useTopicMode from 'modules/topic/context/TopicMode/useTopicMode';
+import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
 
+const switchTopicMode:  Record<EnumTopicMode, EnumTopicMode> = {
+  [EnumTopicMode.Complete]: EnumTopicMode.Combined,
+  [EnumTopicMode.Combined]: EnumTopicMode.Complete
+}
 
 type Props = {
   className?: string;
@@ -17,7 +30,17 @@ type Props = {
 };
 
 const TopicController = (props: Props) => {
-  const [openSideDialog, handleOpenSideDialog, handleCloseSideDialog] = useDialog(false);
+  const [open, handleOpen, handleClose] = useDialog(false);
+  
+  const { topicMode, onChangeTopicMode } = useTopicMode();
+  const topicModeIconCreator: Record<EnumTopicMode, React.ReactNode> = {
+    [EnumTopicMode.Complete]: <Circle size={40} weight="thin"/>,
+    [EnumTopicMode.Combined]: <ChartPieSlice size={40} weight="thin"/>
+  }
+
+  const handleToggle = () => {
+    onChangeTopicMode(switchTopicMode[topicMode]);
+  };
 
   const handleSpin = () => {
     props.onSpin();
@@ -26,18 +49,25 @@ const TopicController = (props: Props) => {
 
   return (
     <div className={cx('DT-TopicController', props.className, style)}>
+      <CircleButton onClick={handleToggle}>
+        {topicModeIconCreator[topicMode]}
+      </CircleButton>
       <CircleButton onClick={handleSpin} disabled={props.disabledOnSpin}>
-        <ArrowsClockwise size={40} />
+        <ArrowsClockwise size={40} weight="thin"/>
       </CircleButton>
-      <CircleButton onClick={handleOpenSideDialog}>
-        <MaskHappy size={40} />
+      <CircleButton onClick={handleOpen}>
+        <MaskHappy size={40} weight="thin"/>
       </CircleButton>
-      <CircleButton onClick={() => {}}>
-        <Gavel size={40} />
-      </CircleButton>
-      {openSideDialog && <Dialog open={openSideDialog} onClose={handleCloseSideDialog} hideCloseButton>
-          <SidePicker />
-        </Dialog>}
+      {open && 
+        <Dialog 
+          className={styleDialog}
+          open={open}
+          onClose={handleClose}
+          hideCloseButton
+        >
+          <RolePicker />
+        </Dialog>
+      }
     </div>
   );
 };
@@ -60,5 +90,18 @@ const style = css`
       color: ${styleSettingColor.text.primary};
       opacity: 0.5;
     }
+
+    @media(max-width: 300px) {
+      height: 65px;
+      width: 65px;
+      min-width: 65px;
+    }
+  }
+`;
+
+const styleDialog = css`
+  .MuiPaper-root.MuiDialog-paper {
+    min-width: 250px;
+    overflow: visible;
   }
 `;

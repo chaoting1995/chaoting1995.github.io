@@ -1,14 +1,12 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import TopicBox from 'modules/topic/components/TopicBox';
-import TopicController from 'modules/topic/components/TopicController';
+import { TopicBox, TopicDescription, TopicController }  from 'modules/topic';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
 import { DEFAULT_TOPIC_COMPLETE } from 'modules/topic/resources/topic.constant';
 
 type Props = {
   className?: string;
-  renderSection?: React.ReactNode;
 };
 
 const TopicModeComplete = (props: Props) => {
@@ -20,7 +18,7 @@ const TopicModeComplete = (props: Props) => {
         <TopicBox className='complete-topic'>{slotMachine.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
-        {props.renderSection}
+        <TopicDescription />
         <TopicController onSpin={slotMachine.onSpin} disabledOnSpin={slotMachine.isSpinning} />
       </div>
     </div>

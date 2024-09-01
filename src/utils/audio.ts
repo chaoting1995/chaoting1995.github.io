@@ -4,6 +4,7 @@ import clickAudio from 'audio/click.mp3';
 import bellAudio from 'audio/bell.mp3';
 import rollingAudio from 'audio/rolling.mp3';
 import rolling2Audio from 'audio/rolling2.mp3';
+import celebrationAudio from 'audio/celebration.mp3';
 
 export function audioClick(): void {
   const sound = new Howl({
@@ -49,11 +50,19 @@ export function audioRolling2(): void {
   sound.play();
 }
 
+export function audioCelebration(): void {
+  const sound = new Howl({
+    src: [celebrationAudio],
+  });
+  sound.play();
+}
+
 const UtilAudio = {
   audioClick,
   audioBell,
   audioRolling,
-  audioRolling2
+  audioRolling2,
+  audioCelebration
 };
 
 export default UtilAudio;

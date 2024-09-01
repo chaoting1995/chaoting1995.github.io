@@ -1,6 +1,6 @@
 export enum EnumSide {
-  Positive, // 正方
-  Negative // 反方
+  Positive = 'positive', // 正方
+  Negative = 'negative' // 反方
 }
 
 export const IsEnumSide = (input: EnumSide): input is EnumSide => {
