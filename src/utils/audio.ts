@@ -11,6 +11,14 @@ export function audioClick(): void {
     src: [clickAudio],
   });
   sound.play();
+
+  sound.on('play', function (id) {
+      sound.duration(id);
+  })
+  
+  sound.on('end', function () {
+      sound.unload();
+  })
 }
 
 export function audioBell(): void {
@@ -40,7 +48,15 @@ export function audioRolling(): void {
   const sound = new Howl({
     src: [rollingAudio],
   });
+
   sound.play();
+  sound.on('play', function (id) {
+    sound.duration(id);
+  })
+
+  sound.on('end', function () {
+      sound.unload();
+  })
 }
 
 export function audioRolling2(): void {
@@ -55,6 +71,14 @@ export function audioCelebration(): void {
     src: [celebrationAudio],
   });
   sound.play();
+
+  sound.on('play', function (id) {
+    sound.duration(id);
+  })
+
+  sound.on('end', function () {
+      sound.unload();
+  })
 }
 
 const UtilAudio = {
