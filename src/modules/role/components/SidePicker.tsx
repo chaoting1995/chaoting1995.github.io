@@ -18,6 +18,7 @@ type Props = {
   className?: string;
   side: EnumSide | null;
   onChange: (_side: EnumSideWithNull) => void;
+  disabled?: boolean;
 }
 
 const SidePicker = (props: Props) => {
@@ -33,6 +34,7 @@ const SidePicker = (props: Props) => {
         roleText={sideWording[EnumSide.Positive]}
         hideCardStyle={!!props.side}
         hide={props.side === EnumSide.Negative}
+        disabled={props.disabled}
         onClick={handleChange(EnumSide.Positive)}
       />
       <RoleCard
@@ -40,6 +42,7 @@ const SidePicker = (props: Props) => {
         roleText={sideWording[EnumSide.Negative]}
         hideCardStyle={!!props.side}
         hide={props.side === EnumSide.Positive}
+        disabled={props.disabled}
         onClick={handleChange(EnumSide.Negative)}
       />
     </div>

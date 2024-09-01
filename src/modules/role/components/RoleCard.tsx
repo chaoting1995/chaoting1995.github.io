@@ -83,6 +83,7 @@ const style = css`
     .role-text {
       color: ${styleSettingColor.text.secondary};
       font-size: 18px;
+      white-space: nowrap;
     }
   }
 `;

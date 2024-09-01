@@ -19,6 +19,7 @@ const ResultPicker = (props: Props) => {
   }
 
   const handleChangeSide = (_side: EnumSideWithNull) => {
+    // if (!startJudge) return;
     setSide(prevState => {
       if(prevState === _side) return null;
       UtilAudio.audioCelebration();
@@ -26,6 +27,9 @@ const ResultPicker = (props: Props) => {
     });
   };
 
+  React.useEffect(() => {
+    console.log({startJudge})
+  }, [startJudge])
   return (
     <div className={cx('DT-ResultPicker', props.className, style, { 'selected': !!startJudge })}>
       <div className='result-picker-title'>{!side ? '判決' : '勝方'}</div>
@@ -42,6 +46,7 @@ const ResultPicker = (props: Props) => {
           className={cx({ 'hide-side-picker': !startJudge })}
           side={side} 
           onChange={handleChangeSide}
+          disabled={!startJudge}
         />
       </div>
       {side && <Realistic autorun={{ speed: 1, duration: 2000 }} />}
