@@ -12,8 +12,8 @@ import {
   IconButton,
 } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-
 import { v4 as uuidv4 } from 'uuid';
+
 import { Timer } from 'modules/timer/resources/timer.type';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingZIndex } from 'styles/variables.style';
@@ -22,8 +22,8 @@ import useFormColumn from 'modules/form/useFormColumn';
 import ServiceFormat from 'services/format.service';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import useDialog from 'hooks/useDialog';
-// import IOSSwitch from 'components/IOSSwitch';
-import TimerEditorSetting from 'modules/timer/components/TimerEditorSetting';
+import { BottomDrawerHeader, BottomDrawerBody } from 'components';
+import { TimerEditorSetting } from 'modules/timer';
 
 type ColumRingItemWithStatus = {
   id: string;
@@ -250,29 +250,28 @@ const TimerEditor = (props: Props) => {
   }, [ringTimes]);
 
   if (openSetting) {
-    return (<div className={cx('DT-TimerEditor', style)}>
-      <div className='drawer-header'>
-        <div className='drawer-title'>進階設定</div>
+    return (<div className={cx('DT-TimerEditor', style, props.className)}>
+      <BottomDrawerHeader>
+        <div>進階設定</div>
         <IconButton className='drawer-title-button' onClick={handleCloseSetting}>
           <XCircle size={28} />
         </IconButton>
-      </div>
-      <TimerEditorSetting
-        className='drawer-body'
-        onUseTemplateTimer={handleUseTemplateTimer}
-      />
+      </BottomDrawerHeader>
+      <BottomDrawerBody className='drawer-body'>
+        <TimerEditorSetting onUseTemplateTimer={handleUseTemplateTimer} />
+      </BottomDrawerBody>
     </div>);
   }
 
   return (
-    <div className={cx('DT-TimerEditor', style)}>
-      <div className='drawer-header'>
-        <div className='drawer-title'>{!props.timer.id ? `新增計時器` : `編輯計時器`}</div>
+    <div className={cx('DT-TimerEditor', style, props.className)}>
+      <BottomDrawerHeader>
+        <div>{!props.timer.id ? `新增計時器` : `編輯計時器`}</div>
         <IconButton className='drawer-title-button' onClick={handleOpenSettingWithTraking}>
           <Gear size={28} />
         </IconButton>
-      </div>
-      <form className='drawer-body'>
+      </BottomDrawerHeader>
+      <BottomDrawerBody className='drawer-body'>
         <TextField
           variant='standard'
           fullWidth
@@ -331,7 +330,6 @@ const TimerEditor = (props: Props) => {
           <Button
             variant='outlined'
             color='secondary'
-            className='ring-times-button'
             disabled={ringTimes <= 1}
             onClick={handleChangeRingTimes(ringTimes - 1)}>
             -
@@ -339,7 +337,6 @@ const TimerEditor = (props: Props) => {
           <Button
             variant='outlined'
             color='secondary'
-            className='ring-times-button'
             disabled={ringTimes >= 5}
             onClick={handleChangeRingTimes(ringTimes + 1)}>
             +
@@ -348,7 +345,7 @@ const TimerEditor = (props: Props) => {
         <Button variant='outlined' fullWidth className='save-button' onClick={handleSave}>
           儲存
         </Button>
-      </form>
+      </BottomDrawerBody>
     </div>
   );
 };
@@ -365,66 +362,36 @@ const style = css`
     font-size: 20px;
   }
 
-  .drawer-header,
+  .drawer-title-button {
+    color: ${styleSettingColor.text.gray};
+    position: absolute;
+    right: 16px;
+  }
+
   .drawer-body {
-    width: 100%;
     padding-left: 16px;
     padding-right: 16px;
     box-sizing: border-box;
   }
 
-  .drawer-header {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid ${styleSettingColor.background.light};
-
-    .drawer-title {
-      color: ${styleSettingColor.background.dark};
-      font-size: 22px;
-      margin: 0 auto;
-    }
-
-    .drawer-title-button {
-      color: ${styleSettingColor.text.gray};
-      position: absolute;
-      right: 16px;
-    }
+  .MuiInput-root {
+    font-size: 18px;
   }
 
-  .drawer-body {
-    max-height: calc(90vh - 32px - 32px);
-    overflow-y: auto;
-    padding-bottom: 32px;
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    .MuiInput-root {
-      font-size: 18px;
-    }
-
-    .MuiFormHelperText-root {
-      position: absolute;
-      bottom: -22px;
-    }
+  .MuiFormHelperText-root {
+    position: absolute;
+    bottom: -22px;
   }
 
   .ring-times-button-group {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
 
-    .ring-times-button.MuiButton-root,
-    .ring-times-button.MuiButton-root:hover {
+    .MuiButton-root,
+    .MuiButton-root:hover {
       width: 100%;
       font-size: 18px;
     }

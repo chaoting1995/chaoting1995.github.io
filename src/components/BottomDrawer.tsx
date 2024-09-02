@@ -21,7 +21,7 @@ const BottomDrawer = (props: Props) => {
       open={props.open}
       onClose={props.onClose}
       onOpen={props.onOpen}
-      className={cx(style, props.className)}
+      className={cx('DT-BottomDrawer', style, props.className)}
     >
       <React.Suspense fallback={<Loading className="dd-drawer-loading" />}>
         {props.children}
@@ -33,7 +33,7 @@ const BottomDrawer = (props: Props) => {
 export default BottomDrawer;
 
 const style = css`
-  ${basicStyle}
+  ${basicStyle} // TODO: remove
 
   &.MuiDrawer-root,
   &.MuiDialog-root {
@@ -42,7 +42,7 @@ const style = css`
 
   .MuiDrawer-paper {
     width: 100%;
-    max-width: ${breakpoints.sm};
+    max-width: calc(${breakpoints.sm} - 40px);
     background-color: #fff;
     overflow: inherit;
     max-height: 90%;

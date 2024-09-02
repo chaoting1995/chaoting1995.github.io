@@ -24,9 +24,9 @@ const TopicModeComplete = (props: Props) => {
         <TopicDescription />
         <TopicController onSpin={slotMachine.onSpin} disabledOnSpin={slotMachine.isSpinning} />
       </div>
-      {open && <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-      <TopicList topics={DEFAULT_TOPIC_COMPLETE} />
-    </BottomDrawer>}
+      <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
+        <TopicList topics={DEFAULT_TOPIC_COMPLETE} />
+    </BottomDrawer>
     </div>
   )
 }

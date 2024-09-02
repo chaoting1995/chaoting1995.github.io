@@ -21,7 +21,7 @@ const TimerEditorSetting = (props: Props) => {
       <div className="setting-title">使用模板</div>
       <div className='template-button-group'>
         {TEMPLATE_TIMERS.map((item) => (
-          <Button key={item.name} variant='outlined' color="secondary" className='template-button' onClick={handleUseTemplateTimer(item)}>
+          <Button key={item.name} variant='outlined' color="secondary" onClick={handleUseTemplateTimer(item)}>
             {item.name}
           </Button>
         ))}
@@ -50,16 +50,9 @@ const style = css`
   }
 
   .template-button-group {
-    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 8px;
-
-    .template-button.MuiButton-root,
-    .template-button.MuiButton-root:hover {
-      font-size: 18px;
-    }
   }
 `;
 

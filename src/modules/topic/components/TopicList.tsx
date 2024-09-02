@@ -3,7 +3,7 @@ import { css, cx } from '@emotion/css';
 // import { Eye } from '@phosphor-icons/react';
 import { List, ListItemButton, ListItem, ListItemSecondaryAction } from '@mui/material';
 
-import useInnerHeight from 'hooks/useInnerHeight';
+import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
@@ -15,39 +15,37 @@ type Props = {
 }
 
 const TopicList: React.FC<Props> = (props) => {
-  const [innerHeight] = useInnerHeight();
 
   return (
-    <div className={cx('DT-TopicList', style(innerHeight), props.className)}>
-      <div className='drawer-header'>
-        <div className='drawer-title'>辯題列表</div>
-      </div>
-      <div className='drawer-body'>
-      {props.topics.length === 0 && <div className='empty-box'>
-        <div>尚無計時器</div>
-      </div>}
-       <List disablePadding>
-        {props.topics.map((item) => 
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton onClick={()=> {}}>
-              <div className='item-name'>{item.name}</div>
-              <ListItemSecondaryAction className='item-actions'>
-                {/* <IconButton onClick={() => {}}>
-                  <Eye size={26} weight='light'/>
-                  <EyeSlash size={26} weight='light' />
-                </IconButton> */}
-              </ListItemSecondaryAction>
-            </ListItemButton>
-        </ListItem>)}
-      </List>
-    </div>
+    <div className={cx('DT-TopicList', style, props.className)}>
+      <BottomDrawerHeader>辯題列表</BottomDrawerHeader>
+      <BottomDrawerBody>
+        {props.topics.length === 0 &&
+          <div className='empty-box'>
+            <div>尚無計時器</div>
+          </div>}
+        <List disablePadding>
+          {props.topics.map((item) => 
+            <ListItem key={item.id} disablePadding>
+              <ListItemButton onClick={()=> {}}>
+                <div className='item-name'>{item.name}</div>
+                <ListItemSecondaryAction className='item-actions'>
+                  {/* <IconButton onClick={() => {}}>
+                    <Eye size={26} weight='light'/>
+                    <EyeSlash size={26} weight='light' />
+                  </IconButton> */}
+                </ListItemSecondaryAction>
+              </ListItemButton>
+          </ListItem>)}
+        </List>
+    </BottomDrawerBody>
     </div>
   )
 }
 
 export default TopicList;
 
-const style = (_innerHeight: number) => css`
+const style = css`
   width: 100%;
   color: ${styleSettingColor.text.secondary};
   font-size: 18px;
@@ -63,47 +61,13 @@ const style = (_innerHeight: number) => css`
     font-size: 20px;
   }
 
-  .drawer-header,
-  .drawer-body {
-    width: 100%;
+  .MuiInput-root {
+    font-size: 18px;
   }
 
-  .drawer-header {
-    padding: 16px;
-    
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid ${styleSettingColor.background.light};
-
-    .drawer-title {
-      color: ${styleSettingColor.background.dark};
-      font-size: 22px;
-      margin: 0 auto;
-    }
-  }
-
-  .drawer-body {
-    max-height: calc(${_innerHeight}px * 0.9 - 32px - 32px);
-    overflow-y: auto;
-    padding-bottom: 32px;
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    .MuiInput-root {
-      font-size: 18px;
-    }
-
-    .MuiFormHelperText-root {
-      position: absolute;
-      bottom: -22px;
-    }
+  .MuiFormHelperText-root {
+    position: absolute;
+    bottom: -22px;
   }
 
   .empty-box {
