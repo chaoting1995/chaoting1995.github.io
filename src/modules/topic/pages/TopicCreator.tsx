@@ -21,7 +21,7 @@ const TopicCreator: React.FC = () => {
   }
 
   return <Layout title={PAGE_TITLE.topicCreator} mainClassName={cx('DT-TopicCreator', style(innerHeight))}>
-    <HeadTags title={PAGE_TITLE.topicCreator} description='「瓦力二號」，又名「瓦力2號」、「瓦力2號2011」，是哲耀學長發明的紙牌遊戲，用於辯論的鍛鍊。玩家可以在隨機配對的辯題中，大量練習不同的辯題。' />
+    <HeadTags title={PAGE_TITLE.topicCreator} description='「瓦力二號」，又名「瓦力2號」、「瓦力2號2011」、「辯題產生器」、「Wall-E Ⅱ 2011」，是哲耀學長發明的紙牌遊戲，用於辯論的鍛鍊。玩家可以在隨機配對的辯題中，大量練習不同的辯題，鍛練基本功。' />
     {topicCreator[topicMode]}
   </Layout>;
 }
