@@ -12,6 +12,9 @@ export function audioClick(): void {
     html5: true,
   });
   sound.play();
+  sound.on('end', function () {
+    sound.unload();
+  })
 }
 
 export function audioBell(): void {
@@ -44,6 +47,9 @@ export function audioRolling(): void {
   });
 
   sound.play();
+  sound.on('end', function () {
+    sound.unload();
+  })
 }
 
 export function audioRolling2(): void {
@@ -52,6 +58,9 @@ export function audioRolling2(): void {
     html5: true,
   });
   sound.play();
+  sound.on('end', function () {
+    sound.unload();
+  })
 }
 
 export function audioCelebration(): void {
@@ -60,6 +69,9 @@ export function audioCelebration(): void {
     html5: true,
   });
   sound.play();
+  sound.on('end', function () {
+    sound.unload();
+  })
 }
 
 const UtilAudio = {
