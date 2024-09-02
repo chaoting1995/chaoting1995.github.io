@@ -1,8 +1,10 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import { TopicBox, TopicDescription, TopicController }  from 'modules/topic';
+import useDialog from 'hooks/useDialog';
+import { BottomDrawer } from 'components';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
+import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules/topic';
 import { DEFAULT_TOPIC_COMPLETE } from 'modules/topic/resources/topic.constant';
 
 type Props = {
@@ -10,17 +12,21 @@ type Props = {
 };
 
 const TopicModeComplete = (props: Props) => {
+  const [open, handleOpen, handleClose] = useDialog(false);
   const slotMachine = useSlotMachine(DEFAULT_TOPIC_COMPLETE);
 
   return (
     <div className={cx('DT-TopicModeComplete', style, props.className)}>
       <div className='top-section'>
-        <TopicBox className='complete-topic'>{slotMachine.topic.name}</TopicBox>
+        <TopicBox className='complete-topic' onClick={handleOpen} >{slotMachine.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         <TopicDescription />
         <TopicController onSpin={slotMachine.onSpin} disabledOnSpin={slotMachine.isSpinning} />
       </div>
+      {open && <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
+      <TopicList topics={DEFAULT_TOPIC_COMPLETE} />
+    </BottomDrawer>}
     </div>
   )
 }

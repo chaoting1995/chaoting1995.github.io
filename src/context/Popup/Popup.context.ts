@@ -9,7 +9,7 @@ export type ParamsNotice = {
 };
 
 export type ParamsDialog = {
-  message: string;
+  message?: string;
   img?: string;
   title?: string;
   hideCloseButton?: boolean;

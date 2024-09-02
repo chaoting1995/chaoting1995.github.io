@@ -10,7 +10,6 @@ type Props = {
   onClick?: () => void;
 }
 
-
 const TopicBox: React.FC<Props> = (props) => {
   return (
     <div className={cx('DT-TopicBox', style, props.className)}>

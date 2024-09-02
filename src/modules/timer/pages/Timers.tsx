@@ -8,17 +8,17 @@ import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction, Bu
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { PAGE_TITLE, pageLinks } from 'routes/constants';
-import useTimers from 'modules/timer/context/Timers/useTimers';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
+import useTimers from 'modules/timer/context/Timers/useTimers';
 import { Timer } from 'modules/timer/resources/timer.type';
 import { EMPTY_TIMER } from 'modules/timer/resources/timer.constant';
-import Layout from 'layouts/Layout';
-import HeadTags from 'components/HeadTags';
-import BottomDrawer from 'components/BottomDrawer';
-import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import TimerEditor from 'modules/timer/components/TimerEditor';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import Layout from 'layouts/Layout';
+import HeadTags from 'components/HeadTags';
+import { BottomDrawer } from 'components';
 
 const Timers: React.FC = () => {
   const popup = usePopup();
@@ -70,8 +70,7 @@ const Timers: React.FC = () => {
     event.preventDefault();
     
     const isConfirm = await popup.confirm({ 
-      title: '確定刪除計時器?',
-      message: '',
+      title: '確定刪除計時器?'
     });
   
     if(!isConfirm) return;
@@ -87,11 +86,11 @@ const Timers: React.FC = () => {
       </IconButton>
     }>
     <HeadTags title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} />
+    {timers.length === 0 && <div className="timers-empty-box">
+      <div>尚無計時器</div>
+      <Button variant="outlined" className="add-button" onClick={handleOpenEditor()}>新增計時器</Button>
+    </div>}
     <List disablePadding>
-      {timers.length === 0 && <div className="timers-empty-box">
-        <div>尚無計時器</div>
-        <Button variant="outlined" className="add-button" onClick={handleOpenEditor()}>新增計時器</Button>
-      </div>}
       {timers.map((item) => <ListItem key={item.id} disablePadding>
         <ListItemButton 
           component={Link} 

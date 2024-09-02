@@ -3,11 +3,8 @@ import { css, cx } from '@emotion/css';
 import { 
   ArrowsClockwise, 
   MaskHappy,
-  // Orange,
-  // OrangeSlice,
   Circle,
   ChartPieSlice,
-  // ChartPie,
  } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
@@ -67,12 +64,7 @@ const TopicController = (props: Props) => {
         <MaskHappy size={40} weight="thin"/>
       </CircleButton>
       {open && 
-        <Dialog 
-          className={styleDialog}
-          open={open}
-          onClose={handleClose}
-          hideCloseButton
-        >
+        <Dialog className={styleDialog} open={open} onClose={handleClose} hideCloseButton>
           <RolePicker />
         </Dialog>
       }
