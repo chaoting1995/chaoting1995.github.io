@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-beta.20] - 2024-09-02
 
+### Fixed
+- 修復：辯題列表 > vh change to innerHeigh
+
+## [1.0.0-beta.20] - 2024-09-02
+
 ### Added
 - 新增：辯題選項清單
 

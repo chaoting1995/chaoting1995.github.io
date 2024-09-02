@@ -30,8 +30,8 @@ const TopicList: React.FC<Props> = (props) => {
         {props.topics.map((item) => 
           <ListItem key={item.id} disablePadding>
             <ListItemButton onClick={()=> {}}>
-              <div className='timer-item-name'>{item.name}</div>
-              <ListItemSecondaryAction className='timer-item-actions'>
+              <div className='item-name'>{item.name}</div>
+              <ListItemSecondaryAction className='item-actions'>
                 {/* <IconButton onClick={() => {}}>
                   <Eye size={26} weight='light'/>
                   <EyeSlash size={26} weight='light' />
@@ -135,17 +135,15 @@ const style = (_innerHeight: number) => css`
     border-bottom: 1px solid ${styleSettingColor.disabled};
   }
 
-  .timer-item {
-    &-name {
-      width: calc(100% - 42px);
-      ${styleLineEllipsis(1)}
-    }
+  .item-name {
+    width: calc(100% - 42px);
+    ${styleLineEllipsis(1)}
+  }
     
-    &-actions {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+  .item-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
   .MuiIconButton-root {
