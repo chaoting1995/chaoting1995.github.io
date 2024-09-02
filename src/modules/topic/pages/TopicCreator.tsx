@@ -5,7 +5,7 @@ import Layout from 'layouts/Layout';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
 import HeadTags from 'components/HeadTags';
-import { PAGE_TITLE } from 'routes/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
 import TopicModeComplete from 'modules/topic/components/TopicModeComplete';
 import TopicModeCombined from 'modules/topic/components/TopicModeCombined';
@@ -21,7 +21,7 @@ const TopicCreator: React.FC = () => {
   }
 
   return <Layout title={PAGE_TITLE.topicCreator} mainClassName={cx('DT-TopicCreator', style(innerHeight))}>
-    <HeadTags title={PAGE_TITLE.topicCreator} description='「瓦力二號」，又名「瓦力2號」、「瓦力2號2011」、「辯題產生器」、「Wall-E Ⅱ 2011」，是哲耀學長發明的紙牌遊戲，用於辯論的鍛鍊。玩家可以在隨機配對的辯題中，大量練習不同的辯題，鍛練基本功。' />
+    <HeadTags title={PAGE_TITLE.topicCreator} description={PAGE_DESCRIPTION.topicCreator} />
     {topicCreator[topicMode]}
   </Layout>;
 }

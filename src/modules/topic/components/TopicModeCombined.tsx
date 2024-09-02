@@ -11,26 +11,26 @@ type Props = {
 };
 
 const TopicModeCombined = (props: Props) => {
-  const slotMachineTopicA = useSlotMachine(DEFAULT_TOPIC_COMBINED);
-  const slotMachineTopicB = useSlotMachine(DEFAULT_TOPIC_COMBINED, 1);
+  const slotMachineTopicFrontItem = useSlotMachine(DEFAULT_TOPIC_COMBINED);
+  const slotMachineTopicBackItem = useSlotMachine(DEFAULT_TOPIC_COMBINED, 1);
 
   const handleSpin = () => {
-    const chosenTopic = slotMachineTopicA.onSpin();
-    slotMachineTopicB.onSpin(chosenTopic);
+    const chosenTopic = slotMachineTopicFrontItem.onSpin();
+    slotMachineTopicBackItem.onSpin(chosenTopic);
   };
 
   return (
     <div className={cx('DT-TopicModeCombined', style, props.className)}>
       <div className='top-section'>
-        <TopicBox>{slotMachineTopicA.topic.name}</TopicBox>
+        <TopicBox>{slotMachineTopicFrontItem.topic.name}</TopicBox>
         <TopicMiddleItemMode />
-        <TopicBox>{slotMachineTopicB.topic.name}</TopicBox>
+        <TopicBox>{slotMachineTopicBackItem.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         <TopicDescription />
         <TopicController
           onSpin={handleSpin}
-          disabledOnSpin={slotMachineTopicA.isSpinning || slotMachineTopicB.isSpinning}
+          disabledOnSpin={slotMachineTopicFrontItem.isSpinning || slotMachineTopicBackItem.isSpinning}
         />
       </div>
     </div>
