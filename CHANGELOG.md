@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.0.0-beta.23] - 2024-09-03
+
 ### Fixed
 - 調整：音頻物件，複用＋結束時銷毀
 
@@ -65,11 +66,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0-beta.15] - 2024-09-02
 
 ### Added
-- 增補 head tags
-- 「瓦力2號」更名為「瓦力二號」
-
-### Fixed
 - 新增功能：瓦力二號
+
+### Changed
+- 增補 head tags
 
 ## [1.0.0-beta.14] - 2024-08-30
 
