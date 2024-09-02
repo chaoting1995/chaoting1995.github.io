@@ -36,10 +36,11 @@ export default TopicDescription;
 const style = css`
   width: 100%;
   margin-bottom: 20px;
-  padding: 18px;
+  padding: 16px;
   box-sizing: border-box;
   background-color: ${styleSettingColor.background.light};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  font-size: 18px;
 `;

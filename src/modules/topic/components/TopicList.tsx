@@ -12,9 +12,13 @@ type Props = {
   className?: string;
   children?: React.ReactNode;
   topics: Topic[];
+  onChangeTopic: (topic: Topic) => void;
 }
 
 const TopicList: React.FC<Props> = (props) => {
+const handleChangeTopic = (_topic: Topic) => () => {
+  props.onChangeTopic(_topic);
+};
 
   return (
     <div className={cx('DT-TopicList', style, props.className)}>
@@ -27,7 +31,7 @@ const TopicList: React.FC<Props> = (props) => {
         <List disablePadding>
           {props.topics.map((item) => 
             <ListItem key={item.id} disablePadding>
-              <ListItemButton onClick={()=> {}}>
+              <ListItemButton onClick={handleChangeTopic(item)}>
                 <div className='item-name'>{item.name}</div>
                 <ListItemSecondaryAction className='item-actions'>
                   {/* <IconButton onClick={() => {}}>

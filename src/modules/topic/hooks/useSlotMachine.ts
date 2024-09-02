@@ -7,6 +7,7 @@ export type UseSlotMachine = {
   topic: Topic;
   isSpinning: boolean;
   onSpin: (excludeTopic?: Topic) => Topic;
+  onChange: (topic: Topic) => void;
 }
 
 const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine => {
@@ -18,6 +19,10 @@ const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine 
   }, [topics, defaultIndex])
 
   const [topic, setTopic] = React.useState<Topic>(defaultItem);
+
+  const onChange = (_topic: Topic) => {
+    setTopic(_topic);
+  };
 
   const onSpin = (excludeTopic?: Topic) => {
     const newTopics = topics.filter(item => excludeTopic ? item.id !== excludeTopic.id : item);
@@ -46,6 +51,7 @@ const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine 
 
   return {
     topic,
+    onChange,
     isSpinning,
     onSpin,
   }

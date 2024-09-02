@@ -7,6 +7,7 @@ import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
 import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules/topic';
 import { DEFAULT_TOPIC_COMPLETE } from 'modules/topic/resources/topic.constant';
+import { Topic } from 'modules/topic/resources/topic.type';
 
 type Props = {
   className?: string;
@@ -16,22 +17,27 @@ const TopicModeComplete = (props: Props) => {
   const [open, handleOpen, handleClose] = useDialog(false);
   const slotMachine = useSlotMachine(DEFAULT_TOPIC_COMPLETE);
 
-  const handleOpenWithAudio = () => {
+  const handleClickTopicBox = () => {
     handleOpen();
     UtilAudio.audioClick();
+  };
+
+  const handleChangeTopic = (_topic: Topic) => {
+    slotMachine.onChange(_topic);
+    handleClose();
   };
 
   return (
     <div className={cx('DT-TopicModeComplete', style, props.className)}>
       <div className='top-section'>
-        <TopicBox className='complete-topic' onClick={handleOpenWithAudio} >{slotMachine.topic.name}</TopicBox>
+        <TopicBox className='complete-topic' onClick={handleClickTopicBox} >{slotMachine.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         <TopicDescription />
         <TopicController onSpin={slotMachine.onSpin} disabledOnSpin={slotMachine.isSpinning} />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-        <TopicList topics={DEFAULT_TOPIC_COMPLETE} />
+        <TopicList topics={DEFAULT_TOPIC_COMPLETE} onChangeTopic={handleChangeTopic}/>
     </BottomDrawer>
     </div>
   )

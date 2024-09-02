@@ -28,9 +28,9 @@ const style = css`
   .MuiCardActionArea-root {
     width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 16px;
+    padding: 10px;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: 30px;
     color: ${styleSettingColor.text.primary};
     display: flex;

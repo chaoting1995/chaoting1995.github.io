@@ -35,8 +35,8 @@ const TimerDescription = (props: Props) => {
 export default TimerDescription;
 
 const style = css`
-  margin-bottom: 16px;
   width: 100%;
+  margin-bottom: 16px;
   padding: 16px;
   padding-top: 10px;
   box-sizing: border-box;
