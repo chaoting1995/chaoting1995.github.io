@@ -36,7 +36,6 @@ const ResultPicker = (props: Props) => {
           roleImg={imgJudge}
           roleText='裁判'
           hide={startJudge}
-          hideCardStyle
           onClick={handelStartJudge}
           />
         <SidePicker

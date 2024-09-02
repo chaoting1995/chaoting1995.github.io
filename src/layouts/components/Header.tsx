@@ -1,17 +1,16 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
 
 import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
-import { List, X, Alarm } from '@phosphor-icons/react';
+import { List, X } from '@phosphor-icons/react';
 
 import useDialog from 'hooks/useDialog';
 import useTop from 'hooks/useTop';
 import Logo from 'assets/logo.svg?react';
 import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
-import { pageLinks } from 'routes/constants';
 import Sidebar from 'layouts/components/Sidebar/Sidebar';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import { PAGE_TITLE } from 'routes/constants';
 // import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
 // import menu from 'layouts/components/Sidebar/menu';
 
@@ -23,11 +22,6 @@ type Props = {
 const Header = (props: Props) => {
   const [isTop] = useTop();
   const [openDrawer, handleOpenDrawer, handleCloseDrawer, handleToggleDrawer] = useDialog(false);
-  const location = useLocation();
-
-  const handleTrakingHeaderButtonTimers = () => {
-    ServiceGA4.event(GA_EVENT.DT_Header_Button_Timers);
-  };
 
   const handleToggleDrawerWithTrakingHeaderButtonMenu = () => {
     handleToggleDrawer();
@@ -39,23 +33,14 @@ const Header = (props: Props) => {
       <div className='header-fixed'>
         <div className='header-container'>
           <div className='header-to-home'>
-            <div className='header-logo'>
-              <Logo />
-            </div>
-            <div>
-              {!props.title ? '辯論計時小幫手 2.0' : props.title}
-            </div>
+            <div className='header-logo'><Logo /></div>
+            <h1 className='header-title'>{!props.title ? PAGE_TITLE.timerWithVersion : props.title}</h1>
           </div>
           <div className='header-button-group'>
             {/* <SidebarMenu className='header-menu' list={menu} /> */}
-            {![pageLinks.timers].includes(location.pathname) && <>
-              <IconButton component={Link} to={pageLinks.timers} onClick={handleTrakingHeaderButtonTimers}>
-                <Alarm size={28} weight="light"/>
-              </IconButton>
-            </>}
             {props.renderButtons && props.renderButtons}
             <IconButton className='header-menu-button' title='menu' onClick={handleToggleDrawerWithTrakingHeaderButtonMenu}>
-              {openDrawer ? <X size={28} weight="light"/> : <List size={28} weight="light"/>}
+              {openDrawer ? <X size={28} weight='light'/> : <List size={28} weight='light'/>}
             </IconButton>
           </div>
         </div>
@@ -96,7 +81,6 @@ const style = (_isTop: boolean) => css`
       display: flex;
       /* flex-wrap: wrap; */
       align-items: center;
-      font-size: 22px;
 
       .header-to-home {
         margin-right: auto; 
@@ -104,7 +88,7 @@ const style = (_isTop: boolean) => css`
         justify-content: center;
         align-items: center;
         
-        div {
+        & > * {
           width: max-content;
         }
 
@@ -119,6 +103,11 @@ const style = (_isTop: boolean) => css`
             width: 100%;
             height: 100%;
           }
+        }
+        
+        .header-title {
+          font-size: 22px;
+          font-weight: normal;
         }
       }
 

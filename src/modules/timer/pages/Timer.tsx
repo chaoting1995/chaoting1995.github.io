@@ -1,7 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
+import { IconButton } from '@mui/material';
+import { PencilSimpleLine } from '@phosphor-icons/react';
 
+import { pageLinks } from 'routes/constants';
 import Layout from 'layouts/Layout';
 import { DEFAULT_TIMER } from 'modules/timer/resources/timer.constant';
 import { Timer as TypeTimer } from 'modules/timer/resources/timer.type';
@@ -13,6 +16,7 @@ import useInnerHeight from 'hooks/useInnerHeight';
 import useTimers from 'modules/timer/context/Timers/useTimers';
 import HeadTags from 'components/HeadTags';
 import { PAGE_TITLE } from "routes/constants";
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Timer: React.FC = () => {
   const [innerHeight] = useInnerHeight();
@@ -25,6 +29,10 @@ const Timer: React.FC = () => {
     [EnumTimerMode.Crossfire]: <TimerModeCrossfire timer={timer} className='timer-mode' />
   }
 
+  const handleTrakingHeaderButtonTimers = () => {
+    ServiceGA4.event(GA_EVENT.DT_Header_Button_Timers);
+  };
+
   React.useEffect(() => {
     if (!id) return;
     const currentTimer = timers.find(item => item.id === id);
@@ -32,7 +40,14 @@ const Timer: React.FC = () => {
     setTimer(currentTimer);
   }, [id, timers]);
 
-  return <Layout title={PAGE_TITLE.timer} mainClassName={cx('DT-Timer', style(innerHeight))}>
+  return <Layout 
+    title={PAGE_TITLE.timer} 
+    mainClassName={cx('DT-Timer', style(innerHeight))}
+    renderButtons={
+      <IconButton component={Link} to={pageLinks.timers} onClick={handleTrakingHeaderButtonTimers}>
+        <PencilSimpleLine size={28} weight="light"/>
+      </IconButton>
+    }>
     <HeadTags title={PAGE_TITLE.timerWithVersion} />
     {creator[timer.mode]}
   </Layout>;

@@ -9,11 +9,11 @@ import { PAGE_TITLE } from 'routes/constants';
 import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
 import TopicModeComplete from 'modules/topic/components/TopicModeComplete';
 import TopicModeCombined from 'modules/topic/components/TopicModeCombined';
-import useTopicMode from 'modules/topic/context/TopicMode/useTopicMode';
+import useTopic from 'modules/topic/context/Topic/useTopic';
 
 const TopicCreator: React.FC = () => {
   const [innerHeight] = useInnerHeight();
-  const { topicMode } = useTopicMode();
+  const { topicMode } = useTopic();
 
   const topicCreator: Record<EnumTopicMode, React.ReactNode> = {
     [EnumTopicMode.Complete]: <TopicModeComplete className='topic-mode' />,

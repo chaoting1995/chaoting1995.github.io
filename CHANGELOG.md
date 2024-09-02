@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.17] - 2024-09-02
+
+### Changed
+- 調整：判決器樣式
+- 調整：辯題中間項，增加點擊音效
+
+### Fixed
+- 修復：音效 bug
+- 修復：辯題產生器，彈窗高度問題
+
 ## [1.0.0-beta.16] - 2024-09-02
 
 ### Fixed
@@ -12,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修復：音效 bug
 
 ## [1.0.0-beta.15] - 2024-09-02
+
+### Added
 - 增補 head tags
 - 「瓦力2號」更名為「瓦力二號」
 

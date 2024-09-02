@@ -15,8 +15,8 @@ import { CircleButton, Dialog } from 'components';
 import UtilAudio from 'utils/audio';
 import useDialog from 'hooks/useDialog';
 import { RolePicker } from 'modules/role';
-import useTopicMode from 'modules/topic/context/TopicMode/useTopicMode';
 import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
+import useTopic from 'modules/topic/context/Topic/useTopic';
 
 const switchTopicMode:  Record<EnumTopicMode, EnumTopicMode> = {
   [EnumTopicMode.Complete]: EnumTopicMode.Combined,
@@ -32,10 +32,10 @@ type Props = {
 const TopicController = (props: Props) => {
   const [open, handleOpen, handleClose] = useDialog(false);
   
-  const { topicMode, onChangeTopicMode } = useTopicMode();
+  const { topicMode, onChangeTopicMode } = useTopic();
   const topicModeIconCreator: Record<EnumTopicMode, React.ReactNode> = {
-    [EnumTopicMode.Complete]: <Circle size={40} weight="thin"/>,
-    [EnumTopicMode.Combined]: <ChartPieSlice size={40} weight="thin"/>
+    [EnumTopicMode.Combined]: <Circle size={40} weight="thin"/>,
+    [EnumTopicMode.Complete]: <ChartPieSlice size={40} weight="thin"/>
   }
 
   const handleToggle = () => {
@@ -102,6 +102,5 @@ const style = css`
 const styleDialog = css`
   .MuiPaper-root.MuiDialog-paper {
     min-width: 250px;
-    overflow: visible;
   }
 `;

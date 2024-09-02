@@ -9,16 +9,9 @@ import celebrationAudio from 'audio/celebration.mp3';
 export function audioClick(): void {
   const sound = new Howl({
     src: [clickAudio],
+    html5: true,
   });
   sound.play();
-
-  sound.on('play', function (id) {
-      sound.duration(id);
-  })
-  
-  sound.on('end', function () {
-      sound.unload();
-  })
 }
 
 export function audioBell(): void {
@@ -47,21 +40,16 @@ export function audioBell(): void {
 export function audioRolling(): void {
   const sound = new Howl({
     src: [rollingAudio],
+    html5: true,
   });
 
   sound.play();
-  sound.on('play', function (id) {
-    sound.duration(id);
-  })
-
-  sound.on('end', function () {
-      sound.unload();
-  })
 }
 
 export function audioRolling2(): void {
   const sound = new Howl({
     src: [rolling2Audio],
+    html5: true,
   });
   sound.play();
 }
@@ -69,16 +57,9 @@ export function audioRolling2(): void {
 export function audioCelebration(): void {
   const sound = new Howl({
     src: [celebrationAudio],
+    html5: true,
   });
   sound.play();
-
-  sound.on('play', function (id) {
-    sound.duration(id);
-  })
-
-  sound.on('end', function () {
-      sound.unload();
-  })
 }
 
 const UtilAudio = {

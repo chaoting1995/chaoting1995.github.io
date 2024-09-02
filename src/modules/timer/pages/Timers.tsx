@@ -85,7 +85,7 @@ const Timers: React.FC = () => {
       <IconButton onClick={handleOpenEditor()}>
         <Plus size={28} weight="light"/>
       </IconButton>
-  }>
+    }>
     <HeadTags title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} />
     <List disablePadding>
       {timers.length === 0 && <div className="timers-empty-box">
