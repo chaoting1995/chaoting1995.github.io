@@ -254,79 +254,79 @@ export const DEFAULT_TOPIC_COMPLETE: Topic[] = [
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-001',
+    id: 'D-Topic-Complete-043',
     name: '預知未來是快樂的/痛苦的',
     category: '科幻奇想',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-043',
+    id: 'D-Topic-Complete-044',
     name: '時光機對人類利大於弊/弊大於利',
     category: '科幻奇想',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-044',
+    id: 'D-Topic-Complete-045',
     name: '長生不老對人類利大於弊/弊大於利',
     category: '科幻奇想',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-045',
+    id: 'D-Topic-Complete-046',
     name: '網路匿名性發言對台灣利大於弊/弊大於利',
     category: '科技議題',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-046',
+    id: 'D-Topic-Complete-047',
     name: '人工智能對人類利大於弊/弊大於利',
     category: '科技議題',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-047',
+    id: 'D-Topic-Complete-048',
     name: '哆啦A夢是大雄的益友/損友',
     category: '經典故事',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-048',
+    id: 'D-Topic-Complete-049',
     name: '變成泡沫前人魚公主應/不應該刺死王子',
     category: '經典故事',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-048',
+    id: 'D-Topic-Complete-050',
     name: '高譚市需/不需要蝙蝠俠',
     category: '經典故事',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-049',
+    id: 'D-Topic-Complete-051',
     name: '超級英雄註冊法案利大於弊/弊大於利',
     category: '經典故事',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-001',
+    id: 'D-Topic-Complete-052',
     name: '兩津勘吉是/不是好警察',
     category: '經典故事',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-050',
+    id: 'D-Topic-Complete-053',
     name: '文化傳承更重要/文化創新更重要',
     category: '文化議題',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-051',
+    id: 'D-Topic-Complete-054',
     name: '傳統文化商業化有助於/無助於文化傳承',
     category: '文化議題',
     isVisible: true
   },
   {
-    id: 'D-Topic-Complete-052',
+    id: 'D-Topic-Complete-055',
     name: '項羽應該東山再起/烏江自刎',
     category: '歷史假想',
     isVisible: true

@@ -3,6 +3,7 @@ import { css, cx } from '@emotion/css';
 // import { Eye } from '@phosphor-icons/react';
 import { List, ListItemButton, ListItem, ListItemSecondaryAction } from '@mui/material';
 
+import useInnerHeight from 'hooks/useInnerHeight';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
@@ -14,13 +15,15 @@ type Props = {
 }
 
 const TopicList: React.FC<Props> = (props) => {
+  const [innerHeight] = useInnerHeight();
+
   return (
-    <div className={cx('DT-TopicList', style, props.className)}>
+    <div className={cx('DT-TopicList', style(innerHeight), props.className)}>
       <div className='drawer-header'>
         <div className='drawer-title'>辯題列表</div>
       </div>
       <div className='drawer-body'>
-      {props.topics.length === 0 && <div className="empty-box">
+      {props.topics.length === 0 && <div className='empty-box'>
         <div>尚無計時器</div>
       </div>}
        <List disablePadding>
@@ -30,8 +33,8 @@ const TopicList: React.FC<Props> = (props) => {
               <div className='timer-item-name'>{item.name}</div>
               <ListItemSecondaryAction className='timer-item-actions'>
                 {/* <IconButton onClick={() => {}}>
-                  <Eye size={26} weight="light"/>
-                  <EyeSlash size={26} weight="light" />
+                  <Eye size={26} weight='light'/>
+                  <EyeSlash size={26} weight='light' />
                 </IconButton> */}
               </ListItemSecondaryAction>
             </ListItemButton>
@@ -44,10 +47,12 @@ const TopicList: React.FC<Props> = (props) => {
 
 export default TopicList;
 
-const style = css`
+const style = (_innerHeight: number) => css`
   width: 100%;
   color: ${styleSettingColor.text.secondary};
-  font-size: 20px;
+  font-size: 18px;
+  overflow: hidden;
+  border-radius: inherit;
   
   .MuiDrawer-paper {
     width: 100%;
@@ -82,7 +87,7 @@ const style = css`
   }
 
   .drawer-body {
-    max-height: calc(90vh - 32px - 32px);
+    max-height: calc(${_innerHeight}px * 0.9 - 32px - 32px);
     overflow-y: auto;
     padding-bottom: 32px;
     box-sizing: border-box;
