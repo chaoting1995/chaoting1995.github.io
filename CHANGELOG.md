@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - 新增：辯題選項清單
 
+### Changed
+- 辯題選項清單預設值，更新id值
+
 ### Fixed
 - 修復 localstorage key
 
