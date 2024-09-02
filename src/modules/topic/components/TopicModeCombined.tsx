@@ -1,10 +1,11 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import useDialog from 'hooks/useDialog';
+import UtilAudio from 'utils/audio';
 import { BottomDrawer } from 'components';
+import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
-import TopicMiddleItemMode from "modules/topic/components/TopicMiddleItemMode";
+import { TopicMiddleItemMode } from 'modules/topic';
 import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules/topic';
 import { DEFAULT_TOPIC_COMBINED } from 'modules/topic/resources/topic.constant';
 
@@ -22,12 +23,17 @@ const TopicModeCombined = (props: Props) => {
     slotMachineTopicBackItem.onSpin(chosenTopic);
   };
 
+  const handleOpenWithAudio = () => {
+    handleOpen();
+    UtilAudio.audioClick();
+  };
+
   return (
     <div className={cx('DT-TopicModeCombined', style, props.className)}>
       <div className='top-section'>
-        <TopicBox onClick={handleOpen}>{slotMachineTopicFrontItem.topic.name}</TopicBox>
+        <TopicBox onClick={handleOpenWithAudio}>{slotMachineTopicFrontItem.topic.name}</TopicBox>
         <TopicMiddleItemMode />
-        <TopicBox onClick={handleOpen}>{slotMachineTopicBackItem.topic.name}</TopicBox>
+        <TopicBox onClick={handleOpenWithAudio}>{slotMachineTopicBackItem.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         <TopicDescription />
@@ -36,9 +42,9 @@ const TopicModeCombined = (props: Props) => {
           disabledOnSpin={slotMachineTopicFrontItem.isSpinning || slotMachineTopicBackItem.isSpinning}
         />
       </div>
-      {open && <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
+      <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
         <TopicList topics={DEFAULT_TOPIC_COMBINED} />
-      </BottomDrawer>}
+      </BottomDrawer>
     </div>
   );
 };

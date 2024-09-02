@@ -19,7 +19,7 @@ const useFormColumn =<T, EnumTypeGuide = unknown>(props: UseFormColumnProps<T, E
   const [status, setStatus] = React.useState<Status>(STATUS_LOADED);
 
   // props.value，轉成 formColumn value
-  React.useEffect(() => { 
+  React.useEffect(() => {
     setValue(props.value);
   }, [props.value])
 

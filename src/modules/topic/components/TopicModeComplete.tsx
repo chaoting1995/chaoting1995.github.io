@@ -1,8 +1,9 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import useDialog from 'hooks/useDialog';
+import UtilAudio from 'utils/audio';
 import { BottomDrawer } from 'components';
+import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
 import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules/topic';
 import { DEFAULT_TOPIC_COMPLETE } from 'modules/topic/resources/topic.constant';
@@ -15,10 +16,15 @@ const TopicModeComplete = (props: Props) => {
   const [open, handleOpen, handleClose] = useDialog(false);
   const slotMachine = useSlotMachine(DEFAULT_TOPIC_COMPLETE);
 
+  const handleOpenWithAudio = () => {
+    handleOpen();
+    UtilAudio.audioClick();
+  };
+
   return (
     <div className={cx('DT-TopicModeComplete', style, props.className)}>
       <div className='top-section'>
-        <TopicBox className='complete-topic' onClick={handleOpen} >{slotMachine.topic.name}</TopicBox>
+        <TopicBox className='complete-topic' onClick={handleOpenWithAudio} >{slotMachine.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
         <TopicDescription />

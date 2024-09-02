@@ -36,7 +36,7 @@ export default TopicDescription;
 const style = css`
   width: 100%;
   margin-bottom: 20px;
-  padding: 16px;
+  padding: 18px;
   box-sizing: border-box;
   background-color: ${styleSettingColor.background.light};
   display: flex;
