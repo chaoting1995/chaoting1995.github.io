@@ -16,7 +16,8 @@ const ResultPicker = (props: Props) => {
   const [side, setSide] = React.useState<EnumSideWithNull>(null);
 
   const handelStartJudge = () => {
-    setStartJudge(prevState => !prevState)
+    setStartJudge(prevState => !prevState);
+    UtilAudio.audioClick();
   }
 
   const handleJudgeWithAdditionalActions = () => {
