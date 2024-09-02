@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://chaoting1995.github.io/debateTimer/</loc></url>
-  <url><loc>https://chaoting1995.github.io/debateTimer/#/timers</loc></url>
-  <url><loc>https://chaoting1995.github.io/debateTimer/#/timer</loc></url>
-  <url><loc>https://chaoting1995.github.io/debateTimer/#/topicCreator</loc></url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/#/timers</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/#/timer</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://chaoting1995.github.io/debateTimer/#/topicCreator</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>
