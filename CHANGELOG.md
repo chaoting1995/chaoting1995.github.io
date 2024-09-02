@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.23] - 2024-09-03
+### Fixed
+- 調整：音頻物件，複用＋結束時銷毀
+
 ## [1.0.0-beta.22] - 2024-09-02
 
 ### Added

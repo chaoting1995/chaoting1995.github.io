@@ -11,6 +11,7 @@ import ServiceGA4 from 'modules/ga4/services/ga4.service';
 import { HelmetProvider } from 'react-helmet-async';
 import { theme } from 'styles/muiTheme';
 import { isDev } from 'env/env';
+import UtilAudio from 'utils/audio';
 
 function App() {
   const [searchParams] = useSearchParams();
@@ -21,6 +22,12 @@ function App() {
   };
 
   const element = useRoutes(routes);
+
+  React.useEffect(() => {
+    return () => {
+      UtilAudio.cleanupAudio();
+    }
+  }, [])
 
   return (<>
       <React.Suspense fallback={<PageLoading />}>

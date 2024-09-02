@@ -44,6 +44,7 @@ const TopicController = (props: Props) => {
   const handleToggle = () => {
     onChangeTopicMode(switchTopicMode[topicMode]);
     topicModeOnTracking[switchTopicMode[topicMode]]();
+    UtilAudio.audioClick();
   };
 
   const handleSpin = () => {

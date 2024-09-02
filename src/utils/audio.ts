@@ -6,72 +6,37 @@ import rollingAudio from 'audio/rolling.mp3';
 import rolling2Audio from 'audio/rolling2.mp3';
 import celebrationAudio from 'audio/celebration.mp3';
 
-export function audioClick(): void {
-  const sound = new Howl({
-    src: [clickAudio],
-    html5: true,
-  });
-  sound.play();
-  sound.on('end', function () {
-    sound.unload();
-  })
+const soundClick = new Howl({ src: [clickAudio], html5: true, pool: 10 });
+const soundBell = new Howl({ src: [bellAudio], html5: true, pool: 10 });
+const soundRolling = new Howl({ src: [rollingAudio], html5: true, pool: 10 });
+const soundRolling2 = new Howl({ src: [rolling2Audio], html5: true, pool: 10 });
+const soundCelebration = new Howl({ src: [celebrationAudio], html5: true, pool: 10 });
+
+function audioClick() {
+  soundClick.play();
 }
 
-export function audioBell(): void {
-  const sound = new Howl({
-    src: [bellAudio],
-    html5: true,  // 强制使用 HTML5 Audio
-  });
-  sound.play();
-
-    // 播放监听事件
-  sound.on('play', function (id) {
-    // console.log('音乐播放了',id);
-      sound.duration(id);
-      // const duration = sound.duration(id);
-      // console.log(duration, 'duration');
-  })
-  
-  // 音频结束监听
-  sound.on('end', function () {
-      // console.log('音乐播放停止')
-      // 销毁实例
-      sound.unload();
-  })
+function audioBell() {
+  soundBell.play();
 }
 
-export function audioRolling(): void {
-  const sound = new Howl({
-    src: [rollingAudio],
-    html5: true,
-  });
-
-  sound.play();
-  sound.on('end', function () {
-    sound.unload();
-  })
+function audioRolling() {
+  soundRolling.play();
 }
 
-export function audioRolling2(): void {
-  const sound = new Howl({
-    src: [rolling2Audio],
-    html5: true,
-  });
-  sound.play();
-  sound.on('end', function () {
-    sound.unload();
-  })
+function audioRolling2() {
+  soundRolling2.play();
 }
 
-export function audioCelebration(): void {
-  const sound = new Howl({
-    src: [celebrationAudio],
-    html5: true,
-  });
-  sound.play();
-  sound.on('end', function () {
-    sound.unload();
-  })
+function audioCelebration() {
+  soundCelebration.play();
+}
+function cleanupAudio() {
+  soundClick.unload();
+  soundBell.unload();
+  soundRolling.unload();
+  soundRolling2.unload();
+  soundCelebration.unload();
 }
 
 const UtilAudio = {
@@ -79,7 +44,8 @@ const UtilAudio = {
   audioBell,
   audioRolling,
   audioRolling2,
-  audioCelebration
+  audioCelebration,
+  cleanupAudio
 };
 
 export default UtilAudio;
