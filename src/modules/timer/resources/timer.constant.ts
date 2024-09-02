@@ -1,7 +1,7 @@
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { Timer } from 'modules/timer/resources/timer.type';
 
-export const LOCALSTORAGE_KEY_TIMERS = 'DT_LOCALSTORAGE_KEY_TIMERS';
+export const LOCALSTORAGE_KEY_TIMERS = 'LOCALSTORAGE_KEY_TIMERS';
 
 export const DEFAULT_TIMERS: Array<Timer> = [
   {

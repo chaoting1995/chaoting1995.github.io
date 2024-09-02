@@ -28,8 +28,8 @@ const Timers: React.FC = () => {
   
   const handleTrakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
     const newGaEvent = {
-      ...GA_EVENT.DT_Timers_Item_To_Timer,
-      label: `${GA_EVENT.DT_Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
+      ...GA_EVENT.Timers_Item_To_Timer,
+      label: `${GA_EVENT.Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
     }
 
     ServiceGA4.event(newGaEvent);
@@ -49,9 +49,9 @@ const Timers: React.FC = () => {
     handleOpen();
     
     if (timerID) {
-      ServiceGA4.event(GA_EVENT.DT_Timers_Button_Edit_Timer);
+      ServiceGA4.event(GA_EVENT.Timers_Button_Edit_Timer);
     } else {
-      ServiceGA4.event(GA_EVENT.DT_Header_Button_Add_Timer);
+      ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
     }
   }, [handleOpen, timers])
 

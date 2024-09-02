@@ -5,6 +5,7 @@ import { Play, Pause, CallBell, ArrowCounterClockwise } from '@phosphor-icons/re
 import { styleSettingColor } from 'styles/variables.style';
 import { CircleButton } from 'components';
 import UtilAudio from 'utils/audio';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -20,6 +21,7 @@ const TimerController = (props: Props) => {
       props.onPause();
     } else {
       props.onStart();
+      ServiceGA4.event(GA_EVENT.Timer_Button_Play);
     }
   };
 

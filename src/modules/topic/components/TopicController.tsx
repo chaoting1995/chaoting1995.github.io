@@ -17,6 +17,7 @@ import useDialog from 'hooks/useDialog';
 import { RolePicker } from 'modules/role';
 import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
 import useTopic from 'modules/topic/context/Topic/useTopic';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const switchTopicMode:  Record<EnumTopicMode, EnumTopicMode> = {
   [EnumTopicMode.Complete]: EnumTopicMode.Combined,
@@ -38,13 +39,20 @@ const TopicController = (props: Props) => {
     [EnumTopicMode.Complete]: <ChartPieSlice size={40} weight="thin"/>
   }
 
+  const topicModeOnTracking: Record<EnumTopicMode, () => void> = {
+    [EnumTopicMode.Combined]: () => ServiceGA4.event(GA_EVENT.TopicCreator_Button_TopicMode_Combined),
+    [EnumTopicMode.Complete]: () => ServiceGA4.event(GA_EVENT.TopicCreator_Button_TopicMode_Complete)
+  }
+
   const handleToggle = () => {
     onChangeTopicMode(switchTopicMode[topicMode]);
+    topicModeOnTracking[switchTopicMode[topicMode]]();
   };
 
   const handleSpin = () => {
     props.onSpin();
     UtilAudio.audioRolling();
+    ServiceGA4.event(GA_EVENT.TopicCreator_Button_SpinTopic);
   };
 
   return (

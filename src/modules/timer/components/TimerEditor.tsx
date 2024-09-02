@@ -120,7 +120,7 @@ const TimerEditor = (props: Props) => {
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
-    ServiceGA4.event(GA_EVENT.DT_TimersEditor_Button_Settting);
+    ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
   }, [handleOpenSetting]);
 
   const handleUseTemplateTimer = React.useCallback((timer: Timer) => {
@@ -234,8 +234,8 @@ const TimerEditor = (props: Props) => {
 
     props.onSave(newTimer);
     const newGaEvent = {
-      ...GA_EVENT.DT_TimersEditor_Button_Submit,
-      label: `DT_TimersEditor_Button_Submit${props.timer?.id ? '_Edit' : '_Add'}`,
+      ...GA_EVENT.TimersEditor_Button_Submit,
+      label: `TimersEditor_Button_Submit${props.timer?.id ? '_Edit' : '_Add'}`,
     };
     ServiceGA4.event(newGaEvent);
   }, [columnMode, columnName, columnRing, customVarifyRing, props]);

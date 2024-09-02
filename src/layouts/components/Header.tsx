@@ -25,7 +25,7 @@ const Header = (props: Props) => {
 
   const handleToggleDrawerWithTrakingHeaderButtonMenu = () => {
     handleToggleDrawer();
-    ServiceGA4.event(GA_EVENT.DT_Header_Button_Menu);
+    ServiceGA4.event(GA_EVENT.Header_Button_Menu);
   };
 
   return (

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.18] - 2024-09-02
+
+### Changed
+- 調整：GA 事件名稱，拿掉前綴 'DT_'
+
+### Added
+- 新增：辯題產生器，埋設 GA 事件
+
 ## [1.0.0-beta.17] - 2024-09-02
 
 ### Changed

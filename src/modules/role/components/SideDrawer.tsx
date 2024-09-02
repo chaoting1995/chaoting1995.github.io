@@ -6,6 +6,7 @@ import { Button } from 'components';
 import { EnumSide } from 'modules/role/enums/enumSide';
 import { SidePicker, type EnumSideWithNull } from 'modules/role';
 import UtilAudio from 'utils/audio';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -23,6 +24,7 @@ const SideDrawer = (props: Props) => {
     const randomSide = sides[Math.floor(Math.random() * sides.length)];
     setSide(randomSide);
     UtilAudio.audioClick();
+    ServiceGA4.event(GA_EVENT.TopicDrawer_Button_Draw);
   };
 
   return (

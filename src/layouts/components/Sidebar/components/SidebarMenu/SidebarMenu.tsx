@@ -3,7 +3,9 @@ import { css, cx } from '@emotion/css';
 import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
 
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
-import TestTag from "components/TestTag";
+import TestTag from 'components/TestTag';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import { pageLinks } from 'routes/constants';
 
 export type SidebarMenuItem = {
   label: string;
@@ -28,8 +30,19 @@ const SidebarMenu = (props: Props) => {
     anchor.click();
   };
 
+  const handleTracking = (path: string) => {
+    if (path === pageLinks.timer) {
+      ServiceGA4.event(GA_EVENT.Menu_Item_To_Timer);
+    }
+
+    if (path === pageLinks.topicCreator) {
+      ServiceGA4.event(GA_EVENT.Menu_Item_To_TopicCreator);
+    }
+  };
+
   const handleToPage = (path: string | undefined, link: string | undefined, isBlank: boolean | undefined) => () => {
     if (path) {
+      handleTracking(path);
       navigate(path);
     }
 

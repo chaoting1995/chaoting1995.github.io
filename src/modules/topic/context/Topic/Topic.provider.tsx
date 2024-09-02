@@ -13,15 +13,15 @@ const TopicProvider = (props: Props) => {
   const [topicMode, setTopicMode] = React.useState(EnumTopicMode.Complete);
   const [topicMiddleItemMode, setTopicMiddleItemMode] = React.useState(EnumTopicMiddleItemMode.Causal);
 
-  const onChangeTopicMode = (_topicMode: EnumTopicMode) => {
+  const onChangeTopicMode = React.useCallback((_topicMode: EnumTopicMode) => {
     setTopicMode(_topicMode);
     // ResourceTimer.updateTimers(updatedTimers);
-  };
+  }, []);
   
-  const onChangeTopicMiddleItemMode = (_topicMiddleItemMode: EnumTopicMiddleItemMode) => {
+  const onChangeTopicMiddleItemMode = React.useCallback((_topicMiddleItemMode: EnumTopicMiddleItemMode) => {
     setTopicMiddleItemMode(_topicMiddleItemMode);
     // ResourceTimer.updateTimers(updatedTimers);
-  };
+  },[]);
 
   return (
     <TopicContext.Provider 

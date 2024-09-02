@@ -5,6 +5,7 @@ import Realistic from "react-canvas-confetti/dist/presets/realistic";
 import imgJudge from 'assets/img-role-judge.png';
 import { RoleCard, SidePicker, type EnumSideWithNull } from 'modules/role';
 import UtilAudio from 'utils/audio';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -18,11 +19,15 @@ const ResultPicker = (props: Props) => {
     setStartJudge(prevState => !prevState)
   }
 
+  const handleJudgeWithAdditionalActions = () => {
+    UtilAudio.audioCelebration();
+    ServiceGA4.event(GA_EVENT.ResultPicker_Button_Judge);
+  };
+
   const handleChangeSide = (_side: EnumSideWithNull) => {
-    // if (!startJudge) return;
     setSide(prevState => {
-      if(prevState === _side) return null;
-      UtilAudio.audioCelebration();
+      if (prevState === _side) return null;
+      handleJudgeWithAdditionalActions();
       return _side;
     });
   };

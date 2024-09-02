@@ -30,7 +30,7 @@ const Timer: React.FC = () => {
   }
 
   const handleTrakingHeaderButtonTimers = () => {
-    ServiceGA4.event(GA_EVENT.DT_Header_Button_Timers);
+    ServiceGA4.event(GA_EVENT.Header_Button_Timers);
   };
 
   React.useEffect(() => {
