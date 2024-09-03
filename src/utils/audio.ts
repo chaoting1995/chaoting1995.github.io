@@ -3,7 +3,7 @@ import { Howl } from 'howler';
 import clickAudio from 'audio/click.mp3';
 import bellAudio from 'audio/bell.mp3';
 import rollingAudio from 'audio/rolling.mp3';
-import rolling2Audio from 'audio/rolling2.mp3';
+// import rolling2Audio from 'audio/rolling2.mp3';
 import celebrationAudio from 'audio/celebration.mp3';
 
 const soundClick = new Howl({ src: [clickAudio], html5: true, pool: 50 });
