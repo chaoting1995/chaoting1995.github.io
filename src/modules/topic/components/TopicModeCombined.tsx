@@ -6,7 +6,8 @@ import { BottomDrawer } from 'components';
 import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
 import { TopicMiddleItemMode } from 'modules/topic';
-import { TopicBox, TopicList, TopicDescription, TopicController, EnumTopicItem }  from 'modules/topic';
+import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules/topic';
+import { EnumTopicItem } from 'modules/topic/enums/enumTopicItem';
 import { DEFAULT_TOPIC_COMBINED } from 'modules/topic/resources/topic.constant';
 import { Topic } from 'modules/topic/resources/topic.type';
 
@@ -32,7 +33,7 @@ const TopicModeCombined = (props: Props) => {
 
   const handleSpin = () => {
     const chosenTopic = slotMachineTopicFrontItem.onSpin();
-    slotMachineTopicBackItem.onSpin(chosenTopic);
+    if (chosenTopic) slotMachineTopicBackItem.onSpin(chosenTopic);
   };
 
   const handleClickTopicBox = (_topicItem: EnumTopicItem) => () => {

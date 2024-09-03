@@ -1,7 +1,10 @@
-import { TimersContext } from 'modules/timer/context/Timers/Timers.context';
 import React from 'react';
-import ResourceTimer from 'modules/timer/resources/timer.resource';
+
 import { Timer } from 'modules/timer/resources/timer.type';
+import ResourceTimer from 'modules/timer/resources/timer.resource';
+
+import { TimersContext } from './Timers.context';
+
 type Props = {
   children: React.ReactNode;
 };

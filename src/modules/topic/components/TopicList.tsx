@@ -1,12 +1,14 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-// import { Eye } from '@phosphor-icons/react';
-import { List, ListItemButton, ListItem, ListItemSecondaryAction } from '@mui/material';
+import { Eye, EyeSlash } from '@phosphor-icons/react';
+import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
 
+import UtilAudio from 'utils/audio';
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
+import useTopic from 'modules/topic/context/Topic/useTopic';
 
 type Props = {
   className?: string;
@@ -16,9 +18,16 @@ type Props = {
 }
 
 const TopicList: React.FC<Props> = (props) => {
-const handleChangeTopic = (_topic: Topic) => () => {
-  props.onChangeTopic(_topic);
-};
+  const { topicDisabled, onChangeTopicDisabled } = useTopic();
+  
+  const handleChangeTopic = (_topic: Topic) => () => {
+    props.onChangeTopic(_topic);
+    UtilAudio.audioClick();
+  };
+
+  const handleChangeTopicDisabled = (topicID: string, disabled: boolean) =>  () => {
+    onChangeTopicDisabled(topicID, disabled)
+  }
 
   return (
     <div className={cx('DT-TopicList', style, props.className)}>
@@ -30,16 +39,21 @@ const handleChangeTopic = (_topic: Topic) => () => {
           </div>}
         <List disablePadding>
           {props.topics.map((item) => 
-            <ListItem key={item.id} disablePadding>
+            <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
               <ListItemButton onClick={handleChangeTopic(item)}>
                 <div className='item-name'>{item.name}</div>
-                <ListItemSecondaryAction className='item-actions'>
-                  {/* <IconButton onClick={() => {}}>
-                    <Eye size={26} weight='light'/>
-                    <EyeSlash size={26} weight='light' />
-                  </IconButton> */}
-                </ListItemSecondaryAction>
               </ListItemButton>
+              <ListItemSecondaryAction className='item-actions'>
+                {topicDisabled.includes(item.id) ? (
+                  <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
+                    <EyeSlash size={26} weight='light' />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
+                    <Eye size={26} weight='light'/>
+                  </IconButton>
+                )}
+              </ListItemSecondaryAction>
           </ListItem>)}
         </List>
     </BottomDrawerBody>
@@ -93,6 +107,11 @@ const style = css`
 
   .MuiListItem-root {
     padding-right: 0;
+    
+    &.topic-pull-off {
+      background-color: ${styleSettingColor.gray};
+      opacity: 0.6;
+    }
   }
 
   .MuiListItem-root > .MuiListItemButton-root {

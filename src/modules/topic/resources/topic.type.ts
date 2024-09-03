@@ -1,7 +1,14 @@
+import { EnumTopicMode } from 'modules/topic/enums/enumTopicMode';
+import { EnumTopicMiddleItemMode } from 'modules/topic/enums/enumTopicMiddleItemMode';
 
 export type Topic = {
   id: string;
   name: string;
   category: string;
-  isVisible: boolean;
 }
+
+export type TopicSetting = {
+  topicMode: EnumTopicMode;
+  topicMiddleItemMode: EnumTopicMiddleItemMode;
+  topicDisabled: string[];
+};

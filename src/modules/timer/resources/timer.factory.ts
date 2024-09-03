@@ -1,8 +1,8 @@
 import { ErrorCreateObjectByEmpty } from 'api/errors/errorCreateObjectByEmpty.class';
-import { Timer } from 'modules/timer/resources/timer.type';
-import ServiceFormat from 'services/format.service';
-import { EnumTimerMode, IsEnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { ErrorCreateObjectByColumnEnum } from 'api/errors/errorCreateObjectByColumnEnum.class';
+import ServiceFormat from 'services/format.service';
+import { Timer } from 'modules/timer/resources/timer.type';
+import { EnumTimerMode, IsEnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 
 const createTimer = (response: Timer): Timer => {
   const objectName = 'Timer';

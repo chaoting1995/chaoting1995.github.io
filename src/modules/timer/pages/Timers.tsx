@@ -97,9 +97,9 @@ const Timers: React.FC = () => {
           to={`${pageLinks.timerID.replace(':id', item.id)}`}
           onClick={handleTrakingTimersItemToTimer(item.name, item.mode)}
         >
-          <div className='timer-item-name'>{item.name}</div>
+          <div className='item-name'>{item.name}</div>
         </ListItemButton>
-        <ListItemSecondaryAction className='timer-item-actions'>
+        <ListItemSecondaryAction className='item-actions'>
           <IconButton onClick={handleOpenEditor(item.id)}>
             <PencilSimple size={26} weight="light"/>
           </IconButton>
@@ -151,17 +151,15 @@ const style = css`
     border-bottom: 1px solid ${styleSettingColor.disabled};
   }
 
-  .timer-item {
-    &-name {
-      width: calc(100% - 42px - 42px);
-      ${styleLineEllipsis(1)}
-    }
-    
-    &-actions {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+  .item-name {
+    width: calc(100% - 42px - 42px);
+    ${styleLineEllipsis(1)}
+  }
+
+  .item-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
   .MuiIconButton-root {

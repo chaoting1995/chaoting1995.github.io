@@ -3,14 +3,14 @@ import FactoryTimer from 'modules/timer/resources/timer.factory';
 import { Timer } from 'modules/timer/resources/timer.type';
 
 const getTimers = (): Timer[] => {
-  const timersJSONString = localStorage.getItem(DT_LOCALSTORAGE_KEY_TIMERS);
-  if (!timersJSONString) return DEFAULT_TIMERS;
-  return FactoryTimer.createTimers(JSON.parse(timersJSONString));
+  const jsonString = localStorage.getItem(DT_LOCALSTORAGE_KEY_TIMERS);
+  if (!jsonString) return DEFAULT_TIMERS;
+  return FactoryTimer.createTimers(JSON.parse(jsonString));
 };
 
 const updateTimers = (timers: Timer[]) => {
-  const timersJSONString = JSON.stringify(timers);
-  localStorage.setItem(DT_LOCALSTORAGE_KEY_TIMERS, timersJSONString);
+  const jsonString = JSON.stringify(timers);
+  localStorage.setItem(DT_LOCALSTORAGE_KEY_TIMERS, jsonString);
 };
 
 const ResourceTimer = {
