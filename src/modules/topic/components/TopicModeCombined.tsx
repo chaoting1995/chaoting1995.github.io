@@ -13,7 +13,7 @@ import { Topic } from 'modules/topic/resources/topic.type';
 import { EnumTopicMiddleItemMode } from 'modules/topic/enums/enumTopicMiddleItemMode';
 import useTopic from 'modules/topic/context/Topic/useTopic';
 
-const topicmiddleItemModeWoding: Record<EnumTopicMiddleItemMode, string> = {
+const topicMiddleItemModeWoding: Record<EnumTopicMiddleItemMode, string> = {
   [EnumTopicMiddleItemMode.Causal]: '因果型辯題',
   [EnumTopicMiddleItemMode.Compare]: '比較型辯題',
 };
@@ -63,7 +63,7 @@ const TopicModeCombined = (props: Props) => {
       </div>
       <div className='bottom-section'>
         <TopicDescription>
-          <div>中項模式：{topicmiddleItemModeWoding[topicMiddleItemMode]}</div>
+          <div>中項模式：{topicMiddleItemModeWoding[topicMiddleItemMode]}</div>
           {slotMachineTopicFrontItem.enableTopics.length < 2 && <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 1</div>}
         </TopicDescription>
         <TopicController
