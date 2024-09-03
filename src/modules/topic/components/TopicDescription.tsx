@@ -3,7 +3,6 @@ import { css, cx } from '@emotion/css';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumTopicMode } from "modules/topic/enums/enumTopicMode";
-import { EnumTopicMiddleItemMode } from "modules/topic/enums/enumTopicMiddleItemMode";
 import useTopic from 'modules/topic/context/Topic/useTopic';
 
 const topicModeWording: Record<EnumTopicMode, string> = {
@@ -11,23 +10,17 @@ const topicModeWording: Record<EnumTopicMode, string> = {
   [EnumTopicMode.Combined]: '組合辯題',
 }
 
-const topicmiddleItemModeWoding: Record<EnumTopicMiddleItemMode, string> = {
-  [EnumTopicMiddleItemMode.Causal]: '因果型辯題',
-  [EnumTopicMiddleItemMode.Compare]: '比較型辯題',
-};
-
 type Props = {
   className?: string;
+  children?: React.ReactNode;
 };
 
 const TopicDescription = (props: Props) => {
-  const { topicMode, topicMiddleItemMode } = useTopic();
+  const { topicMode } = useTopic();
   
   return <div className={cx('DT-TopicDescription', style, props.className)}>
     <div>辯題模式：{topicModeWording[topicMode]}</div>
-    {topicMode === EnumTopicMode.Combined && 
-      <div>中項模式：{topicmiddleItemModeWoding[topicMiddleItemMode]}</div>
-    }
+    {props.children}
   </div>;
 };
 

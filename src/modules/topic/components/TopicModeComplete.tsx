@@ -33,12 +33,17 @@ const TopicModeComplete = (props: Props) => {
         <TopicBox className='complete-topic' onClick={handleClickTopicBox} >{slotMachine.topic.name}</TopicBox>
       </div>
       <div className='bottom-section'>
-        <TopicDescription />
-        <TopicController onSpin={slotMachine.onSpin} disabledOnSpin={slotMachine.isSpinning} />
+        <TopicDescription>
+          {slotMachine.enableTopics.length <= 1 && <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 2 </div>}
+        </TopicDescription>
+        <TopicController 
+          onSpin={slotMachine.onSpin} 
+          disabledOnSpin={slotMachine.isSpinning || slotMachine.enableTopics.length <= 1} 
+        />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
         <TopicList topics={DEFAULT_TOPIC_COMPLETE} onChangeTopic={handleChangeTopic}/>
-    </BottomDrawer>
+      </BottomDrawer>
     </div>
   )
 }

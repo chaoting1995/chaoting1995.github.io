@@ -10,6 +10,13 @@ import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules
 import { EnumTopicItem } from 'modules/topic/enums/enumTopicItem';
 import { DEFAULT_TOPIC_COMBINED } from 'modules/topic/resources/topic.constant';
 import { Topic } from 'modules/topic/resources/topic.type';
+import { EnumTopicMiddleItemMode } from 'modules/topic/enums/enumTopicMiddleItemMode';
+import useTopic from 'modules/topic/context/Topic/useTopic';
+
+const topicmiddleItemModeWoding: Record<EnumTopicMiddleItemMode, string> = {
+  [EnumTopicMiddleItemMode.Causal]: '因果型辯題',
+  [EnumTopicMiddleItemMode.Compare]: '比較型辯題',
+};
 
 type Props = {
   className?: string;
@@ -17,9 +24,10 @@ type Props = {
 
 const TopicModeCombined = (props: Props) => {
   const [open, handleOpen, handleClose] = useDialog(false);
+  const { topicMiddleItemMode } = useTopic();
   const [topicItem, setTopicItem] = React.useState<EnumTopicItem>(EnumTopicItem.FrontItem)
   const slotMachineTopicFrontItem = useSlotMachine(DEFAULT_TOPIC_COMBINED);
-  const slotMachineTopicBackItem = useSlotMachine(DEFAULT_TOPIC_COMBINED, 1);
+  const slotMachineTopicBackItem = useSlotMachine(DEFAULT_TOPIC_COMBINED, true);
 
   const handleChangeTopicByTopicItem = {
     [EnumTopicItem.FrontItem]: slotMachineTopicFrontItem.onChange,
@@ -54,10 +62,13 @@ const TopicModeCombined = (props: Props) => {
         </TopicBox>
       </div>
       <div className='bottom-section'>
-        <TopicDescription />
+        <TopicDescription>
+          <div>中項模式：{topicmiddleItemModeWoding[topicMiddleItemMode]}</div>
+          {slotMachineTopicFrontItem.enableTopics.length < 2 && <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 1</div>}
+        </TopicDescription>
         <TopicController
           onSpin={handleSpin}
-          disabledOnSpin={slotMachineTopicFrontItem.isSpinning || slotMachineTopicBackItem.isSpinning}
+          disabledOnSpin={slotMachineTopicFrontItem.isSpinning || slotMachineTopicBackItem.isSpinning || slotMachineTopicFrontItem.enableTopics.length < 2}
         />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>

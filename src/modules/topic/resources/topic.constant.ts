@@ -394,6 +394,6 @@ export const DEFAULT_TOPIC_COMBINED: Topic[] = [
 
 export const EMPTY_TOPIC: Topic = {
   id: '',
-  name: '',
+  name: '(無可選辯題)',
   category: '',
 };

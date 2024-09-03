@@ -3,28 +3,31 @@ import React from 'react';
 import { Topic } from 'modules/topic/resources/topic.type';
 import { EMPTY_TOPIC } from 'modules/topic/resources/topic.constant';
 import useTopic from 'modules/topic/context/Topic/useTopic';
-import usePopup from 'context/Popup/usePopup';
 
 export type UseSlotMachine = {
+  enableTopics: Topic[];
   topic: Topic;
   isSpinning: boolean;
   onSpin: (excludeTopic?: Topic) => Topic | undefined;
   onChange: (topic: Topic) => void;
 }
 
-const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine => {
-  const popup = usePopup();
+const useSlotMachine = (topics: Topic[], topicBackItem?: boolean): UseSlotMachine => {
   const { topicDisabled } = useTopic();
-  const newTopics = React.useMemo(() => {
+  const enableTopics = React.useMemo(() => {
     return topics.filter(item => !topicDisabled.includes(item.id));
   }, [topics, topicDisabled])
 
   const [isSpinning, setIsSpinning] = React.useState(false);
   const defaultItem = React.useMemo(() => {
-    if (topics.length === 0) return EMPTY_TOPIC;
-    if (!defaultIndex || !topics[defaultIndex]) return topics[0];
-    return topics[defaultIndex];
-  }, [topics, defaultIndex])
+    if (enableTopics.length === 0) return EMPTY_TOPIC;
+
+    const defaultFrontItem = enableTopics[0];
+    const defaultBackItem = enableTopics[1]
+    if (!topicBackItem) return defaultFrontItem;
+    if (!defaultBackItem) return defaultFrontItem;
+    return defaultBackItem;
+  }, [enableTopics, topicBackItem])
 
   const [topic, setTopic] = React.useState<Topic>(defaultItem);
 
@@ -33,14 +36,13 @@ const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine 
   }, []);
 
   const onSpin = React.useCallback((excludeTopic?: Topic) => {
-    if (newTopics.length <= 1) {
-      popup.notice(({ message: '無法抽題，辯題可選數量 < 2', severity: 'warning' }));
+    if (enableTopics.length <= 1) {
       return;
     }
 
-    const _topics = newTopics.filter(item => item.id !== excludeTopic?.id);
-    const randomIndex = Math.floor(Math.random() * _topics.length);
-    const chosenTopic = _topics[randomIndex];
+    const newTopics = enableTopics.filter(item => item.id !== excludeTopic?.id);
+    const randomIndex = Math.floor(Math.random() * newTopics.length);
+    const chosenTopic = newTopics[randomIndex];
 
     setIsSpinning(true);
     setTimeout(() => {
@@ -49,21 +51,22 @@ const useSlotMachine = (topics: Topic[], defaultIndex?: number): UseSlotMachine 
     }, 2000);
 
     return chosenTopic;
-  }, [popup, newTopics]);
+  }, [enableTopics]);
 
   React.useEffect(() => {
     if (isSpinning) {
       const intervalID = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * newTopics.length);
-        const randomTopic = newTopics[randomIndex];
+        const randomIndex = Math.floor(Math.random() * enableTopics.length);
+        const randomTopic = enableTopics[randomIndex];
         setTopic(randomTopic);
       }, 80);
 
       return () => clearInterval(intervalID);
     }
-  }, [isSpinning, newTopics]);
+  }, [isSpinning, enableTopics]);
 
   return {
+    enableTopics,
     topic,
     onChange,
     isSpinning,
