@@ -30,6 +30,12 @@ export const DEFAULT_TIMERS: Array<Timer> = [
   },
   {
     id: 'debate-timer-005',
+    mode: EnumTimerMode.Normal,
+    name: '緩衝計時30秒',
+    ring: [30]
+  },
+  {
+    id: 'debate-timer-006',
     mode: EnumTimerMode.Crossfire,
     name: '自由辯論',
     ring: [210, 240]
@@ -60,6 +66,12 @@ export const TEMPLATE_TIMERS: Array<Timer> = [
     mode: EnumTimerMode.Normal,
     name: '新式奧瑞岡554制-結辯',
     ring: [180, 210, 240]
+  },
+  {
+    id: 'debate-timer-005',
+    mode: EnumTimerMode.Normal,
+    name: '緩衝計時30秒',
+    ring: [30]
   },
   {
     id: '',
