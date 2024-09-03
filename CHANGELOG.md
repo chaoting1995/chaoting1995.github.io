@@ -5,12 +5,20 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.26] - 2024-09-03
+
+### Added
+- 計時器：新增預設值「緩衝計時30秒」 
+
 ## [1.0.0-beta.25] - 2024-09-03
+
+### Added
+- 計時器：新增預設值「新式奧瑞岡554制」、「新式奧瑞岡554制-結辯」 
 
 ### Changed
 - 更新 index.html `<html lang='zh-Hant'>`
 - 重構音頻的初始化時機
-- 計時器：新增預設值與模板＋更改順序
+- 計時器：預設值與模板，更改順序
 
 ## [1.0.0-beta.24] - 2024-09-03
 
