@@ -64,11 +64,16 @@ const TopicModeCombined = (props: Props) => {
       <div className='bottom-section'>
         <TopicDescription>
           <div>中項模式：{topicMiddleItemModeWoding[topicMiddleItemMode]}</div>
-          {slotMachineTopicFrontItem.enableTopics.length < 2 && <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 1</div>}
+          {slotMachineTopicFrontItem.enableTopics.length <= 1 && 
+            <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 1</div>
+          }
         </TopicDescription>
         <TopicController
           onSpin={handleSpin}
-          disabledOnSpin={slotMachineTopicFrontItem.isSpinning || slotMachineTopicBackItem.isSpinning || slotMachineTopicFrontItem.enableTopics.length < 2}
+          disabledOnSpin={slotMachineTopicFrontItem.isSpinning
+            || slotMachineTopicBackItem.isSpinning
+            || slotMachineTopicFrontItem.enableTopics.length <= 1
+          }
         />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>

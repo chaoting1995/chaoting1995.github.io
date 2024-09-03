@@ -34,7 +34,9 @@ const TopicModeComplete = (props: Props) => {
       </div>
       <div className='bottom-section'>
         <TopicDescription>
-          {slotMachine.enableTopics.length <= 1 && <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 2 </div>}
+          {slotMachine.enableTopics.length <= 1 && 
+            <div>溫馨提示：無法抽題，辯題可選數量需 {'>'} 1 </div>
+          }
         </TopicDescription>
         <TopicController 
           onSpin={slotMachine.onSpin} 
