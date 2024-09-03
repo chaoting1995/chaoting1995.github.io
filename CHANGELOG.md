@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - 更新 index.html `<html lang='zh-Hant'>`
 - 重構音頻的初始化時機
+- 計時器：新增預設值與模板＋更改順序
 
 ## [1.0.0-beta.24] - 2024-09-03
 
