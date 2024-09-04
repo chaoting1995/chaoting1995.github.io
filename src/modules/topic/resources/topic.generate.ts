@@ -424,6 +424,141 @@ export const DEFAULT_TOPIC_COMBINED_FROM_CSV = [
     "id": "topic-combined-020",
     "name": "全球暖化",
     "category": "其他"
+  },
+  {
+    "id": "topic-combined-021",
+    "name": "發財",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-022",
+    "name": "看電影",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-023",
+    "name": "世界和平",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-024",
+    "name": "下廚",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-025",
+    "name": "出國旅行",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-026",
+    "name": "養寵物",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-027",
+    "name": "交到新朋友",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-028",
+    "name": "認識名人",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-029",
+    "name": "身體健康",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-030",
+    "name": "發現外星人",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-031",
+    "name": "寫小說",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-032",
+    "name": "去補習班",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-033",
+    "name": "成績進步",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-034",
+    "name": "學會魔法",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-035",
+    "name": "獨居",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-036",
+    "name": "探索叢林",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-037",
+    "name": "打電動",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-038",
+    "name": "認識自己",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-039",
+    "name": "地球暖化",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-040",
+    "name": "回到過去",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-041",
+    "name": "出現仇人",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-042",
+    "name": "成為超級英雄",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-043",
+    "name": "從軍",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-044",
+    "name": "搬家",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-045",
+    "name": "被全世界認識",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-046",
+    "name": "預知未來",
+    "category": "其他"
+  },
+  {
+    "id": "topic-combined-047",
+    "name": "活在疫情之中",
+    "category": "其他"
   }
 ];
 
