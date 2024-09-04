@@ -15,7 +15,7 @@ import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
 import useTimers from 'modules/timer/context/Timers/useTimers';
 import HeadTags from 'components/HeadTags';
-import { PAGE_TITLE } from "routes/constants";
+import { PAGE_TITLE, PAGE_DESCRIPTION } from "routes/constants";
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 const Timer: React.FC = () => {
@@ -48,7 +48,7 @@ const Timer: React.FC = () => {
         <PencilSimpleLine size={28} weight="light"/>
       </IconButton>
     }>
-    <HeadTags title={PAGE_TITLE.timerWithVersion} />
+    <HeadTags title={PAGE_TITLE.timerWithVersion} description={PAGE_DESCRIPTION.timer}/>
     {creator[timer.mode]}
   </Layout>;
 };
