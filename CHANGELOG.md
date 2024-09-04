@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.33] - 2024-09-04
+
+### Fixed
+- 修復：辯題列表 > 進階設定 > 重置開啟狀態
+- 修復：自由辯論模式 > 計時器切換器 > 修正文案「不能切換，所有計時器已停止」
+
 ## [1.0.0-beta.32] - 2024-09-04
 
 ### Added
