@@ -7,13 +7,19 @@ import { styleSettingColor } from "styles/variables.style";
 type Props = {
   className?: string;
   children: React.ReactNode;
+  center?: boolean;
 };
 
 const BottomDrawerBody = (props: Props) => {
   const [innerHeight] = useInnerHeight();
 
   return (
-    <div className={cx('DT-BottomDrawerBody', style(innerHeight), props.className)}>
+    <div className={cx(
+      'DT-BottomDrawerBody', 
+      style(innerHeight), 
+      props.className,
+      { 'center': props.center }
+    )}>
       {props.children}
     </div>
   );
@@ -31,6 +37,10 @@ const style = (_innerHeight: number) => css`
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  &.center {
+    align-items: center;
+  }
   
   font-size: 18px;
   color: ${styleSettingColor.text.secondary};

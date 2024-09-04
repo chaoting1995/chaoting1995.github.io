@@ -24,9 +24,8 @@ const TopicListSetting = (props: Props) => {
           </IconButton>
         }
       />
-      <BottomDrawerBody className='drawer-body'>
-        <div className='setting-title'>使用模板</div>
-        <Button variant='outlined' href={TOPIC_GOOGLE_SHEET_URL}>
+      <BottomDrawerBody center className='drawer-body'>
+        <Button variant='outlined' className='download-button' href={TOPIC_GOOGLE_SHEET_URL}>
           檔案下載
         </Button>
       </BottomDrawerBody>
@@ -56,6 +55,11 @@ const style = css`
       color: ${styleSettingColor.text.secondary};
     }
     
+    .download-button.MuiButton-root {
+      width: fit-content;
+      color: ${styleSettingColor.background.dark};
+    }
+
     .template-button-group {
       display: flex;
       flex-direction: column;
