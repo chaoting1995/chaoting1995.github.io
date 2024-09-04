@@ -42,11 +42,6 @@ const options: Array<{ value: EnumTimerMode; label: string }> = [
   },
 ];
 
-const ringTimesByColumnMode: Record<EnumTimerMode, number> = {
-  [EnumTimerMode.Normal]: 3,
-  [EnumTimerMode.Crossfire]: 2,
-};
-
 type Props = {
   className?: string;
   timer: Timer;
@@ -123,16 +118,16 @@ const TimerEditor = (props: Props) => {
     ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
   }, [handleOpenSetting]);
 
-  const handleUseTemplateTimer = React.useCallback((timer: Timer) => {
-    columnName.onChange(timer.name);
-    columnMode.onChange(timer.mode);
+  const handleUseTemplateTimer = React.useCallback((_timer: Timer) => {
+    columnName.onChange(_timer.name);
+    columnMode.onChange(_timer.mode);
     setColumnRing(
-      Array(ringTimesByColumnMode[timer.mode]).fill('').map((item, index) => {
-          const ringItem = timer.ring[index] ? timer.ring[index] : item;
+      Array(_timer.ring.length).fill('').map((item, index) => {
+          const ringItem = _timer.ring[index] ? _timer.ring[index] : item;
           return createRingItemWithStatus(ringItem);
         })
     );
-    setRingTimes(ringTimesByColumnMode[timer.mode]);
+    setRingTimes(_timer.ring.length);
     handleCloseSetting();
   }, [columnMode, columnName, handleCloseSetting]);
 
