@@ -1,5 +1,5 @@
 import ReactGA from 'react-ga4';
-import env from 'env/env';
+import env from 'modules/env/env';
 
 import ga4EventConfig from 'modules/ga4/ga4EventConfig.constants';
 

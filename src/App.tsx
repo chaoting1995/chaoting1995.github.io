@@ -10,7 +10,7 @@ import TopicProvider from 'modules/topic/context/Topic/Topic.provider';
 import ServiceGA4 from 'modules/ga4/services/ga4.service';
 import { HelmetProvider } from 'react-helmet-async';
 import { theme } from 'styles/muiTheme';
-import { isDev } from 'env/env';
+import { isDev } from 'modules/env/env';
 import UtilAudio from 'utils/audio';
 import PopupProvider from 'context/Popup/Popup.provider';
 

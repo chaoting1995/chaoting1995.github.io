@@ -6,7 +6,6 @@ import {
   bounceInDown,
 } from 'react-animations';
 
-import { stylePage } from 'styles/page.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleCard } from 'styles/card.style';
 import { styleInput } from 'styles/input.style';
@@ -139,7 +138,6 @@ const basicStyle = css`
   }
 
   ${styleInput}
-  ${stylePage}
   ${styleCard}
 `;
 

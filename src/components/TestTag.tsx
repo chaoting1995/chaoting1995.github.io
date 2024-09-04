@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
 
-import { isDev } from 'env/env';
+import { isDev } from 'modules/env/env';
 import { styleSettingColor } from 'styles/variables.style';
 type Props = {
   className?: string;

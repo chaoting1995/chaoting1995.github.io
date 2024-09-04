@@ -1,4 +1,4 @@
-import { EnumEnv, IsEnumEnv } from 'env/enums/env.enum';
+import { EnumEnv, IsEnumEnv } from 'modules/env/enums/env.enum';
 
 type EnvSetting = {
   // originAPI: string;
