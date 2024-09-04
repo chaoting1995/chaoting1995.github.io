@@ -70,7 +70,8 @@ const TopicModeCombined = (props: Props) => {
         </TopicDescription>
         <TopicController
           onSpin={handleSpin}
-          disabledOnSpin={slotMachineTopicFrontItem.isSpinning
+          disabledOnSpin={
+            slotMachineTopicFrontItem.isSpinning
             || slotMachineTopicBackItem.isSpinning
             || slotMachineTopicFrontItem.enableTopics.length <= 1
           }
