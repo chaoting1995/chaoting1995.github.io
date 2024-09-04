@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { IconButton } from '@mui/material';
 import { List, X } from '@phosphor-icons/react';
@@ -10,13 +10,13 @@ import Logo from 'assets/logo.svg?react';
 import { breakpoints, styleSettingColor, styleSettingHeight, styleSettingZIndex } from 'styles/variables.style';
 import Sidebar from 'layouts/components/Sidebar/Sidebar';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
-import { PAGE_TITLE } from 'routes/constants';
 // import SidebarMenu from 'layouts/components/Sidebar/components/SidebarMenu/SidebarMenu';
 // import menu from 'layouts/components/Sidebar/menu';
 
 type Props = {
   renderButtons?: React.ReactNode;
   title?: string;
+  homeLink?: string;
 };
 
 const Header = (props: Props) => {
@@ -33,8 +33,12 @@ const Header = (props: Props) => {
       <div className='header-fixed'>
         <div className='header-container'>
           <div className='header-to-home'>
-            <div className='header-logo'><Logo /></div>
-            <h1 className='header-title'>{!props.title ? PAGE_TITLE.timerWithVersion : props.title}</h1>
+            {!props.homeLink ? (
+              <div className='header-logo'><Logo /></div>
+            ) : (
+              <Link className='header-logo' to={props.homeLink}><Logo /></Link>
+            )}
+            <h1 className='header-title'>{props.title}</h1>
           </div>
           <div className='header-button-group'>
             {/* <SidebarMenu className='header-menu' list={menu} /> */}
@@ -89,7 +93,7 @@ const style = (_isTop: boolean) => css`
         align-items: center;
         
         & > * {
-          width: max-content;
+          width: fit-content;
         }
 
         .header-logo {
@@ -106,6 +110,7 @@ const style = (_isTop: boolean) => css`
         }
         
         .header-title {
+          margin: 0;
           font-size: 22px;
           font-weight: normal;
         }
@@ -114,7 +119,7 @@ const style = (_isTop: boolean) => css`
       .header-button-group {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 5px;
 
         .MuiIconButton-root {
           color: ${styleSettingColor.text.primary};

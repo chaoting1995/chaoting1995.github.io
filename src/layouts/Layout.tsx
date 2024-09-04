@@ -10,8 +10,9 @@ type Props = {
   children?: React.ReactNode;
   mainClassName?: string;
   layoutClassName?: string;
-  renderButtons?: React.ReactNode;
   title?: string;
+  homeLink?: string; 
+  renderButtons?: React.ReactNode;
 };
 
 const Layout = (props: Props) => {
@@ -20,7 +21,7 @@ const Layout = (props: Props) => {
 
   return (
     <div className={cx("DD-Layout", style(innerHeight), props.layoutClassName)}>
-      <Header renderButtons={props.renderButtons} title={props.title} />
+      <Header renderButtons={props.renderButtons} title={props.title} homeLink={props.homeLink}/>
       <main id="websiteTop" className={props.mainClassName}>
         {props.children}
       </main>

@@ -80,6 +80,7 @@ const Timers: React.FC = () => {
   return <Layout
     mainClassName={cx('DT-Timers', style)}
     title={PAGE_TITLE.timers}
+    homeLink={pageLinks.timer}
     renderButtons={
       <IconButton onClick={handleOpenEditor()}>
         <Plus size={28} weight='light'/>
