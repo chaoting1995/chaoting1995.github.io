@@ -259,7 +259,7 @@ const TimerEditor = (props: Props) => {
           </IconButton>
         }
       />
-      <BottomDrawerBody className='drawer-body'>
+      <BottomDrawerBody gap>
         <TextField
           variant='standard'
           fullWidth
@@ -342,12 +342,6 @@ export default TimerEditor;
 
 const style = css`
   overflow: hidden;
-
-  .drawer-body {
-    padding-left: 16px;
-    padding-right: 16px;
-    box-sizing: border-box;
-  }
 
   .MuiInput-root {
     font-size: 18px;

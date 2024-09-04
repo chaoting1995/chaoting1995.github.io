@@ -10,7 +10,7 @@ import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
 import useTopic from 'modules/topic/context/Topic/useTopic';
 import useDialog from 'hooks/useDialog';
-import TopicListSetting from "modules/topic/components/TopicListSetting";
+import { TopicListSetting, FactoryTopic } from 'modules/topic';
 
 type Props = {
   className?: string;
@@ -65,25 +65,31 @@ const TopicList: React.FC<Props> = (props) => {
           <div className='empty-box'>
             <div>尚無辯題選項</div>
           </div>}
-        <List disablePadding>
-          {props.topics.map((item) => 
-            <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
-              <ListItemButton onClick={handleChangeTopic(item)}>
-                <div className='item-name'>{item.name}</div>
-              </ListItemButton>
-              <ListItemSecondaryAction className='item-actions'>
-                {topicDisabled.includes(item.id) ? (
-                  <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
-                    <EyeSlash size={26} weight='light' />
-                  </IconButton>
-                ) : (
-                  <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
-                    <Eye size={26} weight='light'/>
-                  </IconButton>
-                )}
-              </ListItemSecondaryAction>
-          </ListItem>)}
-        </List>
+        {FactoryTopic.createTopicCategoryGroups(props.topics).map(item => (
+          <React.Fragment key={item.category}>
+            <div className='topic-category'>{item.category}</div>
+            <List disablePadding>
+              {item.topics.map((item) => 
+                <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
+                  <ListItemButton onClick={handleChangeTopic(item)}>
+                    <div className='item-name'>{item.name}</div>
+                  </ListItemButton>
+                  <ListItemSecondaryAction className='item-actions'>
+                    {topicDisabled.includes(item.id) ? (
+                      <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
+                        <EyeSlash size={26} weight='light' />
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
+                        <Eye size={26} weight='light'/>
+                      </IconButton>
+                    )}
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )}
+            </List>
+          </React.Fragment>
+        ))}
     </BottomDrawerBody>
     </div>
   )
@@ -95,15 +101,15 @@ const style = css`
   overflow: hidden;
   border-radius: inherit;
 
-  .MuiInput-root {
+  /* .MuiInput-root {
     font-size: 18px;
   }
 
   .MuiFormHelperText-root {
     position: absolute;
     bottom: -22px;
-  }
-
+  } */
+    
   .empty-box {
     padding: 8px 16px;
     padding-top: 40px;
@@ -112,12 +118,21 @@ const style = css`
     font-size: 16px;
   }
 
+  .topic-category {
+    padding: 4px 16px;
+    box-sizing: border-box;
+    font-size: 18px;
+    color: ${styleSettingColor.background.dark};
+    border-bottom: 1px solid ${styleSettingColor.disabled};
+    background-color: ${styleSettingColor.gray}99;
+  }
+
   .MuiListItem-root {
     padding-right: 0;
     
     &.topic-pull-off {
-      background-color: ${styleSettingColor.gray};
-      opacity: 0.6;
+      /* background-color: ${styleSettingColor.gray}; */
+      color: ${styleSettingColor.disabled};
     }
   }
 

@@ -7,7 +7,10 @@ import { styleSettingColor } from "styles/variables.style";
 type Props = {
   className?: string;
   children: React.ReactNode;
+  gap?: boolean;
   center?: boolean;
+  paddingHorizental?: boolean;
+  paddingTop?: boolean;
 };
 
 const BottomDrawerBody = (props: Props) => {
@@ -18,7 +21,12 @@ const BottomDrawerBody = (props: Props) => {
       'DT-BottomDrawerBody', 
       style(innerHeight), 
       props.className,
-      { 'center': props.center }
+      { 
+        'gap': props.gap,
+        'center': props.center,
+        'padding-horizental': props.paddingHorizental,
+        'padding-top': props.paddingTop,
+      }
     )}>
       {props.children}
     </div>
@@ -36,15 +44,29 @@ const style = (_innerHeight: number) => css`
   
   display: flex;
   flex-direction: column;
-  gap: 5px;
 
-  &.center {
-    align-items: center;
-  }
-  
   font-size: 18px;
   color: ${styleSettingColor.text.secondary};
   
+  &.gap {
+    gap: 5px;
+  }
+  
+  &.center {
+    align-items: center;
+  }
+
+  &.padding-horizental {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  &.padding-top {
+    padding-top: 16px;
+    box-sizing: border-box;
+  }
+
   .MuiButton-root,
   .MuiButton-root:hover {
     font-size: 18px;

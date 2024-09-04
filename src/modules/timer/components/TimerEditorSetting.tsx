@@ -30,7 +30,7 @@ const TimerEditorSetting = (props: Props) => {
           </IconButton>
         }
       />
-      <BottomDrawerBody className='drawer-body'>
+      <BottomDrawerBody paddingTop>
         <div className="setting-title">使用模板</div>
         <div className='template-button-group'>
           {TEMPLATE_TIMERS.map((item) => (
@@ -46,29 +46,24 @@ const TimerEditorSetting = (props: Props) => {
 
 export default TimerEditorSetting;
 
-const style = css`
-  .drawer-body {
-    padding-top: 16px;
-    box-sizing: border-box;
-    
-    .setting-title {
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: ${styleSettingColor.background.dark};
-    }
-    
-    .setting-subtitle {
-      margin-top: -10px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: ${styleSettingColor.text.secondary};
-    }
-    
-    .template-button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+const style = css`    
+  .setting-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: ${styleSettingColor.background.dark};
+  }
+  
+  .setting-subtitle {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: ${styleSettingColor.text.secondary};
+  }
+  
+  .template-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 `;
 

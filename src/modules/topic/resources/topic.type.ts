@@ -12,3 +12,8 @@ export type TopicSetting = {
   topicMiddleItemMode: EnumTopicMiddleItemMode;
   topicDisabled: string[];
 };
+
+export type TopicCategoryGroup = {
+  category: string;
+  topics: Topic[];
+}

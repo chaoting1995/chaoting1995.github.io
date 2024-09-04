@@ -23,7 +23,7 @@ const TopicListSetting = (props: Props) => {
           </IconButton>
         }
       />
-      <BottomDrawerBody center className='drawer-body'>
+      <BottomDrawerBody center paddingTop paddingHorizental>
         <Button variant='outlined' className='download-button' href={TOPIC_GOOGLE_SHEET_URL}>
           檔案下載
         </Button>
@@ -34,36 +34,29 @@ const TopicListSetting = (props: Props) => {
 
 export default TopicListSetting;
 
-const style = css`
-  .drawer-body {
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 16px;
-    box-sizing: border-box;
-    
-    .setting-title {
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: ${styleSettingColor.background.dark};
-    }
-    
-    .setting-subtitle {
-      margin-top: -10px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: ${styleSettingColor.text.secondary};
-    }
-    
-    .download-button.MuiButton-root {
-      width: fit-content;
-      color: ${styleSettingColor.background.dark};
-    }
+const style = css`    
+  .setting-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: ${styleSettingColor.background.dark};
+  }
+  
+  .setting-subtitle {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: ${styleSettingColor.text.secondary};
+  }
+  
+  .download-button.MuiButton-root {
+    width: fit-content;
+    color: ${styleSettingColor.background.dark};
+  }
 
-    .template-button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+  .template-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 `;
 
