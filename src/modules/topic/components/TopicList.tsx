@@ -14,6 +14,7 @@ import TopicListSetting from "modules/topic/components/TopicListSetting";
 
 type Props = {
   className?: string;
+  open?: boolean;
   children?: React.ReactNode;
   topics: Topic[];
   onChangeTopic: (topic: Topic) => void;
@@ -37,12 +38,17 @@ const TopicList: React.FC<Props> = (props) => {
     // ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
   }, [handleOpenSetting]);
 
+  // 依 props.open 判斷，每次開啟彈窗，就重置 openSetting
+  React.useEffect(() => {
+    if (props.open) handleCloseSetting();
+  },[props.open, handleCloseSetting])
+
   if (openSetting) {
     return <TopicListSetting 
       className={cx(style, props.className)}
       onClose={handleCloseSetting}
     />
-}
+  }
 
   return (
     <div className={cx('DT-TopicList', style, props.className)}>

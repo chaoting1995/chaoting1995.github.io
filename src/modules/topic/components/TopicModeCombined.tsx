@@ -78,7 +78,7 @@ const TopicModeCombined = (props: Props) => {
         />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-        <TopicList topics={DEFAULT_TOPIC_COMBINED} onChangeTopic={handleChangeTopic} />
+        <TopicList open={open} topics={DEFAULT_TOPIC_COMBINED} onChangeTopic={handleChangeTopic} />
       </BottomDrawer>
     </div>
   );

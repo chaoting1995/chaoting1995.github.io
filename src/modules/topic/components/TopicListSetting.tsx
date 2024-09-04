@@ -12,8 +12,7 @@ type Props = {
   onClose: () => void;
 }
 
-const TopicListSetting = (props: Props) => {
-
+const TopicListSetting = (props: Props) => {  
   return (
     <div className={cx('DT-TopicListSetting', style, props.className)}>
       <BottomDrawerHeader

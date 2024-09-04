@@ -44,7 +44,7 @@ const TopicModeComplete = (props: Props) => {
         />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-        <TopicList topics={DEFAULT_TOPIC_COMPLETE} onChangeTopic={handleChangeTopic}/>
+        <TopicList open={open} topics={DEFAULT_TOPIC_COMPLETE} onChangeTopic={handleChangeTopic}/>
       </BottomDrawer>
     </div>
   )
