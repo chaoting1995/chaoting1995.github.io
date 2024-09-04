@@ -1,6 +1,6 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { Eye, EyeSlash } from '@phosphor-icons/react';
+import { Eye, EyeSlash, Gear } from '@phosphor-icons/react';
 import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
 
 import UtilAudio from 'utils/audio';
@@ -9,6 +9,8 @@ import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
 import useTopic from 'modules/topic/context/Topic/useTopic';
+import useDialog from 'hooks/useDialog';
+import TopicListSetting from "modules/topic/components/TopicListSetting";
 
 type Props = {
   className?: string;
@@ -19,23 +21,43 @@ type Props = {
 
 const TopicList: React.FC<Props> = (props) => {
   const { topicDisabled, onChangeTopicDisabled } = useTopic();
-  
-  const handleChangeTopic = (_topic: Topic) => () => {
+  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
+
+  const handleChangeTopic = React.useCallback((_topic: Topic) => () => {
     props.onChangeTopic(_topic);
     UtilAudio.audioClick();
-  };
+  },[props]);
 
-  const handleChangeTopicDisabled = (topicID: string, disabled: boolean) =>  () => {
+  const handleChangeTopicDisabled = React.useCallback((topicID: string, disabled: boolean) =>  () => {
     onChangeTopicDisabled(topicID, disabled)
-  }
+  }, [onChangeTopicDisabled])
+
+  const handleOpenSettingWithTraking = React.useCallback(() => {
+    handleOpenSetting();
+    // ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
+  }, [handleOpenSetting]);
+
+  if (openSetting) {
+    return <TopicListSetting 
+      className={cx(style, props.className)}
+      onClose={handleCloseSetting}
+    />
+}
 
   return (
     <div className={cx('DT-TopicList', style, props.className)}>
-      <BottomDrawerHeader>辯題列表</BottomDrawerHeader>
+      <BottomDrawerHeader
+        children='辯題列表'
+        rightSide={
+          <IconButton onClick={handleOpenSettingWithTraking}>
+            <Gear size={28} weight='light'/>
+          </IconButton>
+        }
+      />
       <BottomDrawerBody>
         {props.topics.length === 0 &&
           <div className='empty-box'>
-            <div>尚無計時器</div>
+            <div>尚無辯題選項</div>
           </div>}
         <List disablePadding>
           {props.topics.map((item) => 
@@ -64,20 +86,8 @@ const TopicList: React.FC<Props> = (props) => {
 export default TopicList;
 
 const style = css`
-  width: 100%;
-  color: ${styleSettingColor.text.secondary};
-  font-size: 18px;
   overflow: hidden;
   border-radius: inherit;
-  
-  .MuiDrawer-paper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-  }
 
   .MuiInput-root {
     font-size: 18px;
@@ -94,11 +104,6 @@ const style = css`
     box-sizing: border-box;
     text-align: center;
     font-size: 16px;
-
-    .add-button {
-      margin-top: 10px;
-      font-size: 18px;
-    }
   }
 
   a {

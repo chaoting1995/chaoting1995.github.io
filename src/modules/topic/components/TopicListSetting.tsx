@@ -4,24 +4,17 @@ import { Button, IconButton } from '@mui/material';
 import { XCircle } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
-import { TEMPLATE_TIMERS } from 'modules/timer/resources/timer.constant';
-import { Timer } from 'modules/timer/resources/timer.type';
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 
 type Props = {
   className?: string;
   onClose: () => void;
-  onUseTemplateTimer: (timer: Timer) => void;
 }
 
-const TimerEditorSetting = (props: Props) => {
-  const handleUseTemplateTimer = React.useCallback((timer: Timer) => () => {
-    props.onUseTemplateTimer(timer);
-    props.onClose();
-  }, [props])
+const TopicListSetting = (props: Props) => {
 
   return (
-    <div className={cx('DT-TimerEditorSetting', style, props.className)}>
+    <div className={cx('DT-TopicListSetting', style, props.className)}>
       <BottomDrawerHeader
         children='進階設定'
         rightSide={
@@ -33,21 +26,21 @@ const TimerEditorSetting = (props: Props) => {
       <BottomDrawerBody className='drawer-body'>
         <div className="setting-title">使用模板</div>
         <div className='template-button-group'>
-          {TEMPLATE_TIMERS.map((item) => (
-            <Button key={item.name} variant='outlined' color="secondary" onClick={handleUseTemplateTimer(item)}>
-              {item.name}
-            </Button>
-          ))}
+          <Button variant='outlined' color="secondary">
+            !!
+          </Button>
         </div>
       </BottomDrawerBody>
     </div>
   )
 }
 
-export default TimerEditorSetting;
+export default TopicListSetting;
 
 const style = css`
   .drawer-body {
+    padding-left: 16px;
+    padding-right: 16px;
     padding-top: 16px;
     box-sizing: border-box;
     

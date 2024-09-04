@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { CallBell, Gear, XCircle } from '@phosphor-icons/react';
+import { CallBell, Gear } from '@phosphor-icons/react';
 import {
   TextField,
   MenuItem,
@@ -128,8 +128,7 @@ const TimerEditor = (props: Props) => {
         })
     );
     setRingTimes(_timer.ring.length);
-    handleCloseSetting();
-  }, [columnMode, columnName, handleCloseSetting]);
+  }, [columnMode, columnName]);
 
   const customVarifyRing = React.useCallback((): boolean => {
     const setRrrorStatus = (_id: string, message: string) => {
@@ -245,27 +244,23 @@ const TimerEditor = (props: Props) => {
   }, [ringTimes]);
 
   if (openSetting) {
-    return (<div className={cx('DT-TimerEditor', style, props.className)}>
-      <BottomDrawerHeader>
-        <div>進階設定</div>
-        <IconButton className='drawer-title-button' onClick={handleCloseSetting}>
-          <XCircle size={28} />
-        </IconButton>
-      </BottomDrawerHeader>
-      <BottomDrawerBody className='drawer-body'>
-        <TimerEditorSetting onUseTemplateTimer={handleUseTemplateTimer} />
-      </BottomDrawerBody>
-    </div>);
+    return <TimerEditorSetting 
+      className={cx(style, props.className)}
+      onClose={handleCloseSetting}
+      onUseTemplateTimer={handleUseTemplateTimer} 
+    />
   }
 
   return (
     <div className={cx('DT-TimerEditor', style, props.className)}>
-      <BottomDrawerHeader>
-        <div>{!props.timer.id ? `新增計時器` : `編輯計時器`}</div>
-        <IconButton className='drawer-title-button' onClick={handleOpenSettingWithTraking}>
-          <Gear size={28} />
-        </IconButton>
-      </BottomDrawerHeader>
+      <BottomDrawerHeader
+        children={!props.timer.id ? `新增計時器` : `編輯計時器`}
+        rightSide={
+          <IconButton onClick={handleOpenSettingWithTraking}>
+            <Gear size={28} weight='light' />
+          </IconButton>
+        }
+      />
       <BottomDrawerBody className='drawer-body'>
         <TextField
           variant='standard'
@@ -348,20 +343,7 @@ const TimerEditor = (props: Props) => {
 export default TimerEditor;
 
 const style = css`
-  .MuiDrawer-paper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-  }
-
-  .drawer-title-button {
-    color: ${styleSettingColor.text.gray};
-    position: absolute;
-    right: 16px;
-  }
+  overflow: hidden;
 
   .drawer-body {
     padding-left: 16px;

@@ -5,13 +5,17 @@ import { styleSettingColor } from "styles/variables.style";
 
 type Props = {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  rightSide?: React.ReactNode;
 };
 
 const BottomDrawerHeader = (props: Props) => {
   return (
     <div className={cx('DT-BottomDrawerHeader', style, props.className)}>
       {props.children}
+      <div className='drawer-header-right-side'>
+        {props.rightSide}
+      </div>
     </div>
   );
 };
@@ -32,4 +36,10 @@ const style = css`
   
   font-size: 22px;
   color: ${styleSettingColor.background.dark};
+
+  .drawer-header-right-side {
+    color: ${styleSettingColor.text.gray};
+    position: absolute;
+    right: 16px;
+  }
 `;
