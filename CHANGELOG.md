@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-beta.33] - 2024-09-04
 
+### Added
+- 添加：頁首 > Icon 添加回首頁連結
 ### Fixed
 - 修復：辯題列表 > 進階設定 > 重置開啟狀態
 - 修復：自由辯論模式 > 計時器切換器 > 修正文案「不能切換，所有計時器已停止」
