@@ -60,7 +60,7 @@ const TimerModeCrossfire = (props: Props) => {
 
   const handleToggleStart = React.useCallback(() => {
     if (!positiveSide.isRunning && !negativeSide.isRunning) {
-      popup.notice(({  message: '不能切換，所有計時器已結束', severity: 'warning' }));
+      popup.notice(({  message: '不能切換，所有計時器已停止', severity: 'warning' }));
       return;
     }
 
