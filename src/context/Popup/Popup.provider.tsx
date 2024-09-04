@@ -1,19 +1,20 @@
-import React from "react";
-import { css, cx } from "@emotion/css";
-import { Snackbar, Alert, Dialog, DialogContent, DialogActions, Button, DialogTitle, IconButton } from "@mui/material";
-import { X } from "@phosphor-icons/react";
+import React from 'react';
+import { css, cx } from '@emotion/css';
+import { Snackbar, Alert, Dialog, DialogContent, DialogActions, DialogTitle, IconButton } from '@mui/material';
+import { X } from '@phosphor-icons/react';
 
-import { styleSettingZIndex, styleSettingColor, styleSettingHeight } from "styles/variables.style";
-import useDialog from "hooks/useDialog";
+import { styleSettingZIndex, styleSettingColor, styleSettingHeight } from 'styles/variables.style';
+import useDialog from 'hooks/useDialog';
+import { Button } from 'components';
+import { ContextPopup, ParamsConfirm, ParamsDialog, ParamsNotice } from './Popup.context';
 
-import { ContextPopup, ParamsConfirm, ParamsDialog, ParamsNotice } from "./Popup.context";
 import {
   BUTTON_CANCEL,
   BUTTON_CONFIRM,
   DEFAULT_CONFIG_NOTICE,
   DEFAULT_CONFIG_CONFIRM,
   DEFAULT_CONFIG_DIALOG,
-} from "./Popup.constant";
+} from './Popup.constant';
 
 type ConfirmDialogResolverCurrent = (result: boolean) => void;
 
@@ -99,37 +100,37 @@ const PopupProvider = (props: Props) => {
   return (
     <ContextPopup.Provider value={popup}>
       <Snackbar
-        className={cx(styleNotice, "hint-under-header", configNotice.className)}
+        className={cx(styleNotice, 'hint-under-header', configNotice.className)}
         open={openNotice}
         autoHideDuration={configNotice.duration}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={handleCloseNoticeWithReset}>
         <Alert
           onClose={handleCloseNoticeWithReset}
           severity={configNotice.severity}
-          variant="filled"
+          variant='filled'
           icon={false}>
           {configNotice.message}
         </Alert>
       </Snackbar>
       <Dialog open={openConfirm} onClose={handleCloseConfirm} className={cx(styleDialog, configConfirm.className)}>
-        {configConfirm.img && <div className="dialog-img">{configConfirm.img}</div>}
+        {configConfirm.img && <div className='dialog-img'>{configConfirm.img}</div>}
         {configConfirm.title && <DialogTitle>{configConfirm.title}</DialogTitle>}
         {configConfirm.message && <DialogContent>{configConfirm.message}</DialogContent>}
         <DialogActions>
-          <Button onClick={handleCancel} variant="outlined" className="dialog-confirm-cancel">{BUTTON_CANCEL}</Button>
-          <Button onClick={handleConfirm} variant="outlined" color="error" autoFocus>
+          <Button onClick={handleCancel} variant='outlined' color='secondary'>{BUTTON_CANCEL}</Button>
+          <Button onClick={handleConfirm} variant='outlined' color='error' autoFocus>
             {BUTTON_CONFIRM}
           </Button>
         </DialogActions>
       </Dialog>
       <Dialog open={openDialog} onClose={handleCloseDialog} className={cx(styleDialog, configDialog.className)}>
         {!configDialog.hideCloseButton && (
-          <IconButton className="close-button" title="close" onClick={handleCloseDialog}>
-            <X size="small" />
+          <IconButton className='close-button' title='close' onClick={handleCloseDialog}>
+            <X size='small' />
           </IconButton>
         )}
-        {configDialog.img && <div className="dialog-img">{configDialog.img}</div>}
+        {configDialog.img && <div className='dialog-img'>{configDialog.img}</div>}
         {configDialog.title && <DialogTitle>{configDialog.title}</DialogTitle>}
         <DialogContent>{configDialog.message}</DialogContent>
       </Dialog>
@@ -146,8 +147,10 @@ const styleDialog = css`
   }
 
   &.MuiDialog-root .MuiPaper-root {
-    min-width: 100px;
-    width: 220px;
+    min-height: 150px;
+    min-width: 300px;
+    max-width: 100%;
+    border-radius: 25px;
   }
 
   .close-button {
@@ -174,16 +177,12 @@ const styleDialog = css`
   }
 
   .MuiDialogActions-root {
+    margin-top: auto;
     padding: 0 24px 16px;
     justify-content: center;
 
     button {
       min-width: 50%;
-    }
-
-    .MuiButton-root.dialog-confirm-cancel {
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      color: #959595;
     }
   }
 `;

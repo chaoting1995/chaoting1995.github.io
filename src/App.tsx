@@ -12,6 +12,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { theme } from 'styles/muiTheme';
 import { isDev } from 'env/env';
 import UtilAudio from 'utils/audio';
+import PopupProvider from 'context/Popup/Popup.provider';
 
 function App() {
   const [searchParams] = useSearchParams();
@@ -33,11 +34,13 @@ function App() {
       <React.Suspense fallback={<PageLoading />}>
         <HelmetProvider>
           <ThemeProvider theme={theme}>
-            <TopicProvider>
-              <TimersProvider>
-                {element}
-              </TimersProvider>
-            </TopicProvider>
+            <PopupProvider>
+              <TopicProvider>
+                <TimersProvider>
+                  {element}
+                </TimersProvider>
+              </TopicProvider>
+            </PopupProvider>
           </ThemeProvider>
         </HelmetProvider>
       </React.Suspense>

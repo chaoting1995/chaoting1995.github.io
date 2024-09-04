@@ -33,7 +33,7 @@ const style = (_innerHeight: number) => css`
   gap: 5px;
   
   font-size: 18px;
-  color: ${styleSettingColor.text.secondary}; 
+  color: ${styleSettingColor.text.secondary};
   
   .MuiButton-root,
   .MuiButton-root:hover {

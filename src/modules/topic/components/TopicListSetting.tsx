@@ -1,10 +1,11 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { XCircle } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
-import { BottomDrawerHeader, BottomDrawerBody } from 'components';
+import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
+import { TOPIC_GOOGLE_SHEET_URL } from 'modules/topic/resources/topic.constant';
 
 type Props = {
   className?: string;
@@ -24,12 +25,10 @@ const TopicListSetting = (props: Props) => {
         }
       />
       <BottomDrawerBody className='drawer-body'>
-        <div className="setting-title">使用模板</div>
-        <div className='template-button-group'>
-          <Button variant='outlined' color="secondary">
-            !!
-          </Button>
-        </div>
+        <div className='setting-title'>使用模板</div>
+        <Button variant='outlined' href={TOPIC_GOOGLE_SHEET_URL}>
+          檔案下載
+        </Button>
       </BottomDrawerBody>
     </div>
   )

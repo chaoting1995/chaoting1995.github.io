@@ -1,12 +1,12 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { XCircle } from '@phosphor-icons/react';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { TEMPLATE_TIMERS } from 'modules/timer/resources/timer.constant';
 import { Timer } from 'modules/timer/resources/timer.type';
-import { BottomDrawerHeader, BottomDrawerBody } from 'components';
+import {Button, BottomDrawerHeader, BottomDrawerBody } from 'components';
 
 type Props = {
   className?: string;

@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus } from '@phosphor-icons/react';
-import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction, Button } from '@mui/material';
+import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
@@ -18,7 +18,7 @@ import TimerEditor from 'modules/timer/components/TimerEditor';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
-import { BottomDrawer } from 'components';
+import { BottomDrawer, Button } from 'components';
 
 const Timers: React.FC = () => {
   const popup = usePopup();
@@ -82,15 +82,15 @@ const Timers: React.FC = () => {
     title={PAGE_TITLE.timers}
     renderButtons={
       <IconButton onClick={handleOpenEditor()}>
-        <Plus size={28} weight="light"/>
+        <Plus size={28} weight='light'/>
       </IconButton>
     }>
     <HeadTags 
       title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} 
       description={PAGE_DESCRIPTION.timer} />
-    {timers.length === 0 && <div className="timers-empty-box">
+    {timers.length === 0 && <div className='timers-empty-box'>
       <div>尚無計時器</div>
-      <Button variant="outlined" className="add-button" onClick={handleOpenEditor()}>新增計時器</Button>
+      <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增計時器</Button>
     </div>}
     <List disablePadding>
       {timers.map((item) => <ListItem key={item.id} disablePadding>
@@ -103,10 +103,10 @@ const Timers: React.FC = () => {
         </ListItemButton>
         <ListItemSecondaryAction className='item-actions'>
           <IconButton onClick={handleOpenEditor(item.id)}>
-            <PencilSimple size={26} weight="light"/>
+            <PencilSimple size={26} weight='light'/>
           </IconButton>
           <IconButton onClick={handleDelete(item.id)}>
-            <Trash size={26} weight="light" />
+            <Trash size={26} weight='light' />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>)}
@@ -137,9 +137,9 @@ const style = css`
     }
   }
 
-  a {
+  /* a {
     color: ${styleSettingColor.text.secondary};
-  }
+  } */
 
   .MuiListItem-root {
     padding-right: 0;

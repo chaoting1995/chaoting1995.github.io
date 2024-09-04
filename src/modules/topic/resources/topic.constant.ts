@@ -23,3 +23,5 @@ export const EMPTY_TOPIC: Topic = {
   name: '(無可選辯題)',
   category: '',
 };
+
+export const TOPIC_GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/19Kq4FNRxRojCDajOtSCdS38d_cSB_MZnXRY0Od-tDig'

@@ -1,8 +1,8 @@
-import React from "react";
-import { css, cx } from "@emotion/css";
-import { Button, ButtonProps, CircularProgress } from "@mui/material";
+import React from 'react';
+import { css, cx } from '@emotion/css';
+import { Button, ButtonProps, CircularProgress } from '@mui/material';
 
-import { styleSettingColor } from "styles/variables.style";
+import { styleSettingColor } from 'styles/variables.style';
 
 interface ButtonOptions {
   loading?: boolean;
@@ -19,7 +19,7 @@ const CustomizedButton = <C extends React.ElementType>(props: Props<C>) => {
         center: props.center,
         underline: props.underline,
       })}
-      startIcon={props.loading ? <CircularProgress color="inherit" size={24} /> : props.startIcon}
+      startIcon={props.loading ? <CircularProgress color='inherit' size={24} /> : props.startIcon}
     >
       {props.children}
     </Button>
@@ -36,7 +36,8 @@ const style = css`
     font-weight: normal;
     
     &.Mui-disabled {
-      background-color: ${styleSettingColor.disabled};
+      /* background-color: ${styleSettingColor.disabled};
+      opacity: 0.6; */
     }
   }
 `;

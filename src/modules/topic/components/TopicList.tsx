@@ -106,9 +106,9 @@ const style = css`
     font-size: 16px;
   }
 
-  a {
+  /* a {
     color: ${styleSettingColor.text.secondary};
-  }
+  } */
 
   .MuiListItem-root {
     padding-right: 0;
