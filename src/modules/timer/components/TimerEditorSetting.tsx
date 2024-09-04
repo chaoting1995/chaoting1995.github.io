@@ -30,7 +30,7 @@ const TimerEditorSetting = (props: Props) => {
           </IconButton>
         }
       />
-      <BottomDrawerBody paddingTop>
+      <BottomDrawerBody paddingTop paddingHorizental>
         <div className="setting-title">使用模板</div>
         <div className='template-button-group'>
           {TEMPLATE_TIMERS.map((item) => (

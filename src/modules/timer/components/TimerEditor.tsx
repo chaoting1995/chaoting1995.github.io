@@ -259,7 +259,7 @@ const TimerEditor = (props: Props) => {
           </IconButton>
         }
       />
-      <BottomDrawerBody gap>
+      <BottomDrawerBody gap paddingHorizental>
         <TextField
           variant='standard'
           fullWidth
