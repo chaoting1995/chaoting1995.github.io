@@ -220,7 +220,7 @@ export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
   {
     "id": "topic-complete-044",
     "name": "路見不平，社會該不該提倡拔刀相助",
-    "category": ""
+    "category": "道德難題"
   },
   {
     "id": "topic-complete-045",
