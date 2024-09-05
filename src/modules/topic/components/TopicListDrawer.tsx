@@ -6,7 +6,8 @@ import { IconButton } from '@mui/material';
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { Topic } from 'modules/topic/resources/topic.type';
 import useDialog from 'hooks/useDialog';
-import { TopicList, TopicListSetting } from 'modules/topic';
+import { TopicCategoryGroups, TopicList, TopicListSetting } from 'modules/topic';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 
 type Props = {
   className?: string;
@@ -21,7 +22,7 @@ const TopicListDrawer: React.FC<Props> = (props) => {
 
   const handleOpenSettingWithTraking = React.useCallback(() => {
     handleOpenSetting();
-    // ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
+    ServiceGA4.event(GA_EVENT.TopicListDrawer_Button_Settting);
   }, [handleOpenSetting]);
 
   // 依 props.open 判斷，每次開啟彈窗，就重置 openSetting
@@ -47,8 +48,13 @@ const TopicListDrawer: React.FC<Props> = (props) => {
         }
       />
       <BottomDrawerBody>
-        <TopicList topics={props.topics} onChangeTopic={props.onChangeTopic} />
-    </BottomDrawerBody>
+      <TopicCategoryGroups 
+        topics={props.topics} 
+        renderTopicList={(_topics) => 
+          <TopicList hideEmptyBox topics={_topics} onChangeTopic={props.onChangeTopic} />
+        }
+      />
+      </BottomDrawerBody>
     </div>
   )
 }

@@ -69,251 +69,296 @@ export const DEFAULT_TOPIC_COMPLETE_FROM_CSV = [
   },
   {
     "id": "topic-complete-014",
+    "name": "MBTI能不能讓我們更正確的認識自己",
+    "category": "人生觀"
+  },
+  {
+    "id": "topic-complete-015",
     "name": "環境保護/經濟發展更重要",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-015",
+    "id": "topic-complete-016",
     "name": "懶惰使人類更進步/退步",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-016",
+    "id": "topic-complete-017",
     "name": "保護弱者讓社會更進步/退步",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-017",
+    "id": "topic-complete-018",
     "name": "企業用人應以才/以德為先",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-018",
+    "id": "topic-complete-019",
     "name": "當今社會，合作/競爭更重要",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-019",
+    "id": "topic-complete-020",
     "name": "現代社會更需要通才/專才",
     "category": "有關社會"
   },
   {
-    "id": "topic-complete-020",
+    "id": "topic-complete-021",
+    "name": "詐騙猖獗，責任更在科技／人性",
+    "category": "有關社會"
+  },
+  {
+    "id": "topic-complete-022",
+    "name": "我國流行音樂金曲獎應取消性別分類",
+    "category": "有關社會"
+  },
+  {
+    "id": "topic-complete-023",
+    "name": "民主國家落實網路實名制利大於弊／弊大於利",
+    "category": "有關社會"
+  },
+  {
+    "id": "topic-complete-024",
+    "name": "抵制行為符合/不符合民主原則",
+    "category": "有關社會"
+  },
+  {
+    "id": "topic-complete-025",
     "name": "高中國文教育應以白話文/文言文為主",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-021",
+    "id": "topic-complete-026",
     "name": "中學生談戀愛利大於弊/弊大於利",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-022",
+    "id": "topic-complete-027",
     "name": "大學升學應以選校/選系為主",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-023",
+    "id": "topic-complete-028",
     "name": "高中生升學應以興趣為主/未來出路為主",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-024",
+    "id": "topic-complete-029",
     "name": "課業補習對高中生利大於弊/弊大於利",
     "category": "有關高中生"
   },
   {
-    "id": "topic-complete-025",
+    "id": "topic-complete-030",
+    "name": "當代學生要培養匠人精神/斜槓精神",
+    "category": "有關高中生"
+  },
+  {
+    "id": "topic-complete-031",
     "name": "營救式刑求是/不是可取的手段",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-026",
+    "id": "topic-complete-032",
     "name": "反恐中，利用無辜家屬逼迫恐怖分子就範，可/不可接受",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-027",
+    "id": "topic-complete-033",
     "name": "犧牲少數保護多數是正義的/不正義的",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-028",
+    "id": "topic-complete-034",
     "name": "謊言因/不因善意而良善",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-029",
+    "id": "topic-complete-035",
     "name": "明星有/沒有義務成為大眾的道德楷模",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-030",
+    "id": "topic-complete-036",
     "name": "行善宜高調/低調",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-031",
+    "id": "topic-complete-037",
     "name": "以德報怨是/不是可取的",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-032",
+    "id": "topic-complete-038",
     "name": "政治人物可以/不可以說謊",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-033",
+    "id": "topic-complete-039",
     "name": "高薪/重罰更能打擊貪腐",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-034",
+    "id": "topic-complete-040",
     "name": "女性專屬停車位是/不是歧視",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-035",
+    "id": "topic-complete-041",
     "name": "末日來臨時，政府應以隨機抽籤/擇優原則決定誰能成為搭上諾亞方舟的倖存者",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-036",
+    "id": "topic-complete-042",
     "name": "動物有／沒有免於被人類傷害的權利",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-037",
+    "id": "topic-complete-043",
+    "name": "面對傳統文化與動物權益的衝突，社會更應該尊重/改變文化",
+    "category": "道德難題"
+  },
+  {
+    "id": "topic-complete-044",
+    "name": "路見不平，社會該不該提倡拔刀相助",
+    "category": ""
+  },
+  {
+    "id": "topic-complete-045",
     "name": "精神疾病患者殺人應該被憎恨／原諒",
     "category": "道德難題"
   },
   {
-    "id": "topic-complete-038",
+    "id": "topic-complete-046",
     "name": "愛是自私的/無私的",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-039",
+    "id": "topic-complete-047",
     "name": "情侶是/不是工作上的好搭檔",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-040",
+    "id": "topic-complete-048",
     "name": "橫刀奪愛沒錯/有錯",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-041",
+    "id": "topic-complete-049",
     "name": "愛人/被愛更幸福",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-042",
+    "id": "topic-complete-050",
     "name": "情侶分手後應維持友誼/斷絕往來",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-043",
+    "id": "topic-complete-051",
     "name": "愛情關係中，第三者應/不應被譴責",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-044",
+    "id": "topic-complete-052",
     "name": "斷崖式的分手／藕斷絲連的分手，是更糟糕的愛情",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-045",
+    "id": "topic-complete-053",
     "name": "純愛戰士值得／不值得歌頌",
     "category": "情愛議題"
   },
   {
-    "id": "topic-complete-046",
+    "id": "topic-complete-054",
     "name": "網際網路使人際關係更緊密/更疏遠",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-047",
+    "id": "topic-complete-055",
     "name": "人際交往中，隱忍/坦率更能消除矛盾",
     "category": "人際關係"
   },
   {
-    "id": "topic-complete-048",
+    "id": "topic-complete-056",
     "name": "超能力是人類的福音/災難",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-049",
+    "id": "topic-complete-057",
     "name": "預知未來是快樂的/痛苦的",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-050",
+    "id": "topic-complete-058",
     "name": "時光機對人類利大於弊/弊大於利",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-051",
+    "id": "topic-complete-059",
     "name": "長生不老對人類利大於弊/弊大於利",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-052",
+    "id": "topic-complete-060",
     "name": "如果你有超能力，可以讓你愛的人也愛你，你要／不要使用",
     "category": "科幻奇想"
   },
   {
-    "id": "topic-complete-053",
+    "id": "topic-complete-061",
     "name": "網路匿名性發言對台灣利大於弊/弊大於利",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-054",
+    "id": "topic-complete-062",
     "name": "人工智能對人類利大於弊/弊大於利",
     "category": "科技議題"
   },
   {
-    "id": "topic-complete-055",
+    "id": "topic-complete-063",
+    "name": "生成式AI 加強/阻礙學生學習能力",
+    "category": "科技議題"
+  },
+  {
+    "id": "topic-complete-064",
     "name": "哆啦A夢是大雄的益友/損友",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-056",
+    "id": "topic-complete-065",
     "name": "變成泡沫前人魚公主應/不應該刺死王子",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-057",
+    "id": "topic-complete-066",
     "name": "高譚市需/不需要蝙蝠俠",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-058",
+    "id": "topic-complete-067",
     "name": "超級英雄註冊法案利大於弊/弊大於利",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-059",
+    "id": "topic-complete-068",
     "name": "兩津勘吉是/不是好警察",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-060",
+    "id": "topic-complete-069",
     "name": "如果九九八十一難的最後一難是吃肉，唐僧應／不應該拒絕",
     "category": "經典故事"
   },
   {
-    "id": "topic-complete-061",
+    "id": "topic-complete-070",
     "name": "文化傳承更重要/文化創新更重要",
     "category": "文化議題"
   },
   {
-    "id": "topic-complete-062",
+    "id": "topic-complete-071",
     "name": "傳統文化商業化有助於/無助於文化傳承",
     "category": "文化議題"
   },
   {
-    "id": "topic-complete-063",
+    "id": "topic-complete-072",
     "name": "項羽應該東山再起/烏江自刎",
     "category": "歷史假想"
   }

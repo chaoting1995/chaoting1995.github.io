@@ -1,30 +1,18 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
-import { 
-  List, 
-  ListItemButton, 
-  ListItem, 
-  ListItemSecondaryAction, 
-  IconButton,
-  Accordion,
-  AccordionActions,
-  AccordionSummary,
-  AccordionDetails,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
 
 import UtilAudio from 'utils/audio';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
 import useTopic from 'modules/topic/context/Topic/useTopic';
-import { FactoryTopic } from 'modules/topic';
 
 type Props = {
   className?: string;
-  children?: React.ReactNode;
   topics: Topic[];
+  hideEmptyBox?: true;
   onChangeTopic: (topic: Topic) => void;
 }
 
@@ -40,38 +28,37 @@ const TopicList: React.FC<Props> = (props) => {
     onChangeTopicDisabled(topicID, disabled)
   }, [onChangeTopicDisabled])
 
-  return (
-    <div className={cx('DT-TopicList', style, props.className)}>
-      {props.topics.length === 0 &&
+  if (props.topics.length === 0 && !props.hideEmptyBox) {
+    return (
+      <List disablePadding className={cx('DT-TopicList', style, props.className)}>
         <div className='empty-box'>
           <div>尚無辯題選項</div>
-        </div>}
-      {FactoryTopic.createTopicCategoryGroups(props.topics).map(item => (
-        <React.Fragment key={item.category}>
-          <div className='topic-category'>{item.category}</div>
-          <List disablePadding>
-            {item.topics.map((item) => 
-              <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
-                <ListItemButton onClick={handleChangeTopic(item)}>
-                  <div className='item-name'>{item.name}</div>
-                </ListItemButton>
-                <ListItemSecondaryAction className='item-actions'>
-                  {topicDisabled.includes(item.id) ? (
-                    <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
-                      <EyeSlash size={26} weight='light' />
-                    </IconButton>
-                  ) : (
-                    <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
-                      <Eye size={26} weight='light'/>
-                    </IconButton>
-                  )}
-                </ListItemSecondaryAction>
-              </ListItem>
+        </div>
+      </List>
+    )
+  }
+
+  return (
+    <List disablePadding className={cx('DT-TopicList', style, props.className)}>
+      {props.topics.map((item) => 
+        <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
+          <ListItemButton onClick={handleChangeTopic(item)}>
+            <div className='item-name'>{item.name}</div>
+          </ListItemButton>
+          <ListItemSecondaryAction className='item-actions'>
+            {topicDisabled.includes(item.id) ? (
+              <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
+                <EyeSlash size={26} weight='light' />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
+                <Eye size={26} weight='light'/>
+              </IconButton>
             )}
-          </List>
-        </React.Fragment>
-      ))}
-    </div>
+          </ListItemSecondaryAction>
+        </ListItem>
+      )}
+    </List>
   )
 }
 
@@ -84,15 +71,6 @@ const style = css`
     box-sizing: border-box;
     text-align: center;
     font-size: 16px;
-  }
-
-  .topic-category {
-    padding: 4px 16px;
-    box-sizing: border-box;
-    font-size: 18px;
-    color: ${styleSettingColor.background.dark};
-    border-bottom: 1px solid ${styleSettingColor.disabled};
-    background-color: ${styleSettingColor.gray}99;
   }
 
   .MuiListItem-root {
