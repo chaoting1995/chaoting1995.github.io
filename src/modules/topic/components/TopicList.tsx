@@ -1,20 +1,28 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { Eye, EyeSlash, Gear } from '@phosphor-icons/react';
-import { List, ListItemButton, ListItem, ListItemSecondaryAction, IconButton } from '@mui/material';
+import { Eye, EyeSlash } from '@phosphor-icons/react';
+import { 
+  List, 
+  ListItemButton, 
+  ListItem, 
+  ListItemSecondaryAction, 
+  IconButton,
+  Accordion,
+  AccordionActions,
+  AccordionSummary,
+  AccordionDetails,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import UtilAudio from 'utils/audio';
-import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { styleSettingColor } from 'styles/variables.style';
 import { Topic } from 'modules/topic/resources/topic.type';
 import useTopic from 'modules/topic/context/Topic/useTopic';
-import useDialog from 'hooks/useDialog';
-import { TopicListSetting, FactoryTopic } from 'modules/topic';
+import { FactoryTopic } from 'modules/topic';
 
 type Props = {
   className?: string;
-  open?: boolean;
   children?: React.ReactNode;
   topics: Topic[];
   onChangeTopic: (topic: Topic) => void;
@@ -22,7 +30,6 @@ type Props = {
 
 const TopicList: React.FC<Props> = (props) => {
   const { topicDisabled, onChangeTopicDisabled } = useTopic();
-  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
 
   const handleChangeTopic = React.useCallback((_topic: Topic) => () => {
     props.onChangeTopic(_topic);
@@ -33,64 +40,37 @@ const TopicList: React.FC<Props> = (props) => {
     onChangeTopicDisabled(topicID, disabled)
   }, [onChangeTopicDisabled])
 
-  const handleOpenSettingWithTraking = React.useCallback(() => {
-    handleOpenSetting();
-    // ServiceGA4.event(GA_EVENT.TimersEditor_Button_Settting);
-  }, [handleOpenSetting]);
-
-  // 依 props.open 判斷，每次開啟彈窗，就重置 openSetting
-  React.useEffect(() => {
-    if (props.open) handleCloseSetting();
-  },[props.open, handleCloseSetting])
-
-  if (openSetting) {
-    return <TopicListSetting 
-      className={cx(style, props.className)}
-      onClose={handleCloseSetting}
-    />
-  }
-
   return (
     <div className={cx('DT-TopicList', style, props.className)}>
-      <BottomDrawerHeader
-        children='辯題列表'
-        rightSide={
-          <IconButton onClick={handleOpenSettingWithTraking}>
-            <Gear size={28} weight='light'/>
-          </IconButton>
-        }
-      />
-      <BottomDrawerBody>
-        {props.topics.length === 0 &&
-          <div className='empty-box'>
-            <div>尚無辯題選項</div>
-          </div>}
-        {FactoryTopic.createTopicCategoryGroups(props.topics).map(item => (
-          <React.Fragment key={item.category}>
-            <div className='topic-category'>{item.category}</div>
-            <List disablePadding>
-              {item.topics.map((item) => 
-                <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
-                  <ListItemButton onClick={handleChangeTopic(item)}>
-                    <div className='item-name'>{item.name}</div>
-                  </ListItemButton>
-                  <ListItemSecondaryAction className='item-actions'>
-                    {topicDisabled.includes(item.id) ? (
-                      <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
-                        <EyeSlash size={26} weight='light' />
-                      </IconButton>
-                    ) : (
-                      <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
-                        <Eye size={26} weight='light'/>
-                      </IconButton>
-                    )}
-                  </ListItemSecondaryAction>
-                </ListItem>
-              )}
-            </List>
-          </React.Fragment>
-        ))}
-    </BottomDrawerBody>
+      {props.topics.length === 0 &&
+        <div className='empty-box'>
+          <div>尚無辯題選項</div>
+        </div>}
+      {FactoryTopic.createTopicCategoryGroups(props.topics).map(item => (
+        <React.Fragment key={item.category}>
+          <div className='topic-category'>{item.category}</div>
+          <List disablePadding>
+            {item.topics.map((item) => 
+              <ListItem key={item.id} disablePadding className={cx({'topic-pull-off': topicDisabled.includes(item.id)})}>
+                <ListItemButton onClick={handleChangeTopic(item)}>
+                  <div className='item-name'>{item.name}</div>
+                </ListItemButton>
+                <ListItemSecondaryAction className='item-actions'>
+                  {topicDisabled.includes(item.id) ? (
+                    <IconButton onClick={handleChangeTopicDisabled(item.id, false)}>
+                      <EyeSlash size={26} weight='light' />
+                    </IconButton>
+                  ) : (
+                    <IconButton onClick={handleChangeTopicDisabled(item.id, true)}>
+                      <Eye size={26} weight='light'/>
+                    </IconButton>
+                  )}
+                </ListItemSecondaryAction>
+              </ListItem>
+            )}
+          </List>
+        </React.Fragment>
+      ))}
     </div>
   )
 }
@@ -98,18 +78,6 @@ const TopicList: React.FC<Props> = (props) => {
 export default TopicList;
 
 const style = css`
-  overflow: hidden;
-  border-radius: inherit;
-
-  /* .MuiInput-root {
-    font-size: 18px;
-  }
-
-  .MuiFormHelperText-root {
-    position: absolute;
-    bottom: -22px;
-  } */
-    
   .empty-box {
     padding: 8px 16px;
     padding-top: 40px;

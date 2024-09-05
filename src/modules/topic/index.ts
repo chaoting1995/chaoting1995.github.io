@@ -3,6 +3,7 @@ export { default as TopicModeCombined } from './components/TopicModeCombined';
 export { default as TopicModeComplete } from './components/TopicModeComplete';
 export { default as TopicBox } from './components/TopicBox';
 export { default as TopicList } from './components/TopicList';
+export { default as TopicListDrawer } from './components/TopicListDrawer';
 export { default as TopicListSetting } from './components/TopicListSetting';
 export { default as TopicMiddleItemMode } from './components/TopicMiddleItemMode';
 export { default as TopicDescription } from './components/TopicDescription';

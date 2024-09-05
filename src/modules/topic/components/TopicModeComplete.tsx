@@ -5,7 +5,7 @@ import UtilAudio from 'utils/audio';
 import { BottomDrawer } from 'components';
 import useDialog from 'hooks/useDialog';
 import useSlotMachine from 'modules/topic/hooks/useSlotMachine';
-import { TopicBox, TopicList, TopicDescription, TopicController }  from 'modules/topic';
+import { TopicBox, TopicListDrawer, TopicDescription, TopicController }  from 'modules/topic';
 import { DEFAULT_TOPIC_COMPLETE } from 'modules/topic/resources/topic.constant';
 import { Topic } from 'modules/topic/resources/topic.type';
 
@@ -44,7 +44,7 @@ const TopicModeComplete = (props: Props) => {
         />
       </div>
       <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
-        <TopicList open={open} topics={DEFAULT_TOPIC_COMPLETE} onChangeTopic={handleChangeTopic}/>
+        <TopicListDrawer open={open} topics={DEFAULT_TOPIC_COMPLETE} onChangeTopic={handleChangeTopic}/>
       </BottomDrawer>
     </div>
   )
