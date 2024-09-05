@@ -24,7 +24,7 @@ const TopicListSetting = (props: Props) => {
         }
       />
       <BottomDrawerBody center paddingTop paddingHorizental>
-        <Button variant='outlined' className='download-button' href={TOPIC_GOOGLE_SHEET_URL}>
+        <Button variant='outlined' className='download-button' href={TOPIC_GOOGLE_SHEET_URL} target='_blank'>
           檔案下載
         </Button>
       </BottomDrawerBody>
