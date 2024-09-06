@@ -23,6 +23,7 @@ import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import useDialog from 'hooks/useDialog';
 import { BottomDrawerHeader, BottomDrawerBody, Button } from 'components';
 import { TimerEditorSetting } from 'modules/timer';
+
 type ColumRingItemWithStatus = {
   id: string;
   seconds: number | '';
@@ -60,12 +61,14 @@ const TimerEditor = (props: Props) => {
   const columnName = useFormColumn<string>({
     value: props.timer.name,
     defaultValue: '',
+    placeholder: '計時器名稱',
     verifyRules: { require: true },
   });
-
+  
   const columnMode = useFormColumn<EnumTimerMode | '', typeof EnumTimerMode>({
     value: props.timer.id ? props.timer.mode : '',
     defaultValue: '',
+    placeholder: '選擇計時器模式',
     verifyRules: {
       requireSelect: true,
       enumTypeGuide: EnumTimerMode,
@@ -264,7 +267,7 @@ const TimerEditor = (props: Props) => {
           variant='standard'
           fullWidth
           margin='normal'
-          placeholder='計時器名稱'
+          placeholder={columnName.placeholder}
           value={columnName.value}
           onChange={handleChangeName}
           error={columnName.status.hasError}
@@ -277,7 +280,7 @@ const TimerEditor = (props: Props) => {
             value={columnMode.value}
             onChange={handleChangeMode}>
             <MenuItem value='' disabled sx={{ display: 'none' }}>
-              <em>選擇計時器模式</em>
+              <em>{columnMode.placeholder}</em>
             </MenuItem>
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>

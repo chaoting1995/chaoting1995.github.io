@@ -1,3 +1,4 @@
+export { default as HeadTags } from './HeadTags';
 export { default as Dialog } from './Dialog';
 export { default as BottomDrawer } from './BottomDrawer';
 export { default as BottomDrawerHeader } from './BottomDrawerHeader';

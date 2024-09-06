@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navigate , RouteObject } from 'react-router-dom';
 
+import { PAGE_LINK } from 'routes/constants';
+import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
 import { TopicCreator } from 'modules/topic';
-import NotFound from 'pages/NotFound';
-import { PAGE_LINK } from 'routes/constants';
+import { Listening } from 'modules/listening';
 // import Maintenance = from /'pages/Maintenance/Maintenance';
 
 const routes: Array<RouteObject> = [
@@ -31,6 +32,10 @@ const routes: Array<RouteObject> = [
   {
     path: PAGE_LINK.topicCreator,
     element: <TopicCreator />,
+  },
+  {
+    path: PAGE_LINK.listening,
+    element: <Listening />,
   },
   // {
   //   path: '',

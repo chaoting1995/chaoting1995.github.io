@@ -20,6 +20,7 @@ export const styleSettingColor = {
     dark: '#0099C9',
     default: '#33B6E4',
     light: '#71BDD7',
+    white: '#FFFFFF'
   },
   // dark: '#030D49',
   success: '#1E9893',

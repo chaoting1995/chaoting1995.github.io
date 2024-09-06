@@ -11,10 +11,12 @@ type VerifyRules<EnumTypeGuide> = {
 interface UseFormColumnProps<T, EnumTypeGuide = unknown> {
   value: T;
   defaultValue: T;
+  placeholder?: string;
   verifyRules?: VerifyRules<EnumTypeGuide>;
 }
 
-const useFormColumn =<T, EnumTypeGuide = unknown>(props: UseFormColumnProps<T, EnumTypeGuide>)=> {
+const useFormColumn =<T, EnumTypeGuide = unknown>(props: UseFormColumnProps<T, EnumTypeGuide>) => {
+  const { placeholder } = props;
   const [value, setValue] = React.useState<T>(props.defaultValue);
   const [status, setStatus] = React.useState<Status>(STATUS_LOADED);
 
@@ -66,7 +68,7 @@ const useFormColumn =<T, EnumTypeGuide = unknown>(props: UseFormColumnProps<T, E
     return true;
   }, [value, props.verifyRules]);
   
-  return { value, status, onChange, onVarify };
+  return { value, status, placeholder, onChange, onVarify };
 }
 
 export default useFormColumn;

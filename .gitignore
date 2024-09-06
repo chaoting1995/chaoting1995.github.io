@@ -27,3 +27,6 @@ dist-ssr
 .env
 .env.development
 .env.production
+
+
+DEVELOPLOG.md
