@@ -8,7 +8,7 @@ export const theme = createTheme({
       main: styleSettingColor.background.dark
     },
     secondary: {
-      main: styleSettingColor.text.secondary
+      main: styleSettingColor.text.gray
     },
   },
 });

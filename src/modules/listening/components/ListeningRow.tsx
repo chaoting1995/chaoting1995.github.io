@@ -1,11 +1,15 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { TextField, Select, MenuItem } from '@mui/material';
+import { Input, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { DotsSixVertical } from '@phosphor-icons/react';
 
+import { BottomDrawer } from 'components';
+import useDialog from 'hooks/useDialog';
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
-import { ListeningArgumentStatus, argumentStatusWording } from 'modules/listening';
+import { ListeningArgumentStatus, argumentStatusWording, ListeningRowSetting } from 'modules/listening';
+import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 
 type Option = { 
   value: EnumArgumentStatus; 
@@ -21,26 +25,58 @@ const options: Array<Option> = Object.keys(EnumArgumentStatus).map(item => {
 
 type Prpos = {
   className?: string;
-  column1: string; 
-  column2: EnumArgumentStatus;
-  bg?: string;
-  onChangeColumn1: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeColumn2: (event: SelectChangeEvent<EnumArgumentStatus>) => void;
+  index: number;
+  listeningRow: TypeListeningRow;
+  onChangeListeningRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>>;
 }
 
 const ListeningRow: React.FC<Prpos> = (props) => {
+  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
+  const [focusRowSelector, setFocusRowSelector] = React.useState<boolean>(false);
+
+  const handleFocusRowSelector = React.useCallback((eventKey: 'focus' | 'blur') => () => {
+    if(eventKey === 'focus') setFocusRowSelector(true);
+    if(eventKey === 'blur') setFocusRowSelector(false);
+  }, []);
+
+  const handeonChangeListeningRow = React.useCallback((listeningRow: TypeListeningRow) => {
+    props.onChangeListeningRows(prevState => {
+      const newState = JSON.parse(JSON.stringify(prevState));
+      if (newState[props.index]) newState[props.index] = listeningRow;
+      return newState;
+    });
+  },[props]);
+
+  const handeChangeRowColumn1 = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const newListeningRow: TypeListeningRow = {
+      ...props.listeningRow,
+      column1: event.target.value,
+    }
+    handeonChangeListeningRow(newListeningRow)
+  },[props, handeonChangeListeningRow]);
+
+  const handeChangeRowColumn2 = React.useCallback((event: SelectChangeEvent<EnumArgumentStatus>) => {
+    const newListeningRow: TypeListeningRow = {
+      ...props.listeningRow,
+      column2: event.target.value as EnumArgumentStatus,
+    }
+    handeonChangeListeningRow(newListeningRow)
+  },[props, handeonChangeListeningRow]);
   
-  return <div style={{ backgroundColor: props.bg || 'unset' }} className={cx('DT-ListeningRow', style, props.className)}>
-    <TextField
+  return <div 
+    style={{ backgroundColor: props.listeningRow.bg || 'unset' }} 
+    className={cx('DT-ListeningRow', style, props.className, {'focus-row-selector': focusRowSelector})}
+  >
+    <Input
       multiline
       className='column column-1'
-      value={props.column1} 
-      onChange={props.onChangeColumn1}
+      value={props.listeningRow.column1} 
+      onChange={handeChangeRowColumn1}
     />
     <Select
       className='column column-2'
-      value={props.column2}
-      onChange={props.onChangeColumn2}
+      value={props.listeningRow.column2}
+      onChange={handeChangeRowColumn2}
     >
       {options.map((option) =>
         <MenuItem key={option.value} value={option.value}>
@@ -50,24 +86,112 @@ const ListeningRow: React.FC<Prpos> = (props) => {
         </MenuItem>
       )}
     </Select>
+    <div className='row-selector' onClick={handleOpenSetting}>
+      <DotsSixVertical size={16} weight='bold' />
+      <input 
+        onFocus={handleFocusRowSelector('focus')}
+        onBlur={handleFocusRowSelector('blur')}
+      />
+    </div>
+    <BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
+      <ListeningRowSetting 
+        index={props.index}
+        listeningRow={props.listeningRow}
+        onChangeListeningRow={handeonChangeListeningRow}
+        onChangeListeningRows={props.onChangeListeningRows}
+        onClose={handleCloseSetting}
+      />
+    </BottomDrawer>
   </div>;
 }
 
 export default ListeningRow;
 
 export const style = css`
+  width: 100%;
   display: flex;
-  
+  position: relative;
+  gap: 1px;
+
   .column.column-head {
     font-size: 16px;
-    padding: 0 10px;
+    padding: 5px 10px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    font-weight: bold;
+  }
+
+  &:focus-within {
+    .row-selector {
+      opacity: 1;
+      pointer-events: visible;
+    }
+  }
+
+  &.focus-row-selector {    
+    &:before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      outline: 1px solid ${styleSettingColor.background.dark};
+      z-index: 1;
+    }
+  }
+
+  .row-selector {
+    opacity: 0;
+    pointer-events: none;
+    width: 16px;
+    height: 24px;
+    padding: 4px 2px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    outline: 1px solid ${styleSettingColor.disabled};
+    transition: opacity 150ms;
+    color: ${styleSettingColor.text.gray};
+    cursor: pointer;
+
+    position: absolute;
+    left: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.row-selector:focus-within,
+    &.show.row-selector {
+      opacity: 1;
+      pointer-events: visible;
+    }
+
+    &.row-selector:focus-within {
+      background-color: ${styleSettingColor.background.default};
+      color: #FFFFFF;
+    }
+    
+    input {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      padding: 0;
+      border: 0;
+    }
   }
 
   .column {
-    min-height: 45px;
+    min-height: 35px;
     height: 100%;
     box-sizing: border-box;
     outline: 1px solid ${styleSettingColor.disabled};
@@ -80,18 +204,25 @@ export const style = css`
     
     &.column-2 {
       white-space: nowrap;
-      width: 130px;
+      min-width: 130px;
       flex-shrink: 0;
       padding-top: 0;
       padding-bottom: 0;
     }
     
-    &.MuiInputBase-root,
-    .MuiInputBase-root {
+    &.MuiInputBase-root {
       font-size: 16px;
-      padding: 10px;
+      padding: 5px 10px;
       box-sizing: border-box;
-      align-items: flex-start;
+
+      &:after {
+        border-bottom: unset;
+      }
+
+      &:hover:before,
+      &:before {
+        border-bottom: unset;
+      }
 
       fieldset {
         border-width: 0;
@@ -100,7 +231,7 @@ export const style = css`
       &.Mui-focused {
         z-index: 1;
         border-radius: 0;
-        outline: 2px solid ${styleSettingColor.background.dark};
+        outline: 1px solid ${styleSettingColor.background.dark};
       }
 
       .MuiInputBase-input {
@@ -108,12 +239,16 @@ export const style = css`
       }
     }
 
+    &.column-2.MuiInputBase-root {
+      align-items: flex-start;
+    }
+
     &.MuiInputBase-root .status-tag {
       width: 100%;
     }
 
     &.MuiInputBase-root .MuiSvgIcon-root {
-      top: .7rem;
+      top: 5px;
       right: 10px;
     }
 

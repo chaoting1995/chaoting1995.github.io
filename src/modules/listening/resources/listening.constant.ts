@@ -4,7 +4,7 @@ import { Listening, ListeningRow } from 'modules/listening/resources/listening.t
 export const DEFAULT_LISTENGING_ROW: ListeningRow = {
   id: '',
   column1: '',
-  column2: EnumArgumentStatus.Unknown,
+  column2: EnumArgumentStatus.Unselected,
   bg : '',
 }
 
@@ -23,12 +23,14 @@ export const LISTENGING_ROWS_HEAD = {
   bg: 'rgba(212, 212, 212, 0.49)'
 };
 
+export const DARK_BG_COLOR = '#BEBEBE';
+
 export const LISTENGING_ROWS_TEMPLATE: ListeningRow[] = [
   {
     id: 'listening-positive',
     column1: '正方',
     column2: EnumArgumentStatus.Unselected,
-    bg: '#BEBEBE'
+    bg: DARK_BG_COLOR
   },
   {
     id: 'listening-positive-1',

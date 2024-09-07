@@ -1,7 +1,6 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
 import { TextField } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 
@@ -9,9 +8,14 @@ import { styleSettingColor } from 'styles/variables.style';
 import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import Layout from 'layouts/Layout';
 import { HeadTags, Button } from 'components';
-import { DEFAULT_LISTENGING, LISTENGING_ROWS_HEAD, LISTENGING_ROWS_TEMPLATE, ListeningRow } from 'modules/listening';
+import { 
+  DEFAULT_LISTENGING, 
+  LISTENGING_ROWS_HEAD, 
+  LISTENGING_ROWS_TEMPLATE, 
+  ListeningRow,
+  DEFAULT_LISTENGING_ROW
+} from 'modules/listening';
 import useFormColumn from 'modules/form/useFormColumn';
-import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
 import { Listening as TypeListening, ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 import { style as styleRow } from 'modules/listening/components/ListeningRow';
 import { argumentStatusWording } from 'modules/listening';
@@ -42,24 +46,28 @@ const Listening: React.FC = () => {
 
   const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
 
-  const handeChangeRowColumn1 = React.useCallback((_index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setColumnRows(prevState => {
-      const newState = JSON.parse(JSON.stringify(prevState));
-      if (!newState[_index]) return;
-      newState[_index].column1 = event.target.value;
-      return newState;
-    });
+  const handeonChangeListeningRows = React.useCallback((listeningRows: TypeListeningRow[]) => {
+    setColumnRows(listeningRows);
   },[]);
-
-  const handeChangeRowColumn2 = React.useCallback((_index: number) => (event: SelectChangeEvent<EnumArgumentStatus>) => {
+  
+  const handleMinusRow = () => {
     setColumnRows(prevState => {
-      const newState = JSON.parse(JSON.stringify(prevState));
-      if (!newState[_index]) return;
-      newState[_index].column2 = event.target.value;
+      const newState = [...prevState];
+      newState.pop();
       return newState;
-    });
-  },[]);
+    })
+  };
 
+  const handleAddRow = () => {
+    setColumnRows(prevState => ([
+      ...prevState, 
+      {
+        ...DEFAULT_LISTENGING_ROW,
+        id: uuidv4(),
+      }
+    ]))
+  };
+  
   const handleUpdateState = (): TypeListening => {
     const newListening: TypeListening = {
       ...JSON.parse(JSON.stringify(listening)) as TypeListening,
@@ -133,16 +141,14 @@ const Listening: React.FC = () => {
 
   return <Layout title={PAGE_TITLE.listening} mainClassName={cx('DT-Listening', style)}>
     <HeadTags title={PAGE_TITLE.listening} description={PAGE_DESCRIPTION.listening} />
-    <TextField 
-      fullWidth
+    <TextField
       className='listening-name'
       placeholder={columnName.placeholder}
       autoFocus
       value={columnName.value}
       onChange={handleChangeName}
     />
-    <TextField 
-      fullWidth
+    <TextField
       className='listening-name'
       placeholder={columnOwner.placeholder}
       value={columnOwner.value}
@@ -157,14 +163,20 @@ const Listening: React.FC = () => {
             <div className='column column-head column-1'>{LISTENGING_ROWS_HEAD.column1}</div>
             <div className='column column-head column-2'>{LISTENGING_ROWS_HEAD.column2}</div>
         </div>
-        {columnRows.map((item, index) => 
-          <ListeningRow 
-            key={item.id}
-            {...item} 
-            onChangeColumn1={handeChangeRowColumn1(index)}
-            onChangeColumn2={handeChangeRowColumn2(index)}
-          />
-        )}
+        <div className='listening-tbody'>
+          {columnRows.map((item, index) => 
+            <ListeningRow 
+              key={item.id}
+              index={index}
+              listeningRow={item} 
+              onChangeListeningRows={setColumnRows}
+            />
+          )}
+        </div>
+      </div>
+      <div className='row-amount-button-group'>
+        <Button variant='contained' size='small' color='secondary' onClick={handleMinusRow}>-</Button>
+        <Button variant='contained' size='small' color='secondary' onClick={handleAddRow}>+</Button>
       </div>
       <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
     </div>
@@ -178,6 +190,7 @@ const style = css`
   color: ${styleSettingColor.text.secondary};
 
   .listening-name {
+    width: 100%;
     border-bottom: 1px solid ${styleSettingColor.disabled};
     
     .MuiInputBase-root {
@@ -205,6 +218,7 @@ const style = css`
 
   .listening-hint-save-solution {
     width: 100%;
+    margin-top: -8px;
     margin-bottom: 8px;
     font-size: 12px;
     color: ${styleSettingColor.text.gray};
@@ -212,14 +226,43 @@ const style = css`
 
   .listening-table {
     width: 100%;
-    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+  
+  .listening-tbody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
   }
 
   .MuiInput-root {
     font-size: 16px;
   }
+  
+  .row-amount-button-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 
-  .MuiButton-root.send-button {
-    min-width: 300px;
+    .MuiButton-root {
+      margin-top: 8px;
+      width: 100%;
+      margin-bottom: 16px;
+      
+      &:not(.Mui-disabled) {
+        background-color: ${styleSettingColor.disabled};
+      }
+    }
+  }
+
+  .send-button.MuiButton-root {
+    min-width: 250px;
   }
 `;

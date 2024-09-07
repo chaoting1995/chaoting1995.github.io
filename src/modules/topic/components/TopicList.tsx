@@ -77,7 +77,6 @@ const style = css`
     padding-right: 0;
     
     &.topic-pull-off {
-      /* background-color: ${styleSettingColor.gray}; */
       color: ${styleSettingColor.disabled};
     }
   }
