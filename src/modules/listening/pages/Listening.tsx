@@ -45,10 +45,6 @@ const Listening: React.FC = () => {
   },[columnOwner]);
 
   const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
-
-  const handeonChangeListeningRows = React.useCallback((listeningRows: TypeListeningRow[]) => {
-    setColumnRows(listeningRows);
-  },[]);
   
   const handleMinusRow = () => {
     setColumnRows(prevState => {
@@ -61,10 +57,7 @@ const Listening: React.FC = () => {
   const handleAddRow = () => {
     setColumnRows(prevState => ([
       ...prevState, 
-      {
-        ...DEFAULT_LISTENGING_ROW,
-        id: uuidv4(),
-      }
+      { ...DEFAULT_LISTENGING_ROW, id: uuidv4()}
     ]))
   };
   
@@ -84,11 +77,9 @@ const Listening: React.FC = () => {
 
   const handleUpload = async () => {
     const _listening = handleUpdateState();
-    console.log({_listening})
 
-    //  const API_URL = 'https://script.google.com/macros/s/AKfycbzFmLzsE1ObYE971Gpm5dzRWEi7iJ0GRWoAfKz8ZC8uTQ0grW1gTebi55oOCnCBr69s/exec';
-     const API_URL = 'https://script.google.com/macros/s/AKfycbyzDZiAMG1-_iJTw_89eoKVXVKMTyiFNpx9MYXCI_wLEqNeHysWB5iuVOVgAiKHWnih/exec';
-   
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwcCmdoryTnEG7Dwz61FhwzKvht0ZPYJw5H1lBp-uiO7CPvVKA5uJnrtJOXg4JxWaKw/exec';
+
     const rowsWithStatusWording = _listening.rows.map(item => ({ 
       ...item,
       column2: argumentStatusWording[item.column2],
