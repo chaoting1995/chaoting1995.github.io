@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.38] - 2024-09-08
+
+### Added
+- 新增 DEVELOPLOG.md
+
+- 新增功能：戰場判斷小幫手
+  - 透過 GoogleSheet 儲存資料、管理資料
+  - 頁面：戰場判斷表
+    - 可編輯「戰場判斷表名稱、撰寫者名稱、論點標題」
+    - 可選擇「論點狀態」
+    - 可點擊「增減列數」
+    - 可上傳「戰場判斷表」
+
+#### 彈窗：整列設定
+- 背景顏色、向上新增、向下新增、建立副本、清除、刪除
+
+
 ## [1.0.0-beta.37] - 2024-09-05
 
 ### Changed
