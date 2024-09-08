@@ -27,35 +27,35 @@ const ListeningRows: React.FC<Prpos> = (props) => {
   const { onChangeListeningRows } = props;
   const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
 
-  const handeonChangeListeningRowByIndex = React.useCallback((index: number) => (listeningRow: TypeListeningRow) => {
-    onChangeListeningRows(prevState => {
-      const newState: TypeListeningRow[] = JSON.parse(JSON.stringify(prevState));
-      if (newState[index]) newState[index] = listeningRow;
-      return newState;
-    });
-  },[onChangeListeningRows]);
+  // const handeonChangeListeningRowByIndex = React.useCallback((index: number) => (listeningRow: TypeListeningRow) => {
+  //   onChangeListeningRows(prevState => {
+  //     const newState: TypeListeningRow[] = JSON.parse(JSON.stringify(prevState));
+  //     if (newState[index]) newState[index] = listeningRow;
+  //     return newState;
+  //   });
+  // },[onChangeListeningRows]);
 
   const handleChangeRowAmount = React.useCallback((key: 'add' | 'minus') => {
     onChangeListeningRows(prevState => {
-      const newState = [...prevState];
+      const newState = [...JSON.parse(JSON.stringify(prevState))];
       if(key === 'add') newState.push({ ...DEFAULT_LISTENGING_ROW, id: uuidv4()});
       if(key === 'minus') newState.pop();
       return newState;
     })
   }, [onChangeListeningRows]);
 
-  const handleDragEnd = React.useCallback((sourceIndex: number, destinationIndex: number) => {
-    onChangeListeningRows(prevState => {
-      // 拷貝新的 listData (來自 state) 
-      const newState = Array.from(prevState);
-      // 從 source.index 剪下被拖曳的元素
-      const [removed] = newState.splice(sourceIndex, 1);
-      //在 destination.index 位置貼上被拖曳的元素
-      newState.splice(destinationIndex, 0, removed);
-      // 更新状态
-      return newState;
-    }); 
-  }, [onChangeListeningRows]);
+  // const handleDragEnd = React.useCallback((sourceIndex: number, destinationIndex: number) => {
+  //   onChangeListeningRows(prevState => {
+  //     // 拷貝新的 listData (來自 state) 
+  //     const newState = Array.from(prevState);
+  //     // 從 source.index 剪下被拖曳的元素
+  //     const [removed] = newState.splice(sourceIndex, 1);
+  //     //在 destination.index 位置貼上被拖曳的元素
+  //     newState.splice(destinationIndex, 0, removed);
+  //     // 更新状态
+  //     return newState;
+  //   }); 
+  // }, [onChangeListeningRows]);
 
   return <div className={cx('DT-ListeningRows', style, props.className)}>
     <div className='listening-table'>
@@ -64,7 +64,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
           <div className='column column-head column-2'>{LISTENGING_ROWS_HEAD.column2}</div>
       </div>
       <div className='listening-table-body'>
-        <DragDrog
+        {/* <DragDrog
           className='listening-drag-drog'
           onDragEnd={handleDragEnd}
           list={props.listeningRows}
@@ -96,7 +96,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
               )}
             />
           )}
-        />
+        /> */}
         {/* {props.listeningRows.map((item, index) => 
           <ListeningRow 
             key={item.id}

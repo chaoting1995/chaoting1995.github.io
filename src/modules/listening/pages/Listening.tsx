@@ -8,7 +8,7 @@ import { styleSettingColor } from 'styles/variables.style';
 import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import Layout from 'layouts/Layout';
 import { HeadTags, Button } from 'components';
-import { DEFAULT_LISTENGING, LISTENGING_ROWS_TEMPLATE, ListeningRows as ListeningRowsEditor } from 'modules/listening';
+import { DEFAULT_LISTENGING, LISTENGING_ROWS_TEMPLATE, ListeningRows } from 'modules/listening';
 import useFormColumn from 'modules/form/useFormColumn';
 import { Listening as TypeListening, ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 import { argumentStatusWording } from 'modules/listening';
@@ -108,7 +108,7 @@ const Listening: React.FC = () => {
       <div className='listening-hint-save-solution'>
         自動保存於本地端
       </div>
-      <ListeningRowsEditor listeningRows={columnRows} onChangeListeningRows={setColumnRows} />
+      <ListeningRows listeningRows={columnRows} onChangeListeningRows={setColumnRows} />
       <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
       <div className='listening-hint-save-solution'>
         {listening.updatedAt ? `, 上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}

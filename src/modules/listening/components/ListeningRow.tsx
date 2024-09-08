@@ -28,7 +28,7 @@ type Prpos = {
   index: number;
   listeningRow: TypeListeningRow;
   onChangeListeningRow: (listeningRow: TypeListeningRow) => void;
-  renderRowSelector?: (onFocus: () => void, onBlur: () => void) => React.ReactNode;
+  renderRowSelector: (onFocus: () => void, onBlur: () => void) => React.ReactNode;
 }
 
 const ListeningRow: React.FC<Prpos> = (props) => {
@@ -82,7 +82,7 @@ const ListeningRow: React.FC<Prpos> = (props) => {
         </MenuItem>
       )}
     </Select>
-    {props.renderRowSelector && props.renderRowSelector(
+    {props.renderRowSelector(
       handleFocusRowSelector('focus'),
       handleFocusRowSelector('blur'),
     )}
