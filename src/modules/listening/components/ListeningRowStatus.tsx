@@ -10,14 +10,14 @@ type Prpos = {
   children?: React.ReactNode;
 }
 
-const ListeningArgumentStatus: React.FC<Prpos> = (props) => {
+const ListeningRowStatus: React.FC<Prpos> = (props) => {
 
-  return <div className={cx('DT-ListeningArgumentStatus', style, props.className, props.status, 'tag')}>
+  return <div className={cx('DT-ListeningRowStatus', style, props.className, props.status, 'tag')}>
     {props.children}
   </div>;
 }
 
-export default ListeningArgumentStatus;
+export default ListeningRowStatus;
 
 const style = css`
   &.tag {

@@ -133,6 +133,7 @@ const Listening: React.FC = () => {
   return <Layout title={PAGE_TITLE.listening} mainClassName={cx('DT-Listening', style)}>
     <HeadTags title={PAGE_TITLE.listening} description={PAGE_DESCRIPTION.listening} />
     <TextField
+      id='listening-row-column-name'
       className='listening-name'
       placeholder={columnName.placeholder}
       autoFocus
@@ -140,6 +141,7 @@ const Listening: React.FC = () => {
       onChange={handleChangeName}
     />
     <TextField
+      id='listening-row-column-owner'
       className='listening-name'
       placeholder={columnOwner.placeholder}
       value={columnOwner.value}
