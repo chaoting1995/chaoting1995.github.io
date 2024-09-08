@@ -2,13 +2,13 @@ import React from 'react'
 import { css, cx } from '@emotion/css';
 import { Input, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { DotsSixVertical } from '@phosphor-icons/react';
+// import { DotsSixVertical } from '@phosphor-icons/react';
 
-import { BottomDrawer } from 'components';
-import useDialog from 'hooks/useDialog';
+// import { BottomDrawer } from 'components';
+// import useDialog from 'hooks/useDialog';
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
-import { ListeningArgumentStatus, argumentStatusWording, ListeningRowSetting } from 'modules/listening';
+import { ListeningRowStatus, argumentStatusWording /* , ListeningRowSetting */ } from 'modules/listening';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 
 type Option = { 
@@ -27,11 +27,11 @@ type Prpos = {
   className?: string;
   index: number;
   listeningRow: TypeListeningRow;
-  onChangeListeningRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>>;
+  onChangeListeningRow: (listeningRow: TypeListeningRow) => void;
+  renderRowSelector: (onFocus: () => void, onBlur: () => void) => React.ReactNode;
 }
 
 const ListeningRow: React.FC<Prpos> = (props) => {
-  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
   const [focusRowSelector, setFocusRowSelector] = React.useState<boolean>(false);
 
   const handleFocusRowSelector = React.useCallback((eventKey: 'focus' | 'blur') => () => {
@@ -39,29 +39,21 @@ const ListeningRow: React.FC<Prpos> = (props) => {
     if(eventKey === 'blur') setFocusRowSelector(false);
   }, []);
 
-  const handeonChangeListeningRow = React.useCallback((listeningRow: TypeListeningRow) => {
-    props.onChangeListeningRows(prevState => {
-      const newState = JSON.parse(JSON.stringify(prevState));
-      if (newState[props.index]) newState[props.index] = listeningRow;
-      return newState;
-    });
-  },[props]);
-
   const handeChangeRowColumn1 = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newListeningRow: TypeListeningRow = {
       ...props.listeningRow,
       column1: event.target.value,
     }
-    handeonChangeListeningRow(newListeningRow)
-  },[props, handeonChangeListeningRow]);
+    props.onChangeListeningRow(newListeningRow)
+  },[props]);
 
   const handeChangeRowColumn2 = React.useCallback((event: SelectChangeEvent<EnumArgumentStatus>) => {
     const newListeningRow: TypeListeningRow = {
       ...props.listeningRow,
       column2: event.target.value as EnumArgumentStatus,
     }
-    handeonChangeListeningRow(newListeningRow)
-  },[props, handeonChangeListeningRow]);
+    props.onChangeListeningRow(newListeningRow)
+  },[props]);
   
   return <div 
     style={{ backgroundColor: props.listeningRow.bg || 'unset' }} 
@@ -69,39 +61,29 @@ const ListeningRow: React.FC<Prpos> = (props) => {
   >
     <Input
       multiline
+      id='listening-row-column-name'
       className='column column-1'
       value={props.listeningRow.column1} 
       onChange={handeChangeRowColumn1}
     />
     <Select
       className='column column-2'
+      id='listening-row-column-owner'
       value={props.listeningRow.column2}
       onChange={handeChangeRowColumn2}
     >
       {options.map((option) =>
         <MenuItem key={option.value} value={option.value}>
-          <ListeningArgumentStatus className='status-tag' status={option.value}>
+          <ListeningRowStatus className='status-tag' status={option.value}>
             {option.label}
-          </ListeningArgumentStatus>
+          </ListeningRowStatus>
         </MenuItem>
       )}
     </Select>
-    <div className='row-selector' onClick={handleOpenSetting}>
-      <DotsSixVertical size={16} weight='bold' />
-      <input 
-        onFocus={handleFocusRowSelector('focus')}
-        onBlur={handleFocusRowSelector('blur')}
-      />
-    </div>
-    <BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
-      <ListeningRowSetting 
-        index={props.index}
-        listeningRow={props.listeningRow}
-        onChangeListeningRow={handeonChangeListeningRow}
-        onChangeListeningRows={props.onChangeListeningRows}
-        onClose={handleCloseSetting}
-      />
-    </BottomDrawer>
+    {props.renderRowSelector(
+      handleFocusRowSelector('focus'),
+      handleFocusRowSelector('blur'),
+    )}
   </div>;
 }
 

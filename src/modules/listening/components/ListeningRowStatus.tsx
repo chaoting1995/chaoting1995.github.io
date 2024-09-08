@@ -10,28 +10,25 @@ type Prpos = {
   children?: React.ReactNode;
 }
 
-const ListeningArgumentStatus: React.FC<Prpos> = (props) => {
+const ListeningRowStatus: React.FC<Prpos> = (props) => {
 
-  return <div className={cx('DT-ListeningArgumentStatus', style, props.className, props.status, 'tag')}>
+  return <div className={cx('DT-ListeningRowStatus', style, props.className, props.status)}>
     {props.children}
   </div>;
 }
 
-export default ListeningArgumentStatus;
+export default ListeningRowStatus;
 
 const style = css`
-  &.tag {
-    width: fit-content;
-    padding: 1px 10px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    white-space: nowrap;
-  }
+  width: fit-content;
+  padding: 1px 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  white-space: nowrap;
 
   &.${EnumArgumentStatus.Unselected} {
     color:  ${styleSettingColor.text.gray};
   }
-
 
   &.${EnumArgumentStatus.HP100} {
     background-color: #CEEAB4;
@@ -39,7 +36,7 @@ const style = css`
   }
 
   &.${EnumArgumentStatus.HP90} {
-    background-color: #FFE196;
+    background-color: #FFC1A0;
     color: #4F4028;
   }
 
