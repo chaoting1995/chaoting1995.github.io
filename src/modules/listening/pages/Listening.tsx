@@ -39,6 +39,10 @@ const Listening: React.FC = () => {
 
   const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
  
+  const handleChangeListeningRows = React.useCallback((listeningRow: TypeListeningRow[]) => {
+    setColumnRows(listeningRow);
+  }, []);
+
   const handleUpdateState = (): TypeListening => {
     const newListening: TypeListening = {
       ...JSON.parse(JSON.stringify(listening)) as TypeListening,
@@ -106,7 +110,7 @@ const Listening: React.FC = () => {
       <div className='listening-hint-save-solution'>
         自動保存於本地端
       </div>
-      <ListeningRowsEditor listeningRows={columnRows} onChangeListeningRows={setColumnRows} />
+      <ListeningRowsEditor listeningRows={columnRows} onChangeListeningRows={handleChangeListeningRows} setColumnRows={setColumnRows}/>
       <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
       <div className='listening-hint-save-solution'>
         {listening.updatedAt ? `, 上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}

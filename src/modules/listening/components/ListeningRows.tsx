@@ -1,18 +1,13 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
 import { v4 as uuidv4 } from 'uuid';
-import { DotsSixVertical } from '@phosphor-icons/react';
-
-import { BottomDrawer } from 'components';
-import useDialog from 'hooks/useDialog';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { Button, DragDrog } from 'components';
 import { 
   LISTENGING_ROWS_HEAD, 
   ListeningRow,
-  DEFAULT_LISTENGING_ROW,
-  ListeningRowSetting
+  DEFAULT_LISTENGING_ROW
 } from 'modules/listening';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 import { style as styleRow } from 'modules/listening/components/ListeningRow';
@@ -20,32 +15,31 @@ import { style as styleRow } from 'modules/listening/components/ListeningRow';
 type Prpos = {
   className?: string;
   listeningRows: TypeListeningRow[];
-  onChangeListeningRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>>;
+  setColumnRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>>;
 }
 
 const ListeningRows: React.FC<Prpos> = (props) => {
-  const { onChangeListeningRows } = props;
-  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
+  
 
-  const handeonChangeListeningRowByIndex = React.useCallback((index: number) => (listeningRow: TypeListeningRow) => {
-    onChangeListeningRows(prevState => {
-      const newState: TypeListeningRow[] = JSON.parse(JSON.stringify(prevState));
+  const handeChangeListeningRowByIndex = React.useCallback((index: number) => (listeningRow: TypeListeningRow) => {
+    props.setColumnRows(prevState => {
+      const newState =[...prevState];
       if (newState[index]) newState[index] = listeningRow;
       return newState;
-    });
-  },[onChangeListeningRows]);
+    })
+  },[props]);
 
-  const handleChangeRowAmount = React.useCallback((key: 'add' | 'minus') => {
-    onChangeListeningRows(prevState => {
+  const handleChangeRowAmount = React.useCallback((key: 'add' | 'minus') => () => {
+    props.setColumnRows(prevState => {
       const newState = [...prevState];
       if(key === 'add') newState.push({ ...DEFAULT_LISTENGING_ROW, id: uuidv4()});
       if(key === 'minus') newState.pop();
       return newState;
     })
-  }, [onChangeListeningRows]);
+  }, [props]);
 
   const handleDragEnd = React.useCallback((sourceIndex: number, destinationIndex: number) => {
-    onChangeListeningRows(prevState => {
+    props.setColumnRows(prevState => {
       // 拷貝新的 listData (來自 state) 
       const newState = Array.from(prevState);
       // 從 source.index 剪下被拖曳的元素
@@ -55,7 +49,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
       // 更新状态
       return newState;
     }); 
-  }, [onChangeListeningRows]);
+  }, [props]);
 
   return <div className={cx('DT-ListeningRows', style, props.className)}>
     <div className='listening-table'>
@@ -73,38 +67,12 @@ const ListeningRows: React.FC<Prpos> = (props) => {
               key={item.id}
               index={index}
               listeningRow={item}
-              onChangeListeningRow={handeonChangeListeningRowByIndex(index)}
-              renderRowSelector={(onFocus, onBlur) => (
-                <>
-                  <div className='row-selector' onClick={handleOpenSetting} {...dragHandleProps}>
-                    <DotsSixVertical size={16} weight='bold' />
-                    <input 
-                      onFocus={onFocus}
-                      onBlur={onBlur}
-                      />
-                  </div>
-                  <BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
-                    <ListeningRowSetting 
-                      index={index}
-                      listeningRow={item}
-                      onChangeListeningRow={handeonChangeListeningRowByIndex(index)}
-                      onChangeListeningRows={props.onChangeListeningRows}
-                      onClose={handleCloseSetting}
-                      />
-                  </BottomDrawer>
-                </>
-              )}
+              onChangeListeningRow={handeChangeListeningRowByIndex(index)}
+              dragHandleProps={dragHandleProps}
+              setColumnRows={props.setColumnRows}
             />
           )}
         />
-        {/* {props.listeningRows.map((item, index) => 
-          <ListeningRow 
-            key={item.id}
-            index={index}
-            listeningRow={item} 
-            onChangeListeningRows={props.onChangeListeningRows}
-          />
-        )} */}
       </div>
     </div>
     <div className='row-amount-button-group'>

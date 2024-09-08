@@ -2,14 +2,19 @@ import React from 'react'
 import { css, cx } from '@emotion/css';
 import { Input, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-// import { DotsSixVertical } from '@phosphor-icons/react';
+import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
+import { DotsSixVertical } from '@phosphor-icons/react';
 
-// import { BottomDrawer } from 'components';
-// import useDialog from 'hooks/useDialog';
+import { BottomDrawer } from 'components';
+import useDialog from 'hooks/useDialog';
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
-import { ListeningRowStatus, argumentStatusWording /* , ListeningRowSetting */ } from 'modules/listening';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
+import { 
+  ListeningRowStatus, 
+  ListeningRowSetting,
+  argumentStatusWording,
+ } from 'modules/listening';
 
 type Option = { 
   value: EnumArgumentStatus; 
@@ -28,10 +33,12 @@ type Prpos = {
   index: number;
   listeningRow: TypeListeningRow;
   onChangeListeningRow: (listeningRow: TypeListeningRow) => void;
-  renderRowSelector: (onFocus: () => void, onBlur: () => void) => React.ReactNode;
+  setColumnRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>>;
+  dragHandleProps: DraggableProvidedDragHandleProps | null;
 }
 
 const ListeningRow: React.FC<Prpos> = (props) => {
+  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
   const [focusRowSelector, setFocusRowSelector] = React.useState<boolean>(false);
 
   const handleFocusRowSelector = React.useCallback((eventKey: 'focus' | 'blur') => () => {
@@ -61,14 +68,14 @@ const ListeningRow: React.FC<Prpos> = (props) => {
   >
     <Input
       multiline
-      id='listening-row-column-name'
+      id={`listening-row-column-title-${props.listeningRow.id}`}
       className='column column-1'
       value={props.listeningRow.column1} 
       onChange={handeChangeRowColumn1}
     />
     <Select
       className='column column-2'
-      id='listening-row-column-owner'
+      name={`listening-row-column-status-${props.listeningRow.id}`}
       value={props.listeningRow.column2}
       onChange={handeChangeRowColumn2}
     >
@@ -80,10 +87,23 @@ const ListeningRow: React.FC<Prpos> = (props) => {
         </MenuItem>
       )}
     </Select>
-    {props.renderRowSelector(
-      handleFocusRowSelector('focus'),
-      handleFocusRowSelector('blur'),
-    )}
+    <div className='row-selector' onClick={handleOpenSetting} {...props.dragHandleProps}>
+      <DotsSixVertical size={16} weight='bold' />
+      <input
+        id={`row-selector-input-${props.listeningRow.id}`}
+        onFocus={handleFocusRowSelector('focus')}
+        onBlur={handleFocusRowSelector('blur')}
+      />
+    </div>
+    {<BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
+      <ListeningRowSetting 
+        index={props.index}
+        listeningRow={props.listeningRow}
+        onChangeListeningRow={props.onChangeListeningRow}
+        setColumnRows={props.setColumnRows}
+        onClose={handleCloseSetting}
+        />
+    </BottomDrawer>}
   </div>;
 }
 
@@ -161,6 +181,7 @@ export const style = css`
     
     input {
       cursor: pointer;
+      /* user-select: none;  */
       position: absolute;
       top: 0;
       left: 0;

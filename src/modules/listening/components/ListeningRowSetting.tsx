@@ -13,7 +13,7 @@ type Props = {
   index: number;
   listeningRow: ListeningRow;
   onChangeListeningRow: (listeningRow: ListeningRow) => void;
-  onChangeListeningRows: React.Dispatch<React.SetStateAction<ListeningRow[]>>;
+  setColumnRows: React.Dispatch<React.SetStateAction<ListeningRow[]>>;
   onClose: () => void;
 }
 
@@ -25,7 +25,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   }
   
   const hadleInsertAbove = () => {
-    props.onChangeListeningRows(prevState => {
+    props.setColumnRows(prevState => {
       const newState = [...prevState];
       const newItem = { ...DEFAULT_LISTENGING_ROW, id: uuidv4() };
       newState.splice(props.index, 0, newItem);
@@ -35,7 +35,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   }
   
   const hadleInsertBelow = () => {
-    props.onChangeListeningRows(prevState => {
+    props.setColumnRows(prevState => {
       const newState = [...prevState];
       const newItem = { ...DEFAULT_LISTENGING_ROW, id: uuidv4() };
       newState.splice(props.index + 1, 0, newItem);
@@ -45,7 +45,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   }
 
   const hadleDuplicate = () => {
-    props.onChangeListeningRows(prevState => {
+    props.setColumnRows(prevState => {
       const newState = [...prevState];
       const newItem = { ...prevState[props.index], id: uuidv4() };
       newState.splice(props.index + 1, 0, newItem);
@@ -60,7 +60,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   }
   
   const hadleDelete = () => {
-    props.onChangeListeningRows(prevState => {
+    props.setColumnRows(prevState => {
       const newState = [...prevState];
       newState.splice(props.index, 1);
       return newState;
