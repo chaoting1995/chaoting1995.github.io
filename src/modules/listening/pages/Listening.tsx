@@ -8,16 +8,9 @@ import { styleSettingColor } from 'styles/variables.style';
 import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import Layout from 'layouts/Layout';
 import { HeadTags, Button } from 'components';
-import { 
-  DEFAULT_LISTENGING, 
-  LISTENGING_ROWS_HEAD, 
-  LISTENGING_ROWS_TEMPLATE, 
-  ListeningRow,
-  DEFAULT_LISTENGING_ROW
-} from 'modules/listening';
+import { DEFAULT_LISTENGING, LISTENGING_ROWS_TEMPLATE, ListeningRows as ListeningRowsEditor } from 'modules/listening';
 import useFormColumn from 'modules/form/useFormColumn';
 import { Listening as TypeListening, ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
-import { style as styleRow } from 'modules/listening/components/ListeningRow';
 import { argumentStatusWording } from 'modules/listening';
 
 const Listening: React.FC = () => {
@@ -45,22 +38,7 @@ const Listening: React.FC = () => {
   },[columnOwner]);
 
   const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
-  
-  const handleMinusRow = () => {
-    setColumnRows(prevState => {
-      const newState = [...prevState];
-      newState.pop();
-      return newState;
-    })
-  };
 
-  const handleAddRow = () => {
-    setColumnRows(prevState => ([
-      ...prevState, 
-      { ...DEFAULT_LISTENGING_ROW, id: uuidv4()}
-    ]))
-  };
-  
   const handleUpdateState = (): TypeListening => {
     const newListening: TypeListening = {
       ...JSON.parse(JSON.stringify(listening)) as TypeListening,
@@ -109,27 +87,6 @@ const Listening: React.FC = () => {
     }
   }
 
-  // window.handleResponse = (res) => {
-  //   console.log(res)
-  // }
-
-  // const handleUpload1 = () => {
-  //   const data = { 
-  //     name: dayjs().format('YYYY/sMM/DD HH:mm:ss'), 
-  //     phone: columnRows[0].column1,
-  //     demand: argumentStatusWording[columnRows[0].column2],
-  //   };
-  //   const queryString = Object.keys(data)
-  //     .map((key) => key + '=' + data[key])
-  //     .join('&');
-
-  //   const script = document.createElement('script');
-
-  //   const API_URL = 'https://script.google.com/macros/s/AKfycbzeJVxqA9wMb72uF0AjMo6I35jnH1lDRgA6rBFI1sjhDG5Oi92MQLnqvZRfjgbnDxEA/exec';
-  //   script.src = API_URL + '?' + queryString + '&callback=handleResponse';
-  //   document.body.appendChild(script);
-  // }
-
   return <Layout title={PAGE_TITLE.listening} mainClassName={cx('DT-Listening', style)}>
     <HeadTags title={PAGE_TITLE.listening} description={PAGE_DESCRIPTION.listening} />
     <TextField
@@ -149,29 +106,13 @@ const Listening: React.FC = () => {
     />
     <div className='listening-body'>
       <div className='listening-hint-save-solution'>
-        自動保存於本地端{listening.updatedAt ? `, 上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}
+        自動保存於本地端
       </div>
-      <div className='listening-table'>
-        <div className={styleRow} style={{ backgroundColor: LISTENGING_ROWS_HEAD.bg || 'unset' }}>
-            <div className='column column-head column-1'>{LISTENGING_ROWS_HEAD.column1}</div>
-            <div className='column column-head column-2'>{LISTENGING_ROWS_HEAD.column2}</div>
-        </div>
-        <div className='listening-tbody'>
-          {columnRows.map((item, index) => 
-            <ListeningRow 
-              key={item.id}
-              index={index}
-              listeningRow={item} 
-              onChangeListeningRows={setColumnRows}
-            />
-          )}
-        </div>
-      </div>
-      <div className='row-amount-button-group'>
-        <Button variant='contained' size='small' color='secondary' onClick={handleMinusRow}>-</Button>
-        <Button variant='contained' size='small' color='secondary' onClick={handleAddRow}>+</Button>
-      </div>
+      <ListeningRowsEditor listeningRows={columnRows} onChangeListeningRows={setColumnRows} />
       <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
+      <div className='listening-hint-save-solution'>
+        {listening.updatedAt ? `, 上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}
+      </div>
     </div>
   </Layout>;
 }
@@ -215,44 +156,6 @@ const style = css`
     margin-bottom: 8px;
     font-size: 12px;
     color: ${styleSettingColor.text.gray};
-  }
-
-  .listening-table {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-  }
-  
-  .listening-tbody {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-  }
-
-  .MuiInput-root {
-    font-size: 16px;
-  }
-  
-  .row-amount-button-group {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-
-    .MuiButton-root {
-      margin-top: 8px;
-      width: 100%;
-      margin-bottom: 16px;
-      
-      &:not(.Mui-disabled) {
-        background-color: ${styleSettingColor.disabled};
-      }
-    }
   }
 
   .send-button.MuiButton-root {
