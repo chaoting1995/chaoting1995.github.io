@@ -30,7 +30,7 @@ const SidebarMenu = (props: Props) => {
     anchor.click();
   };
 
-  const handleTracking = (path: string) => {
+  const trackingMenuItemToPage = (path: string) => {
     if (path === pageLinks.timer) {
       ServiceGA4.event(GA_EVENT.Menu_Item_To_Timer);
     }
@@ -42,7 +42,7 @@ const SidebarMenu = (props: Props) => {
 
   const handleToPage = (path: string | undefined, link: string | undefined, isBlank: boolean | undefined) => () => {
     if (path) {
-      handleTracking(path);
+      trackingMenuItemToPage(path);
       navigate(path);
     }
 

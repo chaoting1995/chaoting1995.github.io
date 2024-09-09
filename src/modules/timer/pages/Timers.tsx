@@ -29,7 +29,7 @@ const Timers: React.FC = () => {
   const timersProvider = useTimers();
   const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER); 
 
-  const handleTrakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
+  const trakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
     const newGaEvent = {
       ...GA_EVENT.Timers_Item_To_Timer,
       label: `${GA_EVENT.Timers_Item_To_Timer.label}_Mode:${mode}_Name:${name}`
@@ -67,7 +67,8 @@ const Timers: React.FC = () => {
     });
   
     if(!isConfirm) return;
-    timersProvider.deleteItem(timerID)
+    timersProvider.deleteItem(timerID);
+    ServiceGA4.event(GA_EVENT.Timers_Button_Delete_Timer);
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
@@ -110,7 +111,7 @@ const Timers: React.FC = () => {
             <ListItemButton
               component={Link} 
               to={`${pageLinks.timerID.replace(':id', item.id)}`}
-              onClick={handleTrakingTimersItemToTimer(item.name, item.mode)}
+              onClick={trakingTimersItemToTimer(item.name, item.mode)}
             >
               <DotsSixVertical size={26} weight='light'/>
               <div className='item-name'>{item.name}</div>

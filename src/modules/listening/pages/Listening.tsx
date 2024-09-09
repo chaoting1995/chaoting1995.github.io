@@ -10,6 +10,7 @@ import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import { styleSettingColor } from 'styles/variables.style';
 import Layout from 'layouts/Layout';
 import { HeadTags, Button } from 'components';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import useFormColumn from 'modules/form/useFormColumn';
 import { Listening as TypeListening, ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 import { 
@@ -42,9 +43,8 @@ const Listening: React.FC = () => {
     placeholder: '撰寫者名稱',
   });
 
-  // TODO
   const handleTrakingHeaderButtonToList = () => {
-    // ServiceGA4.event(GA_EVENT.Header_Button_Timers);
+    ServiceGA4.event(GA_EVENT.Header_Button_Listenings);
   };
 
   const handleChangeName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

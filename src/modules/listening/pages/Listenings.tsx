@@ -11,7 +11,7 @@ import { DragDrog } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/constants';
 import usePopup from 'context/Popup/usePopup';
 import useListenings from 'modules/listening/context/Listenings/useListenings';
-// import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
 import Layout from 'layouts/Layout';
 import { HeadTags, Button } from 'components';
 
@@ -21,14 +21,18 @@ const Listenings: React.FC = () => {
   const popup = usePopup();
   const listeningsProvider = useListenings();
 
-  // const handleTrakingListeningsItemToListening = (name: string, mode: EnumListeningMode) => () => {
-  //   const newGaEvent = {
-  //     ...GA_EVENT.Listenings_Item_To_Listening,
-  //     label: `${GA_EVENT.Listenings_Item_To_Listening.label}_Mode:${mode}_Name:${name}`
-  //   }
+  const trakingHeaderButtonAddListening = () => {    
+    ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
+  };
 
-  //   ServiceGA4.event(newGaEvent);
-  // };
+  const trakingButtonEditListening = (name: string, owner: string) => () => {
+    const newGaEvent = {
+      ...GA_EVENT.Listenings_Button_Edit_Listening,
+      label: `${GA_EVENT.Listenings_Button_Edit_Listening.label}_Name:${name}_Owner:${owner}`
+    }
+
+    ServiceGA4.event(newGaEvent);
+  };
 
   const handleDelete = (listeningID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -39,7 +43,8 @@ const Listenings: React.FC = () => {
     });
   
     if (!isConfirm) return;
-    listeningsProvider.deleteItem(listeningID)
+    listeningsProvider.deleteItem(listeningID);
+    ServiceGA4.event(GA_EVENT.Listenings_Button_Delete_Listening);
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
@@ -50,7 +55,7 @@ const Listenings: React.FC = () => {
     mainClassName={cx('DT-Listenings', style)}
     title={PAGE_TITLE.listenings}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.listening}>
+      <IconButton component={Link} to={pageLinks.listening} onClick={trakingHeaderButtonAddListening}>
         <Plus size={28} weight='light'/>
       </IconButton>
     }>
@@ -73,7 +78,10 @@ const Listenings: React.FC = () => {
               <div className='item-name'>{item.name}</div>
             </ListItemButton>
             <ListItemSecondaryAction className='item-actions'>
-              <IconButton component={Link} to={`${pageLinks.listeningID.replace(':id', item.id)}`}>
+              <IconButton 
+                component={Link} 
+                to={`${pageLinks.listeningID.replace(':id', item.id)}`}
+                onClick={trakingButtonEditListening(item.name, item.owner)}>
                 <PencilSimple size={26} weight='light'/>
               </IconButton>
               <IconButton onClick={handleDelete(item.id)}>
