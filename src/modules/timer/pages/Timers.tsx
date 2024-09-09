@@ -158,6 +158,13 @@ const style = css`
       .dd-drappable {
         width: 100%;
       }
+
+      .dd-drappable.dragging {
+        .MuiListItem-root > .MuiListItemButton-root {
+          background-color: ${styleSettingColor.gray};
+          border-top: 1px solid ${styleSettingColor.disabled};
+        }
+      }
     }
   }
 
