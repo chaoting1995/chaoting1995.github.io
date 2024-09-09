@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.39] - 2024-09-09
+
+### Added
+- 新增 DEVELOPLOG.md
+
+- 新增功能：戰場判斷表 > 拖曳與設定功能
+
 ## [1.0.0-beta.38] - 2024-09-08
 
 ### Added
