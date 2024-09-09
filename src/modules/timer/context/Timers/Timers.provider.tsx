@@ -16,32 +16,47 @@ const TimersProvider = (props: Props) => {
     setTimers(ResourceTimer.getTimers());
   }, []);
 
-  const addTimer = (timer: Timer) => {
-    const updatedTimers = [...timers, timer];
-    setTimers(updatedTimers);
-    ResourceTimer.updateTimers(updatedTimers);
+  const addTimer = (newTimer: Timer) => {
+    const _timers = ResourceTimer.getTimers();
+    _timers.push(newTimer);
+
+    ResourceTimer.updateTimers(_timers);
+    setTimers(_timers);
   };
 
-  const getTimer = (id: string) => {
-    return timers.find(timer => timer.id === id);
-  };
+  const editTimer =  React.useCallback((id: string, updatedTimer: Timer) => {
+    const _timers = ResourceTimer.getTimers();
+    const index = _timers.findIndex(item => item.id === id);
+    if (index === -1) return;
+    _timers.splice(index, 1, updatedTimer);
+    
+    ResourceTimer.updateTimers(_timers);
+    setTimers(_timers);
+  }, []);
 
-  const editTimer = (id: string, updatedTimer: Partial<Timer>) => {
-    const updatedTimers = timers.map(timer =>
-      timer.id === id ? { ...timer, ...updatedTimer } : timer
-    );
-    setTimers(updatedTimers);
-    ResourceTimer.updateTimers(updatedTimers);
-  };
+  const deleteTimer = React.useCallback((id: string) => {
+    const _timers = ResourceTimer.getTimers();
+    const index = _timers.findIndex(item => item.id === id);
+    if (index === -1) return;
+    _timers.splice(index, 1);
 
-  const deleteTimer = (id: string) => {
-    const updatedTimers = timers.filter(timer => timer.id !== id);
-    setTimers(updatedTimers);
-    ResourceTimer.updateTimers(updatedTimers);
-  };
+    ResourceTimer.updateTimers(_timers);
+    setTimers(_timers);
+  }, []);
+
+  const reorderTimers = React.useCallback((sourceIndex: number, destinationIndex: number) => {
+    const _timers = ResourceTimer.getTimers();
+    // 從 source.index 剪下被拖曳的元素
+    const [removed] = _timers.splice(sourceIndex, 1);
+    //在 destination.index 位置貼上被拖曳的元素
+    _timers.splice(destinationIndex, 0, removed);
+
+    ResourceTimer.updateTimers(_timers);
+    setTimers(_timers);
+  }, []);
 
   return (
-    <TimersContext.Provider value={{ timers, addTimer, getTimer, editTimer, deleteTimer }}>
+    <TimersContext.Provider value={{ timers, addTimer, editTimer, deleteTimer, reorderTimers }}>
       {props.children}
     </TimersContext.Provider>
   );

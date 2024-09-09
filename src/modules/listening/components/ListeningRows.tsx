@@ -45,7 +45,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
       const [removed] = newState.splice(sourceIndex, 1);
       //在 destination.index 位置貼上被拖曳的元素
       newState.splice(destinationIndex, 0, removed);
-      // 更新状态
+      // 更新狀態
       return newState;
     }); 
   }, [props]);

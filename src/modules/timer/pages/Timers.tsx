@@ -2,11 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
-import { Trash, PencilSimple, Plus } from '@phosphor-icons/react';
+import { Trash, PencilSimple, Plus, DotsSixVertical } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
+import { DragDrog } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/constants';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
@@ -23,9 +24,9 @@ import { BottomDrawer, Button } from 'components';
 const Timers: React.FC = () => {
   const popup = usePopup();
   const [open, handleOpen, handleClose] = useDialog(false);
-  const { timers, addTimer, editTimer, deleteTimer } = useTimers();
+  const { timers, addTimer, editTimer, deleteTimer, reorderTimers } = useTimers();
   const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER); 
-  
+
   const handleTrakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
     const newGaEvent = {
       ...GA_EVENT.Timers_Item_To_Timer,
@@ -55,16 +56,6 @@ const Timers: React.FC = () => {
     }
   }, [handleOpen, timers])
 
-  const handleSave =  React.useCallback((timer: Timer) => {
-    if (!selectedTimer.id) {
-      addTimer(timer);
-    } else {
-      editTimer(timer.id, timer);
-    };
-
-    handleClose();
-  }, [addTimer, editTimer, selectedTimer, handleClose]);
-
   const handleDelete = (timerID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
@@ -76,6 +67,20 @@ const Timers: React.FC = () => {
     if(!isConfirm) return;
     deleteTimer(timerID)
   }
+
+  const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
+    reorderTimers(sourceIndex, destinationIndex);
+  };
+
+  const handleSave =  React.useCallback((timer: Timer) => {
+    if (!selectedTimer.id) {
+      addTimer(timer);
+    } else {
+      editTimer(timer.id, timer);
+    };
+
+    handleClose();
+  }, [addTimer, editTimer, selectedTimer, handleClose]);
 
   return <Layout
     mainClassName={cx('DT-Timers', style)}
@@ -94,23 +99,31 @@ const Timers: React.FC = () => {
       <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增計時器</Button>
     </div>}
     <List disablePadding>
-      {timers.map((item) => <ListItem key={item.id} disablePadding>
-        <ListItemButton 
-          component={Link} 
-          to={`${pageLinks.timerID.replace(':id', item.id)}`}
-          onClick={handleTrakingTimersItemToTimer(item.name, item.mode)}
-        >
-          <div className='item-name'>{item.name}</div>
-        </ListItemButton>
-        <ListItemSecondaryAction className='item-actions'>
-          <IconButton onClick={handleOpenEditor(item.id)}>
-            <PencilSimple size={26} weight='light'/>
-          </IconButton>
-          <IconButton onClick={handleDelete(item.id)}>
-            <Trash size={26} weight='light' />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>)}
+      <DragDrog
+        className='timers-drag-drog'
+        onDragEnd={handleDragEnd}
+        list={timers}
+        renderRow={(item, _, dragHandleProps) => (
+          <ListItem key={item.id} disablePadding {...dragHandleProps}>
+            <ListItemButton
+              component={Link} 
+              to={`${pageLinks.timerID.replace(':id', item.id)}`}
+              onClick={handleTrakingTimersItemToTimer(item.name, item.mode)}
+            >
+              <DotsSixVertical size={26} weight='light'/>
+              <div className='item-name'>{item.name}</div>
+            </ListItemButton>
+            <ListItemSecondaryAction className='item-actions'>
+              <IconButton onClick={handleOpenEditor(item.id)}>
+                <PencilSimple size={26} weight='light'/>
+              </IconButton>
+              <IconButton onClick={handleDelete(item.id)}>
+                <Trash size={26} weight='light' />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        )}
+      />
     </List>
     {open && <BottomDrawer open={open} onOpen={handleOpen} onClose={handleClose}>
       <TimerEditor timer={selectedTimer} onSave={handleSave} />
@@ -138,9 +151,15 @@ const style = css`
     }
   }
 
-  /* a {
-    color: ${styleSettingColor.text.secondary};
-  } */
+  .timers-drag-drog {
+    .dd-droppable {
+      width: 100%;
+  
+      .dd-drappable {
+        width: 100%;
+      }
+    }
+  }
 
   .MuiListItem-root {
     padding-right: 0;
