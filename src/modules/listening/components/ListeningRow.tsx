@@ -231,7 +231,7 @@ export const style = css`
     
     &.MuiInputBase-root {
       font-size: 16px;
-      padding: 5px 10px;
+      padding: 10px;
       box-sizing: border-box;
 
       &:after {
@@ -267,7 +267,7 @@ export const style = css`
     }
 
     &.MuiInputBase-root .MuiSvgIcon-root {
-      top: 5px;
+      top: 10px;
       right: 10px;
     }
 

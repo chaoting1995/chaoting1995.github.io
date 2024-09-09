@@ -79,7 +79,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
         { label: '-', action: handleChangeRowAmount('minus') },
         { label: '+', action: handleChangeRowAmount('add') },
       ].map(item => (
-        <Button key={item.label} variant='contained' size='small' color='secondary' onClick={item.action}>
+        <Button key={item.label} variant='contained' color='secondary' onClick={item.action}>
           {item.label}
         </Button>
       ))}
