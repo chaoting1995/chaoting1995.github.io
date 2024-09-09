@@ -1,60 +1,85 @@
 import React from 'react'
+import { Link, useParams } from 'react-router-dom';
 import { css, cx } from '@emotion/css';
-import { TextField } from '@mui/material';
+import { IconButton, Input, InputAdornment } from '@mui/material';
+import { FileText, NotePencil, UserCircle } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 
+import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import { styleSettingColor } from 'styles/variables.style';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/constants';
 import Layout from 'layouts/Layout';
 import { HeadTags, Button } from 'components';
-import { DEFAULT_LISTENGING, LISTENGING_ROWS_TEMPLATE, ListeningRows as ListeningRowsEditor } from 'modules/listening';
 import useFormColumn from 'modules/form/useFormColumn';
 import { Listening as TypeListening, ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
-import { argumentStatusWording } from 'modules/listening';
+import { 
+  DEFAULT_LISTENING, 
+  ListeningRows as ListeningRowsEditor,
+  useListenings,
+  argumentStatusWording
+ } from 'modules/listening';
 
 const Listening: React.FC = () => {
-  const [listening, setListening] = React.useState<TypeListening>(DEFAULT_LISTENGING);
+  const { id } = useParams<{ id: string }>();
+  const listeningsProvider = useListenings();
+
+  const listening = React.useMemo(() => {
+    if (!id) return DEFAULT_LISTENING;
+    const _listening = listeningsProvider.getItem(id)
+    if (!_listening) return DEFAULT_LISTENING;
+    return _listening;
+  }, [id, listeningsProvider]);
 
   const columnName = useFormColumn<string>({
     value: listening.name,
     defaultValue: '',
-    placeholder: '戰場判斷表名稱',
+    placeholder: '戰場判斷表名稱，如：2024/01/01 XX vs YY',
   });
 
   const columnOwner = useFormColumn<string>({
-    value: '',
+    value: listening.owner,
     defaultValue: '',
     placeholder: '撰寫者名稱',
   });
+
+  // TODO
+  const handleTrakingHeaderButtonToList = () => {
+    // ServiceGA4.event(GA_EVENT.Header_Button_Timers);
+  };
 
   const handleChangeName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     columnName.onChange(event.target.value);
   },[columnName]);
 
-
   const handleChangeOwner = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     columnOwner.onChange(event.target.value);
   },[columnOwner]);
 
-  const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
- 
-  const handleUpdateState = (): TypeListening => {
-    const newListening: TypeListening = {
+  const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(listening.rows);
+
+  const handleSave = () => {
+    // formListening 物件，轉換成 listening 物件
+    const _listening: TypeListening = {
       ...JSON.parse(JSON.stringify(listening)) as TypeListening,
-      id: uuidv4(),
+      // id: props.timer?.id || `debate-listening-${uuidv4()}`,
+      id: listening.id || `debate-listening-${uuidv4()}`,
       name: columnName.value,
       owner: columnOwner.value,
       updatedAt: dayjs().valueOf(),
       rows: columnRows
     }
 
-    setListening(newListening);
-    return newListening;
-  }
+    if (!listening.id) {
+      listeningsProvider.addItem(_listening);
+    } else {
+      listeningsProvider.editItem(_listening);
+    };
+
+    return _listening;
+  };
 
   const handleUpload = async () => {
-    const _listening = handleUpdateState();
+    const _listening = handleSave();
 
     const API_URL = 'https://script.google.com/macros/s/AKfycbwcCmdoryTnEG7Dwz61FhwzKvht0ZPYJw5H1lBp-uiO7CPvVKA5uJnrtJOXg4JxWaKw/exec';
 
@@ -67,7 +92,7 @@ const Listening: React.FC = () => {
       id: _listening.id,
       name: _listening.name,
       owner: _listening.owner,
-      updatedAt: dayjs().format('YYYY/sMM/DD HH:mm:ss'),
+      updatedAt: dayjs().format('YYYY/MM/DD HH:mm:ss'),
       rows: JSON.stringify(rowsWithStatusWording)
     }).toString();
 
@@ -86,27 +111,46 @@ const Listening: React.FC = () => {
     }
   }
 
-  return <Layout title={PAGE_TITLE.listening} mainClassName={cx('DT-Listening', style)}>
+  return <Layout 
+    title={PAGE_TITLE.listening} 
+    homeLink={pageLinks.listenings}
+    mainClassName={cx('DT-Listening', style)}
+    renderButtons={
+      <IconButton component={Link} to={pageLinks.listenings} onClick={handleTrakingHeaderButtonToList}>
+        <FileText size={28} weight="light" />
+      </IconButton>
+    }>
     <HeadTags title={PAGE_TITLE.listening} description={PAGE_DESCRIPTION.listening} />
-    <TextField
+    <Input
       className='listening-name'
       placeholder={columnName.placeholder}
       autoFocus
       value={columnName.value}
       onChange={handleChangeName}
+      startAdornment={
+        <InputAdornment position="start">
+          <NotePencil size={28} weight="light" color={styleSettingColor.text.secondary} />
+        </InputAdornment>
+      }
     />
-    <TextField
+    <Input
       className='listening-name'
       placeholder={columnOwner.placeholder}
       value={columnOwner.value}
       onChange={handleChangeOwner}
+      startAdornment={
+        <InputAdornment position="start">
+          <UserCircle size={28} weight="light" color={styleSettingColor.text.secondary} />
+        </InputAdornment>
+      }
     />
     <div className='listening-body'>
-      <div className='listening-hint-save-solution'>
-        自動保存於本地端
-      </div>
+      {/* <div className='listening-hint-save-solution'>
+        TODO 自動保存於本地端
+      </div> */}
       <ListeningRowsEditor listeningRows={columnRows} setColumnRows={setColumnRows}/>
-      <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
+      <Button variant='outlined' className='save-button' onClick={handleSave}>保存</Button>
+      <Button variant='outlined' className='send-button' onClick={handleUpload}>保存 & 送出</Button>
       <div className='listening-hint-save-solution-bottom'>
         {listening.updatedAt ? `上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}
       </div>
@@ -124,13 +168,22 @@ const style = css`
     width: 100%;
     border-bottom: 1px solid ${styleSettingColor.disabled};
     
-    .MuiInputBase-root {
+    &.MuiInputBase-root {
       font-size: 18px;
       padding: 8px 16px;
       box-sizing: border-box;
 
+      &:after {
+        border-bottom: unset;
+      }
+
+      &:hover:before,
+      &:before {
+        border-bottom: unset;
+      }
+
       fieldset {
-        border: none;
+        border-width: 0;
       }
 
       .MuiInputBase-input {
@@ -147,7 +200,6 @@ const style = css`
     align-items: center;
   }
 
-
   .listening-hint-save-solution-bottom,
   .listening-hint-save-solution {
     width: 100%;
@@ -162,8 +214,15 @@ const style = css`
   }
 
 
+  .save-button.MuiButton-root,
   .send-button.MuiButton-root {
+    margin-top: 8px;
     width: 100%;
     min-width: 250px;
+    font-size: 18px;
+  }
+  
+  .send-button.MuiButton-root {
+    background-color: ${styleSettingColor.background.dark}1a;
   }
 `;

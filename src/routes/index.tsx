@@ -5,7 +5,7 @@ import { PAGE_LINK } from 'routes/constants';
 import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
 import { TopicCreator } from 'modules/topic';
-import { Listening } from 'modules/listening';
+import { Listening, Listenings } from 'modules/listening';
 // import Maintenance = from /'pages/Maintenance/Maintenance';
 
 const routes: Array<RouteObject> = [
@@ -36,6 +36,14 @@ const routes: Array<RouteObject> = [
   {
     path: PAGE_LINK.listening,
     element: <Listening />,
+  },
+  {
+    path: PAGE_LINK.listeningID,
+    element: <Listening />,
+  },
+  {
+    path: PAGE_LINK.listenings,
+    element: <Listenings />,
   },
   // {
   //   path: '',

@@ -13,15 +13,15 @@ import TimerModeCrossfire from 'modules/timer/components/TimerModeCrossfire';
 import { EnumTimerMode } from 'modules/timer/enums/enumTimerMode';
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import useInnerHeight from 'hooks/useInnerHeight';
-import useTimers from 'modules/timer/context/Timers/useTimers';
-import HeadTags from 'components/HeadTags';
+import { HeadTags } from 'components';
 import { PAGE_TITLE, PAGE_DESCRIPTION } from "routes/constants";
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
+import { useTimers } from 'modules/timer';
 
 const Timer: React.FC = () => {
   const [innerHeight] = useInnerHeight();
   const { id } = useParams<{ id: string }>();
-  const { timers } = useTimers();
+  const { list: timers, getItem: getTimerItem } = useTimers();
   const [timer, setTimer] = React.useState<TypeTimer>(timers.length === 0 ? DEFAULT_TIMER : timers[0]);
 
   const creator: Record<EnumTimerMode, React.ReactNode> = {
@@ -29,22 +29,22 @@ const Timer: React.FC = () => {
     [EnumTimerMode.Crossfire]: <TimerModeCrossfire timer={timer} className='timer-mode' />
   }
 
-  const handleTrakingHeaderButtonTimers = () => {
+  const handleTrakingHeaderButtonToList = () => {
     ServiceGA4.event(GA_EVENT.Header_Button_Timers);
   };
 
   React.useEffect(() => {
     if (!id) return;
-    const currentTimer = timers.find(item => item.id === id);
-    if (!currentTimer) return;
-    setTimer(currentTimer);
-  }, [id, timers]);
+    const _timer = getTimerItem(id);
+    if (!_timer) return;
+    setTimer(_timer);
+  }, [id, timers, getTimerItem]);
 
   return <Layout 
     title={PAGE_TITLE.timer} 
     mainClassName={cx('DT-Timer', style(innerHeight))}
     renderButtons={
-      <IconButton component={Link} to={pageLinks.timers} onClick={handleTrakingHeaderButtonTimers}>
+      <IconButton component={Link} to={pageLinks.timers} onClick={handleTrakingHeaderButtonToList}>
         <PencilSimpleLine size={28} weight="light"/>
       </IconButton>
     }>

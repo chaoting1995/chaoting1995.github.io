@@ -21,10 +21,12 @@ import Layout from 'layouts/Layout';
 import HeadTags from 'components/HeadTags';
 import { BottomDrawer, Button } from 'components';
 
+const ITEM_NAME = '計時器';
+
 const Timers: React.FC = () => {
   const popup = usePopup();
   const [open, handleOpen, handleClose] = useDialog(false);
-  const { timers, addTimer, editTimer, deleteTimer, reorderTimers } = useTimers();
+  const timersProvider = useTimers();
   const [selectedTimer, setSelectedTimer] = React.useState<Timer>(EMPTY_TIMER); 
 
   const handleTrakingTimersItemToTimer = (name: string, mode: EnumTimerMode) => () => {
@@ -43,7 +45,7 @@ const Timers: React.FC = () => {
     let _timer: Timer = EMPTY_TIMER;
 
     if (timerID) {
-      _timer = timers.find(item => item.id === timerID) || EMPTY_TIMER;
+      _timer = timersProvider.list.find(item => item.id === timerID) || EMPTY_TIMER;
     };
     
     setSelectedTimer(_timer);
@@ -54,33 +56,33 @@ const Timers: React.FC = () => {
     } else {
       ServiceGA4.event(GA_EVENT.Header_Button_Add_Timer);
     }
-  }, [handleOpen, timers])
+  }, [handleOpen, timersProvider.list])
 
   const handleDelete = (timerID: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     
     const isConfirm = await popup.confirm({ 
-      title: '確定刪除計時器?'
+      title: `確定刪除${ITEM_NAME}?`
     });
   
     if(!isConfirm) return;
-    deleteTimer(timerID)
+    timersProvider.deleteItem(timerID)
   }
 
   const handleDragEnd = (sourceIndex: number, destinationIndex: number) => {
-    reorderTimers(sourceIndex, destinationIndex);
+    timersProvider.reorderList(sourceIndex, destinationIndex);
   };
 
-  const handleSave =  React.useCallback((timer: Timer) => {
+  const handleSave =  React.useCallback((_timer: Timer) => {
     if (!selectedTimer.id) {
-      addTimer(timer);
+      timersProvider.addItem(_timer);
     } else {
-      editTimer(timer.id, timer);
+      timersProvider.editItem(_timer);
     };
 
     handleClose();
-  }, [addTimer, editTimer, selectedTimer, handleClose]);
+  }, [timersProvider, selectedTimer, handleClose]);
 
   return <Layout
     mainClassName={cx('DT-Timers', style)}
@@ -94,15 +96,15 @@ const Timers: React.FC = () => {
     <HeadTags 
       title={`${PAGE_TITLE.timerWithVersion} | ${PAGE_TITLE.timers}`} 
       description={PAGE_DESCRIPTION.timer} />
-    {timers.length === 0 && <div className='timers-empty-box'>
-      <div>尚無計時器</div>
-      <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增計時器</Button>
+    {timersProvider.list.length === 0 && <div className='list-empty-box'>
+      <div>尚無{ITEM_NAME}</div>
+      <Button variant='outlined' className='add-button' onClick={handleOpenEditor()}>新增{ITEM_NAME}</Button>
     </div>}
     <List disablePadding>
       <DragDrog
-        className='timers-drag-drog'
+        className='list-drag-drog'
         onDragEnd={handleDragEnd}
-        list={timers}
+        list={timersProvider.list}
         renderRow={(item, _, dragHandleProps) => (
           <ListItem key={item.id} disablePadding {...dragHandleProps}>
             <ListItemButton
@@ -138,7 +140,7 @@ const style = css`
   color: ${styleSettingColor.text.secondary};
   font-size: 20px;
   
-  .timers-empty-box {
+  .list-empty-box {
     padding: 8px 16px;
     padding-top: 40px;
     box-sizing: border-box;
@@ -151,7 +153,7 @@ const style = css`
     }
   }
 
-  .timers-drag-drog {
+  .list-drag-drog {
     .dd-droppable {
       width: 100%;
   

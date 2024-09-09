@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { ListeningRow } from 'modules/listening/resources/listening.type';
-import { BG_DARK, BG_DEFAULT, DEFAULT_LISTENGING_ROW } from 'modules/listening';
+import { BG_DARK, BG_DEFAULT, DEFAULT_LISTENING_ROW } from 'modules/listening';
 
 type Props = {
   className?: string;
@@ -27,7 +27,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   const hadleInsertAbove = () => {
     props.setColumnRows(prevState => {
       const newState = [...prevState];
-      const newItem = { ...DEFAULT_LISTENGING_ROW, id: uuidv4() };
+      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
       newState.splice(props.index, 0, newItem);
       return newState;
     })
@@ -37,7 +37,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   const hadleInsertBelow = () => {
     props.setColumnRows(prevState => {
       const newState = [...prevState];
-      const newItem = { ...DEFAULT_LISTENGING_ROW, id: uuidv4() };
+      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
       newState.splice(props.index + 1, 0, newItem);
       return newState;
     })
@@ -55,7 +55,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
   }
   
   const hadleClearContents = () => {
-    props.onChangeListeningRow({ ...DEFAULT_LISTENGING_ROW, id: props.listeningRow.id });
+    props.onChangeListeningRow({ ...DEFAULT_LISTENING_ROW, id: props.listeningRow.id });
     props.onClose();
   }
   

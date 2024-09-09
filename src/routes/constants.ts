@@ -3,8 +3,9 @@ export const PAGE_LINK = {
   timerID: 'timer/:id',
   timers: 'timers',
   topicCreator: 'topicCreator',
+  listening: 'listening',
+  listeningID: 'listening/:id',
   listenings: 'listenings',
-  listening: 'listening'
 };
 
 export const pageLinks = Object.fromEntries(
@@ -16,8 +17,8 @@ export const PAGE_TITLE = {
   timerWithVersion: '辯論計時小幫手 2.0',
   timers: '自訂計時器',
   topicCreator: '瓦力二號',
-  listenings: '戰場判斷小幫手',
   listening: '戰場判斷小幫手',
+  listenings: '戰場判斷 歷史紀錄',
 };
 
 export const PAGE_DESCRIPTION = {

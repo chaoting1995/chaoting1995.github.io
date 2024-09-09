@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { styleSettingColor } from 'styles/variables.style';
 import { Button, DragDrog } from 'components';
 import { 
-  LISTENGING_ROWS_HEAD, 
+  LISTENING_ROWS_HEAD, 
   ListeningRow,
-  DEFAULT_LISTENGING_ROW
+  DEFAULT_LISTENING_ROW
 } from 'modules/listening';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 import { style as styleRow } from 'modules/listening/components/ListeningRow';
@@ -31,7 +31,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
   const handleChangeRowAmount = React.useCallback((key: 'add' | 'minus') => () => {
     props.setColumnRows(prevState => {
       const newState = [...prevState];
-      if(key === 'add') newState.push({ ...DEFAULT_LISTENGING_ROW, id: uuidv4()});
+      if(key === 'add') newState.push({ ...DEFAULT_LISTENING_ROW, id: uuidv4()});
       if(key === 'minus') newState.pop();
       return newState;
     })
@@ -52,9 +52,9 @@ const ListeningRows: React.FC<Prpos> = (props) => {
   
   return <div className={cx('DT-ListeningRows', style, props.className)}>
     <div className='listening-table'>
-      <div className={styleRow} style={{ backgroundColor: LISTENGING_ROWS_HEAD.bg || 'unset' }}>
-        <div className='column column-head column-1'>{LISTENGING_ROWS_HEAD.column1}</div>
-        <div className='column column-head column-2'>{LISTENGING_ROWS_HEAD.column2}</div>
+      <div className={styleRow} style={{ backgroundColor: LISTENING_ROWS_HEAD.bg || 'unset' }}>
+        <div className='column column-head column-1'>{LISTENING_ROWS_HEAD.column1}</div>
+        <div className='column column-head column-2'>{LISTENING_ROWS_HEAD.column2}</div>
       </div>
       <div className='listening-table-body'>
         <DragDrog

@@ -1,32 +1,19 @@
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
 import { Listening, ListeningRow } from 'modules/listening/resources/listening.type';
 
+export const DT_LOCALSTORAGE_KEY_LISTENINGS = 'DT_LOCALSTORAGE_KEY_LISTENINGS';
+
 export const BG_DARK = '#BEBEBE';
 export const BG_DEFAULT = '#FFFFFF';
 
-export const DEFAULT_LISTENGING_ROW: ListeningRow = {
+export const DEFAULT_LISTENING_ROW: ListeningRow = {
   id: '',
   column1: '',
   column2: EnumArgumentStatus.Unselected,
   bg : BG_DEFAULT,
 }
 
-export const DEFAULT_LISTENGING: Listening = {
-  id: '',
-  name: '',
-  owner: '',
-  updatedAt: 0,
-  rows: []
-}
-
-export const LISTENGING_ROWS_HEAD = {
-  id: 'thead',
-  column1: '標題',
-  column2: '狀態',
-  bg: 'rgba(212, 212, 212, 0.49)'
-};
-
-export const LISTENGING_ROWS_TEMPLATE: ListeningRow[] = [
+export const DEFAULT_LISTENING_ROWS: ListeningRow[] = [
   {
     id: 'listening-positive',
     column1: '正方',
@@ -34,16 +21,12 @@ export const LISTENGING_ROWS_TEMPLATE: ListeningRow[] = [
     bg: BG_DARK
   },
   {
+    ...DEFAULT_LISTENING_ROW,
     id: 'listening-positive-1',
-    column1: '',
-    column2: EnumArgumentStatus.Unselected,
-    bg: BG_DEFAULT
   },
   {
+    ...DEFAULT_LISTENING_ROW,
     id: 'listening-positive-2',
-    column1: '',
-    column2: EnumArgumentStatus.Unselected,
-    bg: BG_DEFAULT
   },
   {
     id: 'listening-negative',
@@ -52,18 +35,31 @@ export const LISTENGING_ROWS_TEMPLATE: ListeningRow[] = [
     bg: BG_DARK
   },
   {
+    ...DEFAULT_LISTENING_ROW,
     id: 'listening-negative-1',
-    column1: '',
-    column2: EnumArgumentStatus.Unselected,
-    bg: BG_DEFAULT
   },
   {
+    ...DEFAULT_LISTENING_ROW,
     id: 'listening-negative-2',
-    column1: '',
-    column2: EnumArgumentStatus.Unselected,
-    bg: BG_DEFAULT
   },
 ];
+
+export const DEFAULT_LISTENING: Listening = {
+  id: '',
+  name: '',
+  owner: '',
+  updatedAt: 0,
+  rows: DEFAULT_LISTENING_ROWS
+}
+
+export const DEFAULT_LISTENINGS: Array<Listening> = [];
+
+export const LISTENING_ROWS_HEAD = {
+  id: 'thead',
+  column1: '標題',
+  column2: '狀態',
+  bg: 'rgba(212, 212, 212, 0.49)'
+};
 
 export const argumentStatusWording: Record<EnumArgumentStatus, string> = {
   [EnumArgumentStatus.Unselected]: '未選擇',
