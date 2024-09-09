@@ -114,7 +114,7 @@ export const style = css`
 
   .column.column-head {
     font-size: 16px;
-    padding: 5px 10px;
+    padding: 8px 10px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -211,7 +211,6 @@ export const style = css`
 
   .column {
     min-height: 35px;
-    height: 100%;
     box-sizing: border-box;
     outline: 1px solid ${styleSettingColor.disabled};
     border-radius: 0;
@@ -231,7 +230,7 @@ export const style = css`
     
     &.MuiInputBase-root {
       font-size: 16px;
-      padding: 10px;
+      padding: 8px 10px;
       box-sizing: border-box;
 
       &:after {
@@ -267,7 +266,7 @@ export const style = css`
     }
 
     &.MuiInputBase-root .MuiSvgIcon-root {
-      top: 10px;
+      top: 8px;
       right: 10px;
     }
 
