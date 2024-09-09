@@ -1,11 +1,14 @@
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
 import { Listening, ListeningRow } from 'modules/listening/resources/listening.type';
 
+export const BG_DARK = '#BEBEBE';
+export const BG_DEFAULT = '#FFFFFF';
+
 export const DEFAULT_LISTENGING_ROW: ListeningRow = {
   id: '',
   column1: '',
   column2: EnumArgumentStatus.Unselected,
-  bg : '',
+  bg : BG_DEFAULT,
 }
 
 export const DEFAULT_LISTENGING: Listening = {
@@ -22,9 +25,6 @@ export const LISTENGING_ROWS_HEAD = {
   column2: '狀態',
   bg: 'rgba(212, 212, 212, 0.49)'
 };
-
-export const BG_DARK = '#BEBEBE';
-export const BG_DEFAULT = '#FFFFFF';
 
 export const LISTENGING_ROWS_TEMPLATE: ListeningRow[] = [
   {

@@ -78,7 +78,6 @@ const Listening: React.FC = () => {
       });
 
       const result = await response.json();
-      console.log('result',result);
       if (result.status === '成功') {
         alert('資料已成功傳送到 Google Sheets');
       }
