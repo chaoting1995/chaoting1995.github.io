@@ -39,10 +39,6 @@ const Listening: React.FC = () => {
 
   const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(LISTENGING_ROWS_TEMPLATE);
  
-  const handleChangeListeningRows = React.useCallback((listeningRow: TypeListeningRow[]) => {
-    setColumnRows(listeningRow);
-  }, []);
-
   const handleUpdateState = (): TypeListening => {
     const newListening: TypeListening = {
       ...JSON.parse(JSON.stringify(listening)) as TypeListening,
@@ -110,10 +106,10 @@ const Listening: React.FC = () => {
       <div className='listening-hint-save-solution'>
         自動保存於本地端
       </div>
-      <ListeningRowsEditor listeningRows={columnRows} onChangeListeningRows={handleChangeListeningRows} setColumnRows={setColumnRows}/>
+      <ListeningRowsEditor listeningRows={columnRows} setColumnRows={setColumnRows}/>
       <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
-      <div className='listening-hint-save-solution'>
-        {listening.updatedAt ? `, 上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}
+      <div className='listening-hint-save-solution-bottom'>
+        {listening.updatedAt ? `上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`: ''}
       </div>
     </div>
   </Layout>;
@@ -152,15 +148,23 @@ const style = css`
     align-items: center;
   }
 
+
+  .listening-hint-save-solution-bottom,
   .listening-hint-save-solution {
     width: 100%;
-    margin-top: -8px;
-    margin-bottom: 8px;
+    margin-top: 8px;
     font-size: 12px;
     color: ${styleSettingColor.text.gray};
   }
 
+  .listening-hint-save-solution {
+    margin-top: -8px;
+    margin-bottom: 8px;
+  }
+
+
   .send-button.MuiButton-root {
+    width: 100%;
     min-width: 250px;
   }
 `;

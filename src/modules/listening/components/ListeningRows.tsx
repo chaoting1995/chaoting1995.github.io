@@ -19,7 +19,6 @@ type Prpos = {
 }
 
 const ListeningRows: React.FC<Prpos> = (props) => {
-  
 
   const handeChangeListeningRowByIndex = React.useCallback((index: number) => (listeningRow: TypeListeningRow) => {
     props.setColumnRows(prevState => {
@@ -50,7 +49,7 @@ const ListeningRows: React.FC<Prpos> = (props) => {
       return newState;
     }); 
   }, [props]);
-
+  
   return <div className={cx('DT-ListeningRows', style, props.className)}>
     <div className='listening-table'>
       <div className={styleRow} style={{ backgroundColor: LISTENGING_ROWS_HEAD.bg || 'unset' }}>

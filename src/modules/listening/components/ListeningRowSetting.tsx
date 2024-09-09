@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { BottomDrawerHeader, BottomDrawerBody } from 'components';
 import { ListeningRow } from 'modules/listening/resources/listening.type';
-import { DARK_BG_COLOR, DEFAULT_LISTENGING_ROW } from 'modules/listening';
+import { BG_DARK, BG_DEFAULT, DEFAULT_LISTENGING_ROW } from 'modules/listening';
 
 type Props = {
   className?: string;
@@ -19,7 +19,7 @@ type Props = {
 
 const ListeningRowSetting: React.FC<Props> = (props) => {
 
-  const hadleBackgoundColor = (bg: typeof DARK_BG_COLOR | '') => () => {
+  const hadleBackgoundColor = (bg: typeof BG_DARK | typeof BG_DEFAULT) => () => {
     props.onChangeListeningRow({ ...props.listeningRow, bg });
     props.onClose();
   }
@@ -68,14 +68,14 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
     props.onClose();
   }
 
-  const bgAction = props.listeningRow.bg === '' ? {
+  const bgAction = props.listeningRow.bg === BG_DEFAULT ? {
     icon: <PaintRoller weight='duotone' />,
     label: '深色背景',
-    action: hadleBackgoundColor(DARK_BG_COLOR)
+    action: hadleBackgoundColor(BG_DARK)
   } : {
     icon: <PaintRoller />,
     label: '預設背景',
-    action: hadleBackgoundColor('')
+    action: hadleBackgoundColor(BG_DEFAULT)
   };
 
   const actionOptions = [

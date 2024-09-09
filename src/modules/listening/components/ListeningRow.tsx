@@ -1,6 +1,6 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { Input, Select, MenuItem } from '@mui/material';
+import { Input, Select, MenuItem, IconButton } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
 import { DotsSixVertical } from '@phosphor-icons/react';
@@ -10,11 +10,8 @@ import useDialog from 'hooks/useDialog';
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
-import { 
-  ListeningRowStatus, 
-  ListeningRowSetting,
-  argumentStatusWording,
- } from 'modules/listening';
+import { ListeningRowStatus, ListeningRowSetting, argumentStatusWording } from 'modules/listening';
+import useDragClick from 'modules/listening/hooks/useDragClick';
 
 type Option = { 
   value: EnumArgumentStatus; 
@@ -39,12 +36,7 @@ type Prpos = {
 
 const ListeningRow: React.FC<Prpos> = (props) => {
   const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
-  const [focusRowSelector, setFocusRowSelector] = React.useState<boolean>(false);
-
-  const handleFocusRowSelector = React.useCallback((eventKey: 'focus' | 'blur') => () => {
-    if(eventKey === 'focus') setFocusRowSelector(true);
-    if(eventKey === 'blur') setFocusRowSelector(false);
-  }, []);
+  const dragClick = useDragClick(handleOpenSetting);
 
   const handeChangeRowColumn1 = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newListeningRow: TypeListeningRow = {
@@ -61,10 +53,10 @@ const ListeningRow: React.FC<Prpos> = (props) => {
     }
     props.onChangeListeningRow(newListeningRow)
   },[props]);
-  
+
   return <div 
-    style={{ backgroundColor: props.listeningRow.bg || 'unset' }} 
-    className={cx('DT-ListeningRow', style, props.className, {'focus-row-selector': focusRowSelector})}
+    style={{ backgroundColor: props.listeningRow.bg }} 
+    className={cx('DT-ListeningRow', style, props.className)}
   >
     <Input
       multiline
@@ -80,20 +72,25 @@ const ListeningRow: React.FC<Prpos> = (props) => {
       onChange={handeChangeRowColumn2}
     >
       {options.map((option) =>
-        <MenuItem key={option.value} value={option.value}>
+        <MenuItem key={option.value} value={option.value} sx={{ minHeight: 'unset' }}>
           <ListeningRowStatus className='status-tag' status={option.value}>
             {option.label}
           </ListeningRowStatus>
         </MenuItem>
       )}
     </Select>
-    <div className='row-selector' onClick={handleOpenSetting} {...props.dragHandleProps}>
-      <DotsSixVertical size={16} weight='bold' />
-      <input
-        id={`row-selector-input-${props.listeningRow.id}`}
-        onFocus={handleFocusRowSelector('focus')}
-        onBlur={handleFocusRowSelector('blur')}
-      />
+    <IconButton className='row-setting-button' onClick={handleOpenSetting}>
+      設定
+    </IconButton>
+    <div 
+      className='row-selector' 
+      {...props.dragHandleProps}
+      onMouseDown={dragClick.onMouseDown}
+      onMouseUp={dragClick.onMouseUp}
+      onTouchStart={dragClick.onTouchStart}
+      onTouchEnd={dragClick.onTouchEnd}  
+    >
+      <DotsSixVertical size={16} weight='bold' className='icon' />
     </div>
     {<BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
       <ListeningRowSetting 
@@ -124,14 +121,7 @@ export const style = css`
     font-weight: bold;
   }
 
-  &:focus-within {
-    .row-selector {
-      opacity: 1;
-      pointer-events: visible;
-    }
-  }
-
-  &.focus-row-selector {    
+  &:not(:has(.Mui-focused)):focus-within {
     &:before {
       content: '';
       width: 100%;
@@ -144,18 +134,59 @@ export const style = css`
     }
   }
 
+  // row 表單未聚焦時，.row-selector 隱藏
+  .row-setting-button,
   .row-selector {
     opacity: 0;
     pointer-events: none;
+  }
+
+  // row 表單被聚焦時，.row-selector, .row-setting-button 出現
+  &:focus-within .row-setting-button,
+  &:focus-within .row-selector {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // row-selector 未點擊時，白色
+  .row-selector {
+    background-color: #FFFFFF;
+    color: ${styleSettingColor.text.gray};
+
+    // row-selector 被點擊時，藍色
+    &:active {
+      background-color: ${styleSettingColor.background.default};
+      color: #FFFFFF;
+    }
+  }
+
+  .row-setting-button,
+  .row-setting-button:hover {
+    padding: 3px 10px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 150ms;
+    font-size: 14px;
+    white-space: nowrap;
+    outline: 1px solid ${styleSettingColor.disabled};
+    box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+
+    position: absolute;
+    right: 5px;
+    top: -35px;
+    /* z-index: 1;  */
+  }
+
+  .row-selector {
     width: 16px;
     height: 24px;
     padding: 4px 2px;
     box-sizing: border-box;
     border-radius: 5px;
-    background-color: #FFFFFF;
     outline: 1px solid ${styleSettingColor.disabled};
     transition: opacity 150ms;
-    color: ${styleSettingColor.text.gray};
     cursor: pointer;
 
     position: absolute;
@@ -168,28 +199,17 @@ export const style = css`
     justify-content: center;
     align-items: center;
 
-    &.row-selector:focus-within,
-    &.show.row-selector {
-      opacity: 1;
-      pointer-events: visible;
-    }
+    /* .drag-handle.z-index3 {
+      z-index: 3;
+    } */
 
-    &.row-selector:focus-within {
-      background-color: ${styleSettingColor.background.default};
-      color: #FFFFFF;
-    }
-    
-    input {
-      cursor: pointer;
-      /* user-select: none;  */
+    .drag-handle {
       position: absolute;
+      z-index: -1;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0;
-      padding: 0;
-      border: 0;
     }
   }
 

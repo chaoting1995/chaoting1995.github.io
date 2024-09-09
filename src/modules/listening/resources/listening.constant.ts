@@ -23,44 +23,45 @@ export const LISTENGING_ROWS_HEAD = {
   bg: 'rgba(212, 212, 212, 0.49)'
 };
 
-export const DARK_BG_COLOR = '#BEBEBE';
+export const BG_DARK = '#BEBEBE';
+export const BG_DEFAULT = '#FFFFFF';
 
 export const LISTENGING_ROWS_TEMPLATE: ListeningRow[] = [
   {
     id: 'listening-positive',
     column1: '正方',
     column2: EnumArgumentStatus.Unselected,
-    bg: DARK_BG_COLOR
+    bg: BG_DARK
   },
   {
     id: 'listening-positive-1',
     column1: '',
     column2: EnumArgumentStatus.Unselected,
-    bg: ''
+    bg: BG_DEFAULT
   },
   {
     id: 'listening-positive-2',
     column1: '',
     column2: EnumArgumentStatus.Unselected,
-    bg: ''
+    bg: BG_DEFAULT
   },
   {
     id: 'listening-negative',
     column1: '反方',
     column2: EnumArgumentStatus.Unselected,
-    bg: '#BEBEBE'
+    bg: BG_DARK
   },
   {
     id: 'listening-negative-1',
     column1: '',
     column2: EnumArgumentStatus.Unselected,
-    bg: ''
+    bg: BG_DEFAULT
   },
   {
     id: 'listening-negative-2',
     column1: '',
     column2: EnumArgumentStatus.Unselected,
-    bg: ''
+    bg: BG_DEFAULT
   },
 ];
 
