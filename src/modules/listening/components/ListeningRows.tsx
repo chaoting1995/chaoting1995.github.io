@@ -53,8 +53,8 @@ const ListeningRows: React.FC<Prpos> = (props) => {
   return <div className={cx('DT-ListeningRows', style, props.className)}>
     <div className='listening-table'>
       <div className={styleRow} style={{ backgroundColor: LISTENGING_ROWS_HEAD.bg || 'unset' }}>
-          <div className='column column-head column-1'>{LISTENGING_ROWS_HEAD.column1}</div>
-          <div className='column column-head column-2'>{LISTENGING_ROWS_HEAD.column2}</div>
+        <div className='column column-head column-1'>{LISTENGING_ROWS_HEAD.column1}</div>
+        <div className='column column-head column-2'>{LISTENGING_ROWS_HEAD.column2}</div>
       </div>
       <div className='listening-table-body'>
         <DragDrog

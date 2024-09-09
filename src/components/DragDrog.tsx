@@ -77,13 +77,8 @@ const style = css`
   width: 100%;
   
   .dragging-over {
-    color: #FAF;
-    /* background-color:  */
   }
 
   .dragging {
-    color: #FAA;
-    /* color: 
-    background-color: */
   }
 `;

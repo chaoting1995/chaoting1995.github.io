@@ -1,5 +1,6 @@
 import React from 'react';
 
+// 在同一個按鈕上，區分是觸發「點擊」或「拖曳」事件，callback註冊於「點擊」事件
 const useDragClick = (callback: () => void, threshold = 5) => {
   const start = React.useRef({ x: 0, y: 0 });
 

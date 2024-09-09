@@ -90,17 +90,17 @@ const ListeningRow: React.FC<Prpos> = (props) => {
       onTouchStart={dragClick.onTouchStart}
       onTouchEnd={dragClick.onTouchEnd}  
     >
-      <DotsSixVertical size={16} weight='bold' className='icon' />
+      <DotsSixVertical size={16} weight='bold' />
     </div>
-    {<BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
+    <BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
       <ListeningRowSetting 
         index={props.index}
         listeningRow={props.listeningRow}
         onChangeListeningRow={props.onChangeListeningRow}
         setColumnRows={props.setColumnRows}
         onClose={handleCloseSetting}
-        />
-    </BottomDrawer>}
+      />
+    </BottomDrawer>
   </div>;
 }
 
@@ -198,10 +198,6 @@ export const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* .drag-handle.z-index3 {
-      z-index: 3;
-    } */
 
     .drag-handle {
       position: absolute;
