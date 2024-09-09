@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-beta.41] - 2024-09-09
 
+### Added
+- 戰場判斷，可保存於本地端
+
 ### Fixed
-- 計時計列表 > 修復拖曳時產生的樣式 bug
+- 計時計列表 > 修復拖曳時產生的樣式 bug 
 
 ## [1.0.0-beta.40] - 2024-09-09
 
