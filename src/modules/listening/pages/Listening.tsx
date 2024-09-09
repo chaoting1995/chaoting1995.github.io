@@ -33,7 +33,7 @@ const Listening: React.FC = () => {
   const columnName = useFormColumn<string>({
     value: listening.name,
     defaultValue: '',
-    placeholder: '戰場判斷表名稱，如：2024/01/01 XX vs YY',
+    placeholder: '戰場判斷表名稱，如：01/01 XXvsYY',
   });
 
   const columnOwner = useFormColumn<string>({
