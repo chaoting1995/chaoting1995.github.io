@@ -5,10 +5,11 @@ import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus, DotsSixVertical } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
+import ServiceRoute from 'routes/route.service';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { DragDrog } from 'components';
-import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
 import useListenings from 'modules/listening/context/Listenings/useListenings';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
@@ -80,7 +81,7 @@ const Listenings: React.FC = () => {
             <ListItemSecondaryAction className='item-actions'>
               <IconButton 
                 component={Link} 
-                to={`${pageLinks.listeningID.replace(':id', item.id)}`}
+                to={ServiceRoute.toPageLinkWithParams(pageLinks.listeningID, { id: item.id })}
                 onClick={trakingButtonEditListening(item.name, item.owner)}>
                 <PencilSimple size={26} weight='light'/>
               </IconButton>

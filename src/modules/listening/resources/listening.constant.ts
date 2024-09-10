@@ -13,7 +13,7 @@ export const DEFAULT_LISTENING_ROW: ListeningRow = {
   bg : BG_DEFAULT,
 }
 
-export const DEFAULT_LISTENING_ROWS: ListeningRow[] = [
+const DEFAULT_LISTENING_ROWS: ListeningRow[] = [
   {
     id: 'listening-positive',
     column1: '正方',
@@ -44,12 +44,19 @@ export const DEFAULT_LISTENING_ROWS: ListeningRow[] = [
   },
 ];
 
-export const DEFAULT_LISTENING: Listening = {
+const DEFAULT_LISTENING: Listening = {
   id: '',
   name: '',
   owner: '',
   updatedAt: 0,
-  rows: DEFAULT_LISTENING_ROWS
+  rows: [...DEFAULT_LISTENING_ROWS.map(item => ({...item}))]
+}
+
+export const createDefaultSetting = (): Listening => {
+  return ({
+    ...DEFAULT_LISTENING,
+    rows: [...DEFAULT_LISTENING_ROWS.map(item => ({...item}))]
+  });
 }
 
 export const DEFAULT_LISTENINGS: Array<Listening> = [];

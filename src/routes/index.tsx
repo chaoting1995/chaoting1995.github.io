@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate , RouteObject } from 'react-router-dom';
 
-import { PAGE_LINK } from 'routes/constants';
+import { PAGE_LINK } from 'routes/route.constants';
 import NotFound from 'pages/NotFound';
 import { Timers, Timer } from 'modules/timer';
 import { TopicCreator } from 'modules/topic';

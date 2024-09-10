@@ -15,32 +15,14 @@ type Props = {
   onChangeListeningRow: (listeningRow: ListeningRow) => void;
   setColumnRows: React.Dispatch<React.SetStateAction<ListeningRow[]>>;
   onClose: () => void;
+  onInsertAbove: () => void;
+  onInsertBelow: () => void;
 }
 
 const ListeningRowSetting: React.FC<Props> = (props) => {
 
   const hadleBackgoundColor = (bg: typeof BG_DARK | typeof BG_DEFAULT) => () => {
     props.onChangeListeningRow({ ...props.listeningRow, bg });
-    props.onClose();
-  }
-  
-  const hadleInsertAbove = () => {
-    props.setColumnRows(prevState => {
-      const newState = [...prevState];
-      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
-      newState.splice(props.index, 0, newItem);
-      return newState;
-    })
-    props.onClose();
-  }
-  
-  const hadleInsertBelow = () => {
-    props.setColumnRows(prevState => {
-      const newState = [...prevState];
-      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
-      newState.splice(props.index + 1, 0, newItem);
-      return newState;
-    })
     props.onClose();
   }
 
@@ -83,12 +65,12 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
     {
       icon: <ArrowUp />,
       label: '向上新增',
-      action: hadleInsertAbove
+      action: props.onInsertAbove
     },
     {
       icon: <ArrowDown />,
       label: '向下新增',
-      action: hadleInsertBelow
+      action: props.onInsertBelow
     },
     {
       icon: <Copy />,
@@ -109,7 +91,7 @@ const ListeningRowSetting: React.FC<Props> = (props) => {
 
   return (
     <div className={cx('DT-ListeningRowSetting', style, props.className)}>
-      <BottomDrawerHeader children='整列設定' />
+      <BottomDrawerHeader children='單列設定' />
       <BottomDrawerBody>
         <List disablePadding>
           {actionOptions.map((item) => 

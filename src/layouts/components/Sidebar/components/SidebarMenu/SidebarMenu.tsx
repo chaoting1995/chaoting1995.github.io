@@ -5,7 +5,7 @@ import { List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui
 import { styleSettingColor, styleSettingHeight } from 'styles/variables.style';
 import TestTag from 'components/TestTag';
 import ServiceGA4, { GA_EVENT } from 'modules/ga4/services/ga4.service';
-import { pageLinks } from 'routes/constants';
+import { pageLinks } from 'routes/route.constants';
 
 export type SidebarMenuItem = {
   label: string;

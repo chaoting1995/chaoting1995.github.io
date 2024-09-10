@@ -3,14 +3,15 @@ import { css, cx } from '@emotion/css';
 import { Input, Select, MenuItem, IconButton } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
-import { DotsSixVertical } from '@phosphor-icons/react';
+import { DotsSixVertical,  ArrowUp, ArrowDown } from '@phosphor-icons/react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { BottomDrawer } from 'components';
 import useDialog from 'hooks/useDialog';
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
-import { ListeningRowStatus, ListeningRowSetting, argumentStatusWording } from 'modules/listening';
+import { ListeningRowStatus, ListeningRowSetting, argumentStatusWording, DEFAULT_LISTENING_ROW } from 'modules/listening';
 import useDragClick from 'modules/listening/hooks/useDragClick';
 
 type Option = { 
@@ -54,6 +55,26 @@ const ListeningRow: React.FC<Prpos> = (props) => {
     props.onChangeListeningRow(newListeningRow)
   },[props]);
 
+  const hadleInsertAbove = () => {
+    props.setColumnRows(prevState => {
+      const newState = [...prevState];
+      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
+      newState.splice(props.index, 0, newItem);
+      return newState;
+    })
+    handleCloseSetting();
+  }
+  
+  const hadleInsertBelow = () => {
+    props.setColumnRows(prevState => {
+      const newState = [...prevState];
+      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
+      newState.splice(props.index + 1, 0, newItem);
+      return newState;
+    })
+    handleCloseSetting();
+  }
+
   return <div 
     style={{ backgroundColor: props.listeningRow.bg }} 
     className={cx('DT-ListeningRow', style, props.className)}
@@ -79,9 +100,17 @@ const ListeningRow: React.FC<Prpos> = (props) => {
         </MenuItem>
       )}
     </Select>
-    <IconButton className='row-setting-button' onClick={handleOpenSetting}>
-      設定
-    </IconButton>
+    <div className='row-setting-buttons'>
+      <IconButton onClick={hadleInsertAbove}>
+        <ArrowUp />
+      </IconButton>
+      <IconButton onClick={hadleInsertBelow}>
+        <ArrowDown />
+      </IconButton>
+      <IconButton onClick={handleOpenSetting}>
+        設定
+      </IconButton>
+    </div>
     <div 
       className='row-selector' 
       {...props.dragHandleProps}
@@ -99,12 +128,23 @@ const ListeningRow: React.FC<Prpos> = (props) => {
         onChangeListeningRow={props.onChangeListeningRow}
         setColumnRows={props.setColumnRows}
         onClose={handleCloseSetting}
+        onInsertAbove={hadleInsertAbove}
+        onInsertBelow={hadleInsertBelow}
       />
     </BottomDrawer>
   </div>;
 }
 
-export default ListeningRow;
+const areEqual = (prevProps: Prpos, nextProps: Prpos): boolean => {
+  if (prevProps.index !== nextProps.index) return false;
+  if (prevProps.listeningRow.id !== nextProps.listeningRow.id) return false;
+  if (prevProps.listeningRow.column1 !== nextProps.listeningRow.column1) return false;
+  if (prevProps.listeningRow.column2 !== nextProps.listeningRow.column2) return false;
+  if (prevProps.listeningRow.bg !== nextProps.listeningRow.bg) return false;
+  return true;
+}
+
+export default React.memo(ListeningRow, areEqual);
 
 export const style = css`
   width: 100%;
@@ -135,14 +175,14 @@ export const style = css`
   }
 
   // row 表單未聚焦時，.row-selector 隱藏
-  .row-setting-button,
+  .row-setting-buttons,
   .row-selector {
     opacity: 0;
     pointer-events: none;
   }
 
-  // row 表單被聚焦時，.row-selector, .row-setting-button 出現
-  &:focus-within .row-setting-button,
+  // row 表單被聚焦時，.row-selector, .row-setting-buttons 出現
+  &:focus-within .row-setting-buttons,
   &:focus-within .row-selector {
     opacity: 1;
     pointer-events: auto;
@@ -160,23 +200,27 @@ export const style = css`
     }
   }
 
-  .row-setting-button,
-  .row-setting-button:hover {
-    padding: 3px 10px;
-    box-sizing: border-box;
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    cursor: pointer;
+  .row-setting-buttons,
+  .row-setting-buttons:hover {
     transition: opacity 150ms;
-    font-size: 14px;
-    white-space: nowrap;
-    outline: 1px solid ${styleSettingColor.disabled};
-    box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
-
     position: absolute;
     right: 5px;
     top: -35px;
-    /* z-index: 1;  */
+    z-index: 1; 
+    display: flex;
+    gap: 8px;
+
+    .MuiButtonBase-root {
+      padding: 3px 10px;
+      box-sizing: border-box;
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-size: 16px;
+      outline: 1px solid ${styleSettingColor.disabled};
+      box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+    }
   }
 
   .row-selector {

@@ -5,10 +5,11 @@ import { css, cx } from '@emotion/css';
 import { Trash, PencilSimple, Plus, DotsSixVertical } from '@phosphor-icons/react';
 import { IconButton, List, ListItem, ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
+import ServiceRoute from 'routes/route.service';
 import { styleSettingColor } from 'styles/variables.style';
 import { styleLineEllipsis } from 'styles/basic.style';
 import { DragDrog } from 'components';
-import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION, pageLinks } from 'routes/route.constants';
 import usePopup from 'context/Popup/usePopup';
 import useDialog from 'hooks/useDialog';
 import useTimers from 'modules/timer/context/Timers/useTimers';
@@ -110,7 +111,7 @@ const Timers: React.FC = () => {
           <ListItem key={item.id} disablePadding {...dragHandleProps}>
             <ListItemButton
               component={Link} 
-              to={`${pageLinks.timerID.replace(':id', item.id)}`}
+              to={ServiceRoute.toPageLinkWithParams(pageLinks.timerID, { id: item.id })}
               onClick={trakingTimersItemToTimer(item.name, item.mode)}
             >
               <DotsSixVertical size={26} weight='light'/>

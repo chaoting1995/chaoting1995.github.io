@@ -3,12 +3,8 @@ import { css, cx } from '@emotion/css';
 import { v4 as uuidv4 } from 'uuid';
 
 import { styleSettingColor } from 'styles/variables.style';
-import { Button, DragDrog } from 'components';
-import { 
-  LISTENING_ROWS_HEAD, 
-  ListeningRow,
-  DEFAULT_LISTENING_ROW
-} from 'modules/listening';
+import { DragDrog, Button } from 'components';
+import { DEFAULT_LISTENING_ROW, LISTENING_ROWS_HEAD, ListeningRow } from 'modules/listening';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
 import { style as styleRow } from 'modules/listening/components/ListeningRow';
 
@@ -19,14 +15,29 @@ type Prpos = {
 }
 
 const ListeningRows: React.FC<Prpos> = (props) => {
+const { setColumnRows } = props;
 
   const handeChangeListeningRowByIndex = React.useCallback((index: number) => (listeningRow: TypeListeningRow) => {
-    props.setColumnRows(prevState => {
+    setColumnRows(prevState => {
       const newState =[...prevState];
       if (newState[index]) newState[index] = listeningRow;
       return newState;
     })
-  },[props]);
+  },[setColumnRows]);
+
+  const handleDragEnd = React.useCallback((sourceIndex: number, destinationIndex: number) => {
+    setColumnRows(prevState => {
+      // 拷貝新的 listData (來自 state) 
+      const newState = Array.from(prevState);
+      // 從 source.index 剪下被拖曳的元素
+      const [removed] = newState.splice(sourceIndex, 1);
+      //在 destination.index 位置貼上被拖曳的元素
+      newState.splice(destinationIndex, 0, removed);
+      
+      // 更新狀態
+      return newState;
+    }); 
+  }, [setColumnRows]);
 
   const handleChangeRowAmount = React.useCallback((key: 'add' | 'minus') => () => {
     props.setColumnRows(prevState => {
@@ -37,19 +48,6 @@ const ListeningRows: React.FC<Prpos> = (props) => {
     })
   }, [props]);
 
-  const handleDragEnd = React.useCallback((sourceIndex: number, destinationIndex: number) => {
-    props.setColumnRows(prevState => {
-      // 拷貝新的 listData (來自 state) 
-      const newState = Array.from(prevState);
-      // 從 source.index 剪下被拖曳的元素
-      const [removed] = newState.splice(sourceIndex, 1);
-      //在 destination.index 位置貼上被拖曳的元素
-      newState.splice(destinationIndex, 0, removed);
-      // 更新狀態
-      return newState;
-    }); 
-  }, [props]);
-  
   return <div className={cx('DT-ListeningRows', style, props.className)}>
     <div className='listening-table'>
       <div className={styleRow} style={{ backgroundColor: LISTENING_ROWS_HEAD.bg || 'unset' }}>
@@ -85,9 +83,9 @@ const ListeningRows: React.FC<Prpos> = (props) => {
       ))}
     </div>
   </div>
-}
+};
 
-export default ListeningRows;
+export default React.memo(ListeningRows);
 
 const style = css`
   width: 100%;
