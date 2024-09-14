@@ -45,8 +45,9 @@ const style = css`
     color: #8E5326;
   }
   
-  &.${EnumArgumentStatus.HP0Obfuscation},
-  &.${EnumArgumentStatus.HP0Disassembly} {
+  &.${EnumArgumentStatus.HP0_Disassembly},
+  &.${EnumArgumentStatus.HP0_Obfuscation},
+  &.${EnumArgumentStatus.HP0_InitFail} {
     background-color: #FFC8C2;
     color: #B52221;
   }

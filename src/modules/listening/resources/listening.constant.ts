@@ -73,9 +73,23 @@ export const argumentStatusWording: Record<EnumArgumentStatus, string> = {
   [EnumArgumentStatus.HP100]: '完全成立',
   [EnumArgumentStatus.HP90]: '削弱',
   [EnumArgumentStatus.HP10]: '極大削弱',
-  [EnumArgumentStatus.HP0Obfuscation]: '擊倒(打糊)',
-  [EnumArgumentStatus.HP0Disassembly]: '擊倒(拆掉)',
+  [EnumArgumentStatus.HP0_InitFail]: '初步不成立',
+  [EnumArgumentStatus.HP0_Disassembly]: '擊倒(拆掉)',
+  [EnumArgumentStatus.HP0_Obfuscation]: '擊倒(打糊)',
   [EnumArgumentStatus.Lose]: '掉點',
   [EnumArgumentStatus.Unknown]: '未知',
   [EnumArgumentStatus.Other]: '其他',
+};
+
+export const argumentStatusWordingForSheet: Record<EnumArgumentStatus, string> = {
+  [EnumArgumentStatus.Unselected]: '',
+  [EnumArgumentStatus.HP100]: '✅ 完全成立',
+  [EnumArgumentStatus.HP90]: '🔺 削弱',
+  [EnumArgumentStatus.HP10]: '🔺🔺 極大削弱',
+  [EnumArgumentStatus.HP0_InitFail]: '❌ 初步不成立',
+  [EnumArgumentStatus.HP0_Disassembly]: '❌ 擊倒(拆掉)',
+  [EnumArgumentStatus.HP0_Obfuscation]: '❌ 擊倒(打糊)',
+  [EnumArgumentStatus.Lose]: '❓掉點',
+  [EnumArgumentStatus.Unknown]: '❓未知',
+  [EnumArgumentStatus.Other]: '❓其他',
 };

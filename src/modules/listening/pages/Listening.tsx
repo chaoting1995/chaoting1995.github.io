@@ -23,7 +23,7 @@ import {
   createDefaultSetting, 
   ListeningRows as ListeningRowsEditor,
   useListenings,
-  argumentStatusWording
+  argumentStatusWordingForSheet
  } from 'modules/listening';
 
 const Listening: React.FC = () => {
@@ -53,8 +53,9 @@ const Listening: React.FC = () => {
 
     // formListening 物件，轉換成 listening 物件
     const _listening: TypeListening = getListening(id || '') || createDefaultSetting();
+    
     if (!id) _listening.id = `listening-${uuidv4()}`;
-
+    console.log('newListening',newListening)
     for(const key of Object.keys(newListening)) {
       const typedKey = key as keyof TypeListening;
       if (typedKey === undefined) continue;
@@ -62,6 +63,7 @@ const Listening: React.FC = () => {
       (_listening[typedKey] as TypeListening[typeof typedKey])= newListening[typedKey];
     }
     
+    console.log('_listening',_listening)
     if (!id) {
       addListening(_listening);
       navigae(ServiceRoute.toPageLinkWithParams(pageLinks.listeningID, { id: _listening.id }));
@@ -113,7 +115,7 @@ const Listening: React.FC = () => {
 
     const rowsWithStatusWording = _listening.rows.map(item => ({ 
       ...item,
-      column2: argumentStatusWording[item.column2],
+      column2: argumentStatusWordingForSheet[item.column2],
     }));
     
     const queryParams = new URLSearchParams({
