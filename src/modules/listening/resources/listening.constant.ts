@@ -89,7 +89,7 @@ export const argumentStatusWordingForSheet: Record<EnumArgumentStatus, string> =
   [EnumArgumentStatus.HP0_InitFail]: '❌ 初步不成立',
   [EnumArgumentStatus.HP0_Disassembly]: '❌ 擊倒(拆掉)',
   [EnumArgumentStatus.HP0_Obfuscation]: '❌ 擊倒(打糊)',
-  [EnumArgumentStatus.Lose]: '❓掉點',
+  [EnumArgumentStatus.Lose]: '❓ 掉點',
   [EnumArgumentStatus.Unknown]: '❓未知',
-  [EnumArgumentStatus.Other]: '❓其他',
+  [EnumArgumentStatus.Other]: '🔶 其他',
 };

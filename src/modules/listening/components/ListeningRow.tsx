@@ -1,18 +1,12 @@
 import React from 'react'
 import { css, cx } from '@emotion/css';
-import { Input, Select, MenuItem, IconButton } from '@mui/material';
+import { Input, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
-import { DotsSixVertical,  ArrowUp, ArrowDown } from '@phosphor-icons/react';
-import { v4 as uuidv4 } from 'uuid';
 
-import { BottomDrawer } from 'components';
-import useDialog from 'hooks/useDialog';
 import { styleSettingColor } from 'styles/variables.style';
 import { EnumArgumentStatus } from 'modules/listening/enums/enumArgumentStatus';
 import { ListeningRow as TypeListeningRow } from 'modules/listening/resources/listening.type';
-import { ListeningRowStatus, ListeningRowSetting, argumentStatusWording, DEFAULT_LISTENING_ROW } from 'modules/listening';
-import useDragClick from 'modules/listening/hooks/useDragClick';
+import { ListeningRowStatus, argumentStatusWording } from 'modules/listening';
 
 type Option = { 
   value: EnumArgumentStatus; 
@@ -31,13 +25,13 @@ type Prpos = {
   index: number;
   listeningRow: TypeListeningRow;
   onChangeListeningRow: (listeningRow: TypeListeningRow) => void;
-  setColumnRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>>;
-  dragHandleProps: DraggableProvidedDragHandleProps | null;
+  onSelectListeningRow: (listeningRow: TypeListeningRow) => void;
 }
 
 const ListeningRow: React.FC<Prpos> = (props) => {
-  const [openSetting, handleOpenSetting, handleCloseSetting] = useDialog(false);
-  const dragClick = useDragClick(handleOpenSetting);
+  const handleFocus = () => {
+    props.onSelectListeningRow(props.listeningRow);
+  };
 
   const handeChangeRowColumn1 = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newListeningRow: TypeListeningRow = {
@@ -55,26 +49,6 @@ const ListeningRow: React.FC<Prpos> = (props) => {
     props.onChangeListeningRow(newListeningRow)
   },[props]);
 
-  const hadleInsertAbove = () => {
-    props.setColumnRows(prevState => {
-      const newState = [...prevState];
-      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
-      newState.splice(props.index, 0, newItem);
-      return newState;
-    })
-    handleCloseSetting();
-  }
-  
-  const hadleInsertBelow = () => {
-    props.setColumnRows(prevState => {
-      const newState = [...prevState];
-      const newItem = { ...DEFAULT_LISTENING_ROW, id: uuidv4() };
-      newState.splice(props.index + 1, 0, newItem);
-      return newState;
-    })
-    handleCloseSetting();
-  }
-
   return <div 
     style={{ backgroundColor: props.listeningRow.bg }} 
     className={cx('DT-ListeningRow', style, props.className)}
@@ -85,12 +59,14 @@ const ListeningRow: React.FC<Prpos> = (props) => {
       className='column column-1'
       value={props.listeningRow.column1} 
       onChange={handeChangeRowColumn1}
+      onFocus={handleFocus}
     />
     <Select
       className='column column-2'
       name={`listening-row-column-status-${props.listeningRow.id}`}
       value={props.listeningRow.column2}
       onChange={handeChangeRowColumn2}
+      onFocus={handleFocus}
     >
       {options.map((option) =>
         <MenuItem key={option.value} value={option.value} sx={{ minHeight: 'unset' }}>
@@ -100,38 +76,6 @@ const ListeningRow: React.FC<Prpos> = (props) => {
         </MenuItem>
       )}
     </Select>
-    <div className='row-setting-buttons'>
-      <IconButton onClick={hadleInsertAbove}>
-        <ArrowUp />
-      </IconButton>
-      <IconButton onClick={hadleInsertBelow}>
-        <ArrowDown />
-      </IconButton>
-      <IconButton onClick={handleOpenSetting}>
-        設定
-      </IconButton>
-    </div>
-    <div 
-      className='row-selector' 
-      {...props.dragHandleProps}
-      onMouseDown={dragClick.onMouseDown}
-      onMouseUp={dragClick.onMouseUp}
-      onTouchStart={dragClick.onTouchStart}
-      onTouchEnd={dragClick.onTouchEnd}  
-    >
-      <DotsSixVertical size={16} weight='bold' />
-    </div>
-    <BottomDrawer open={openSetting} onOpen={handleOpenSetting} onClose={handleCloseSetting}>
-      <ListeningRowSetting 
-        index={props.index}
-        listeningRow={props.listeningRow}
-        onChangeListeningRow={props.onChangeListeningRow}
-        setColumnRows={props.setColumnRows}
-        onClose={handleCloseSetting}
-        onInsertAbove={hadleInsertAbove}
-        onInsertBelow={hadleInsertBelow}
-      />
-    </BottomDrawer>
   </div>;
 }
 
@@ -141,6 +85,7 @@ const areEqual = (prevProps: Prpos, nextProps: Prpos): boolean => {
   if (prevProps.listeningRow.column1 !== nextProps.listeningRow.column1) return false;
   if (prevProps.listeningRow.column2 !== nextProps.listeningRow.column2) return false;
   if (prevProps.listeningRow.bg !== nextProps.listeningRow.bg) return false;
+  // if (prevProps.onChangeListeningRow !== nextProps.onChangeListeningRow) return false
   return true;
 }
 
@@ -171,85 +116,6 @@ export const style = css`
       left: 0;
       outline: 1px solid ${styleSettingColor.background.dark};
       z-index: 1;
-    }
-  }
-
-  // row 表單未聚焦時，.row-selector 隱藏
-  .row-setting-buttons,
-  .row-selector {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  // row 表單被聚焦時，.row-selector, .row-setting-buttons 出現
-  &:focus-within .row-setting-buttons,
-  &:focus-within .row-selector {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  // row-selector 未點擊時，白色
-  .row-selector {
-    background-color: #FFFFFF;
-    color: ${styleSettingColor.text.gray};
-
-    // row-selector 被點擊時，藍色
-    &:active {
-      background-color: ${styleSettingColor.background.default};
-      color: #FFFFFF;
-    }
-  }
-
-  .row-setting-buttons,
-  .row-setting-buttons:hover {
-    transition: opacity 150ms;
-    position: absolute;
-    right: 5px;
-    top: -35px;
-    z-index: 1; 
-    display: flex;
-    gap: 8px;
-
-    .MuiButtonBase-root {
-      padding: 3px 10px;
-      box-sizing: border-box;
-      background-color: #FFFFFF;
-      border-radius: 5px;
-      cursor: pointer;
-      white-space: nowrap;
-      font-size: 16px;
-      outline: 1px solid ${styleSettingColor.disabled};
-      box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
-    }
-  }
-
-  .row-selector {
-    width: 16px;
-    height: 24px;
-    padding: 4px 2px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    outline: 1px solid ${styleSettingColor.disabled};
-    transition: opacity 150ms;
-    cursor: pointer;
-
-    position: absolute;
-    left: -9px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .drag-handle {
-      position: absolute;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
     }
   }
 

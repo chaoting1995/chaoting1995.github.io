@@ -6,7 +6,7 @@ import { FileText, NotePencil, UserCircle } from '@phosphor-icons/react';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 
-import ServiceUtil from 'services/util.service';
+import usePopup from 'context/Popup/usePopup';
 import { Status, STATUS_LOADED, STATUS_ERROR, STATUS_LOADING } from 'modules/form/form';
 import ServiceRoute from 'routes/route.service';
 import { pageLinks, PAGE_TITLE, PAGE_DESCRIPTION } from 'routes/route.constants';
@@ -27,12 +27,13 @@ import {
  } from 'modules/listening';
 
 const Listening: React.FC = () => {
+  const popup = usePopup();
   const { id } = useParams<{ id: string }>();
   const navigae = useNavigate();
   const { getItem: getListening, addItem: addListening, editItem: editListening } = useListenings();
   const [listening, setListening] = React.useState<TypeListening>(createDefaultSetting());
   const [listeningStatus, setListeningStatus] = React.useState<Status>(STATUS_LOADED);
-  const [isAutoSaving, setIsAutoSaving] = React.useState<boolean>(false);
+  const [sendStatus, setSendStatus] = React.useState<Status>(STATUS_LOADED);
 
   const columnName = useFormColumn<string>({
     value: listening.name,
@@ -49,21 +50,16 @@ const Listening: React.FC = () => {
   const [columnRows, setColumnRows] = React.useState<TypeListeningRow[]>(listening.rows);
 
   const handleSave = React.useCallback((newListening: Partial<TypeListening>): TypeListening => {
-    setIsAutoSaving(false);
-
     // formListening 物件，轉換成 listening 物件
     const _listening: TypeListening = getListening(id || '') || createDefaultSetting();
-    
     if (!id) _listening.id = `listening-${uuidv4()}`;
-    console.log('newListening',newListening)
     for(const key of Object.keys(newListening)) {
       const typedKey = key as keyof TypeListening;
       if (typedKey === undefined) continue;
       if (newListening[typedKey] === undefined) continue;
-      (_listening[typedKey] as TypeListening[typeof typedKey])= newListening[typedKey];
+      (_listening[typedKey] as TypeListening[typeof typedKey]) = newListening[typedKey];
     }
-    
-    console.log('_listening',_listening)
+
     if (!id) {
       addListening(_listening);
       navigae(ServiceRoute.toPageLinkWithParams(pageLinks.listeningID, { id: _listening.id }));
@@ -73,20 +69,14 @@ const Listening: React.FC = () => {
 
     return _listening;
   }, [addListening, editListening, getListening, id, navigae]);
-
-  const debounceHandleSave = React.useMemo(() => ServiceUtil.debounce(handleSave), [handleSave]);
-
-  const handleChangeColumnName = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  
+  const handleChangeColumnName = (event: React.ChangeEvent<HTMLInputElement>) => {
     columnName.onChange(event.target.value);
-    debounceHandleSave({ name: event.target.value });
-    setIsAutoSaving(true);
-  },[columnName, debounceHandleSave]);
+  };
 
-  const handleChangeColumnOwner = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeColumnOwner = (event: React.ChangeEvent<HTMLInputElement>) => {
     columnOwner.onChange(event.target.value);
-    debounceHandleSave({ owner: event.target.value });
-    setIsAutoSaving(true);
-  },[columnOwner, debounceHandleSave]);
+  };
 
   const handleChangeColumnRows: React.Dispatch<React.SetStateAction<TypeListeningRow[]>> = React.useCallback((updater) => {
     let updatedRows!: TypeListeningRow[];
@@ -94,11 +84,9 @@ const Listening: React.FC = () => {
       updatedRows = typeof updater === 'function' 
         ? (updater as (prev: TypeListeningRow[]) => TypeListeningRow[])(prevState) 
         : updater;
-      debounceHandleSave({ rows: updatedRows });
-      setIsAutoSaving(true);
       return updatedRows;
     });
-  }, [debounceHandleSave]);
+  }, []);
 
   const handleUpload = async () => {
     // formListening 物件，轉換成 listening 物件
@@ -126,12 +114,15 @@ const Listening: React.FC = () => {
       rows: JSON.stringify(rowsWithStatusWording)
     }).toString();
 
+    setSendStatus(STATUS_LOADING);
     try {
       const response = await fetch(`${API_URL}?${queryParams}`, {
         method: 'GET',
         mode: 'no-cors',
       });
-
+      
+      popup.notice(({ message: '送出成功' }));
+      setSendStatus(STATUS_LOADED);
       const result = await response.json();
       if (result.status === '成功') {
         alert('資料已成功傳送到 Google Sheets');
@@ -221,11 +212,14 @@ const Listening: React.FC = () => {
       }
     />
     <div className='listening-body'>
-      <div className='listening-hint-save-solution'>
-        {isAutoSaving ? '儲存中...' : '自動存檔到本地端'}
-      </div>
       <ListeningRowsEditor listeningRows={columnRows} setColumnRows={handleChangeColumnRows} />
-      <Button variant='outlined' className='send-button' onClick={handleUpload}>送出</Button>
+      <Button 
+        variant='outlined' 
+        className='send-button' 
+        onClick={handleUpload} 
+        loading={sendStatus.loading} 
+        disabled={sendStatus.loading}
+      >保存 & 送出</Button>
       <div className='listening-hint-save-solution-bottom'>
         {!!listening.updatedAt && 
           `上次發送時間 ${dayjs(listening.updatedAt).format('YYYY/MM/DD HH:mm:ss')}`}
@@ -284,19 +278,12 @@ const style = css`
     align-items: center;
   }
 
-  .listening-hint-save-solution-bottom,
-  .listening-hint-save-solution {
+  .listening-hint-save-solution-bottom {
     width: 100%;
     margin-top: 8px;
     font-size: 12px;
     color: ${styleSettingColor.text.gray};
   }
-
-  .listening-hint-save-solution {
-    margin-top: -8px;
-    margin-bottom: 8px;
-  }
-
 
   .save-button.MuiButton-root,
   .send-button.MuiButton-root {

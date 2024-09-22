@@ -11,7 +11,6 @@ export enum EnumArgumentStatus {
   Other = 'Other',                             // 其他
 }
 
-
 export const IsEnumArgumentStatus = (input: EnumArgumentStatus): input is EnumArgumentStatus => {
   return Object.values(EnumArgumentStatus).includes(input) ? true : false;
 };
