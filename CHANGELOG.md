@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file. 123456
 The format is based on [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-beta.47] - 2024-09-23
+
+### Changed
+- 增加送出成功提示
+
+### Removed
+- 戰場判斷表：放棄自動存檔到本地端
+
 ## [1.0.0-beta.46] - 2024-09-11
 
 ### Added
