@@ -7,6 +7,11 @@ import packageFile from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: 'src/main.tsx', // 入口文件
+    },
+  },
   define: {
     'process.env.VERSION': JSON.stringify(packageFile.version)
   },
