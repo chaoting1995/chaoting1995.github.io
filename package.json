@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite react-scripts build",
+    "postbuild": "react-snap",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
@@ -32,6 +33,7 @@
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "6.2.2",
+    "react-snap": "^1.23.0",
     "react-spinners": "^0.13.8",
     "save": "^2.9.0",
     "uuid": "^10.0.0"
